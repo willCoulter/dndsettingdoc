@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = "Elderan — A Campaign of Empires",
-  description = "Elderan: a fantasy-Roman tabletop campaign set in the Caltaran Republic. Chronicles, character creation, factions, and dispatches from the table.",
+  title = "Elderan — Caltara",
+  description = "Elderan: a d&d tabletop campaign set in the Caltaran Republic.",
 } = Astro.props;
 ---
 
@@ -38,10 +38,11 @@ const {
         }
       }
     },
-    { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
+    { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
   );
 
-  const observe = () => document.querySelectorAll(".animate-rise").forEach((el) => io.observe(el));
+  const observe = () =>
+    document.querySelectorAll(".animate-rise").forEach((el) => io.observe(el));
   observe();
   document.addEventListener("astro:page-load", observe);
 </script>
