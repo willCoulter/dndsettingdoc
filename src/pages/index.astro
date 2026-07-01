@@ -11,23 +11,26 @@ import PowerPaths from "../components/PowerPaths.astro";
 import Factions from "../components/Factions.astro";
 import MajorCharacters from "../components/MajorCharacters.astro";
 import QuestHook from "../components/QuestHook.astro";
-import SessionZero from "../components/SessionZero.astro";
-
+import CtaFooter from "../components/CtaFooter.astro";
 ---
 
 <Layout>
   <Header />
   <main>
     <Hero />
+    <div class="divider-ornate"></div>
     <Lore />
     <CityShowcase />
+    <div class="divider-ornate"></div>
     <GodsPantheon />
+    <div class="divider-ornate"></div>
     <Homelands />
+
     <PowerPaths />
+    <div class="divider-ornate"></div>
     <Factions />
     <MajorCharacters />
+    <div class="divider-ornate"></div>
     <QuestHook />
-    <SessionZero />
-
   </main>
 </Layout>

@@ -14,7 +14,7 @@ const { name, role, hook, color, image, delay } = Astro.props;
 ---
 
 <div
-  class={`figure-card panel-carved overflow-hidden ${delay !== undefined ? "animate-rise" : ""}`}
+  class={`figure-card group panel-carved glow-hover overflow-hidden ${delay !== undefined ? "animate-rise" : ""}`}
   style={delay !== undefined ? `animation-delay: ${delay}s` : undefined}
 >
   <span class="corner-ornament tl"></span>
@@ -27,7 +27,7 @@ const { name, role, hook, color, image, delay } = Astro.props;
       <Image
         src={image}
         alt={name}
-        class="h-full w-full object-cover"
+        class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
         widths={[320, 480, 640]}
         sizes="(min-width: 1024px) 25vw, 50vw"
       />

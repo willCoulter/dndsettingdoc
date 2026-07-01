@@ -63,7 +63,7 @@ const gods = [
     epithet: "The Scholar",
     image: evariImg,
     domain: "God of forbidden study and hard-won knowledge",
-    body: "His followers are tutors, archivists, and self-taught mages who learned outside any guild license. His clergy keeps the Open Question — one true question, answered once a year, for anyone who asks it correctly. What 'correctly' means is the entire trick, and his church isn't telling.",
+    body: "His followers are scholars, archivists, and mages seeking truths. His priesthood maintains the Open Question—a single petition answered by the god once a year. The privilege is granted only to the one who frames their inquiry flawlessly, though the precise ritual for asking is a fiercely guarded secret, and failure often costs the petitioner their sanity.",
   },
   {
     name: "Auren",
@@ -77,13 +77,14 @@ const gods = [
     epithet: "The Current",
     image: marenImg,
     domain: "God of the sea, travel, and calculated risk",
-    body: "Her followers are sailors, smugglers, and merchants who ship anything by water. The Toll — a coin left at her shrine before departure — isn't payment; it's an admission the sea doesn't owe anyone safe passage. Captains who skip it are remembered for it, usually after the fact.",
+    body: "Her followers are sailors, smugglers, and merchants who ship anything by water. The Toll; a coin left at her shrine before departure isn't payment; it's an admission the sea doesn't owe anyone safe passage. Captains who skip it are remembered for it, usually after the fact.",
   },
   {
     name: "Cass",
     epithet: "The Wanderer",
     image: cassImg,
-    domain: "God of bargains, luck, and travel between places that don't want to be connected",
+    domain:
+      "God of bargains, luck, and travel between places that don't want to be connected",
     body: "His followers are merchants, gamblers, couriers, and debt-collectors. The Honest Wager — any bet made in his name — is treated as legally binding in Caltara's lower courts, provided both sides agreed knowingly. His church polices the 'knowingly' part more strictly than most expect.",
   },
   {
@@ -104,16 +105,27 @@ const gods = [
     name: "Thessar",
     epithet: "The Witness",
     image: thessarImg,
-    domain: "God of record, testimony, and things written down so they can't be argued away",
+    domain:
+      "God of record, testimony, and things written down so they can't be argued away",
     body: "Her followers are scribes, historians, and court recorders. Testimony given before her altar is treated as sworn fact by tradition, if not always by law. The Senate has spent sixty years trying to formally change that, and failing.",
   },
 ];
 
 const toRoman = (n: number) => {
   const table: [number, string][] = [
-    [1000, "M"], [900, "CM"], [500, "D"], [400, "CD"],
-    [100, "C"], [90, "XC"], [50, "L"], [40, "XL"],
-    [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"],
+    [1000, "M"],
+    [900, "CM"],
+    [500, "D"],
+    [400, "CD"],
+    [100, "C"],
+    [90, "XC"],
+    [50, "L"],
+    [40, "XL"],
+    [10, "X"],
+    [9, "IX"],
+    [5, "V"],
+    [4, "IV"],
+    [1, "I"],
   ];
   let result = "";
   let num = n;
@@ -150,121 +162,212 @@ const cardCss = cards
 }
 #gods:has(#god-${c.id}:checked) #gods-reveal .god-entry--${c.id} {
   display: block;
-}`
+}
+#gods:has(#god-${c.id}:checked) .gods-ambient {
+  background: radial-gradient(circle, ${c.accent} 0%, transparent 70%);
+}
+#gods:has(#god-${c.id}:checked) #gods-reveal {
+  border-color: color-mix(in srgb, ${c.accent} 55%, var(--color-bronze-dark));
+  box-shadow: var(--shadow-relief), 0 18px 40px -20px rgba(0, 0, 0, 0.8), 0 0 40px -12px color-mix(in srgb, ${c.accent} 45%, transparent);
+}
+#gods:has(#god-${c.id}:checked) #gods-hand label[for="god-${c.id}"]::after {
+  opacity: 1;
+  animation: shine-sweep-move 0.65s ease forwards;
+}`,
   )
   .join("\n");
 ---
 
-<section id="gods" class="relative bg-marble bg-grain py-28 sm:py-36 px-6 overflow-hidden">
+<section
+  id="gods"
+  class="relative bg-marble bg-grain py-28 sm:py-36 px-6 overflow-hidden"
+>
+  <div class="gods-ambient" aria-hidden="true"></div>
+
   <div class="mx-auto max-w-6xl">
-    <div class="text-center">
-      <p class="eyebrow">What the War Left Behind</p>
-      <h2 class="mt-4 font-display text-4xl sm:text-5xl text-[var(--color-parchment)] tracking-wide">
+    <div class="text-center animate-rise">
+      <p class="eyebrow">Gods of a New Age</p>
+      <h2
+        class="mt-4 font-display text-4xl sm:text-5xl text-[var(--color-parchment)] tracking-wide"
+      >
         The <span class="text-gold-gradient">Living Gods</span>
       </h2>
       <Sigil class="mt-7" />
-      <p class="mt-8 mx-auto max-w-2xl text-[var(--color-parchment-dim)] text-lg leading-relaxed">
-        Twelve mortals fought in the God Wars and did not die. The Republic
-        doesn't call what happened to them magic, or miracle, or curse &mdash;
-        only ascension, because none of those words quite cover it. Most
-        haven't been seen in two centuries. Their clergy keep their houses
-        anyway.
-      </p>
-      <p class="mt-3 text-sm tracking-wide text-[var(--color-gold-dim)] font-display uppercase">
-        Draw a card to hear their account
-      </p>
-    </div>
-
-    <div id="gods-hand" class="god-hand mt-20 sm:mt-24">
-      {cards.map((c, i) => (
-        <label
-          for={`god-${c.id}`}
-          class="god-card"
-          style={`--rot:${c.rot}deg; --lift:${c.lift}px; --accent:${c.accent};`}
+      <p
+        class="mt-8 mx-auto max-w-2xl text-[var(--color-parchment-dim)] text-lg leading-relaxed"
+      >
+        Twelve mortals rose up to overthrow the Tyrant God Manus, ascending in
+        victory to become the Pantheon. Across Caltara, people honour and worship
+        these gods throughout their lives, offering prayers and devotion to
+        different deities as the occasion demands. While every culture reveres
+        the Pantheon, the customs, traditions, and favoured deities vary from
+        region to region, and often differ from those recognised by the Caltaran
+        Republic. As you create your character, consider which gods they look to
+        for guidance, protection, or favour, and how those beliefs have shaped
+        their life.
+        <p
+          class="mt-3 text-sm tracking-wide text-[var(--color-gold-dim)] font-display uppercase animate-flicker"
         >
-          <input
-            type="radio"
-            name="god-card"
-            id={`god-${c.id}`}
-            class="sr-only"
-            checked={i === 0}
-          />
-          <Image
-            src={c.image}
-            alt=""
-            aria-hidden="true"
-            class="god-card-img"
-            widths={[172, 188, 376]}
-            sizes="188px"
-          />
-          <span class="god-card-shade" aria-hidden="true"></span>
-          <span class="god-card-glow" aria-hidden="true"></span>
-          <span class="god-card-numeral">{c.numeral}</span>
-          <span class="god-card-emblem" aria-hidden="true">
-            <svg width="30" height="30" viewBox="0 0 34 34">
-              <g fill="none" stroke="var(--accent)" stroke-width="1">
-                <rect x="5" y="5" width="24" height="24" transform="rotate(45 17 17)" />
-                <circle cx="17" cy="17" r="9" />
-                <circle cx="17" cy="17" r="2" fill="var(--accent)" stroke="none" />
-              </g>
-            </svg>
-          </span>
-          <span class="god-card-name">{c.name}</span>
-          <span class="god-card-epithet" style={`color:${c.accent}`}>{c.epithet}</span>
-        </label>
-      ))}
-    </div>
+          Draw a card to hear their account
+        </p>
+      </p>
 
-    <div id="gods-reveal" class="god-reveal panel-carved mt-14 mx-auto max-w-2xl p-8 sm:p-10">
-      <span class="corner-ornament tl"></span>
-      <span class="corner-ornament tr"></span>
-      <span class="corner-ornament bl"></span>
-      <span class="corner-ornament br"></span>
-
-      {cards.map((c) => (
-        <div class={`god-entry god-entry--${c.id}`}>
-          <div class="god-entry-head">
-            <span class="god-entry-portrait" style={`--accent:${c.accent}`}>
+      <div
+        id="gods-hand"
+        class="god-hand mt-20 sm:mt-24 animate-rise"
+        style="animation-delay: 0.15s;"
+      >
+        {
+          cards.map((c, i) => (
+            <label
+              for={`god-${c.id}`}
+              class="god-card shine-sweep"
+              style={`--rot:${c.rot}deg; --lift:${c.lift}px; --accent:${c.accent};`}
+            >
+              <input
+                type="radio"
+                name="god-card"
+                id={`god-${c.id}`}
+                class="sr-only"
+                checked={i === 0}
+              />
               <Image
                 src={c.image}
-                alt={`${c.name}, ${c.epithet}`}
-                class="god-entry-portrait-img"
-                widths={[160, 240]}
-                sizes="120px"
+                alt=""
+                aria-hidden="true"
+                class="god-card-img"
+                widths={[172, 188, 376]}
+                sizes="188px"
               />
-              <span class="god-entry-portrait-emblem" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 34 34">
-                  <g fill="none" stroke="var(--accent)" stroke-width="1.2">
-                    <rect x="5" y="5" width="24" height="24" transform="rotate(45 17 17)" />
-                    <circle cx="17" cy="17" r="2" fill="var(--accent)" stroke="none" />
+              <span class="god-card-shade" aria-hidden="true" />
+              <span class="god-card-glow" aria-hidden="true" />
+              <span class="god-card-numeral">{c.numeral}</span>
+              <span class="god-card-emblem" aria-hidden="true">
+                <svg width="30" height="30" viewBox="0 0 34 34">
+                  <g fill="none" stroke="var(--accent)" stroke-width="1">
+                    <rect
+                      x="5"
+                      y="5"
+                      width="24"
+                      height="24"
+                      transform="rotate(45 17 17)"
+                    />
+                    <circle cx="17" cy="17" r="9" />
+                    <circle
+                      cx="17"
+                      cy="17"
+                      r="2"
+                      fill="var(--accent)"
+                      stroke="none"
+                    />
                   </g>
                 </svg>
               </span>
-            </span>
-            <div>
-              <p class="font-display text-xs tracking-[0.25em]" style={`color:${c.accent}`}>
-                {c.numeral}
-              </p>
-              <h3 class="mt-1 font-display text-2xl sm:text-3xl text-[var(--color-parchment)] tracking-wide">
-                {c.name}
-              </h3>
-              <p class="font-display text-sm italic tracking-wide" style={`color:${c.accent}`}>
+              <span class="god-card-name">{c.name}</span>
+              <span class="god-card-epithet" style={`color:${c.accent}`}>
                 {c.epithet}
+              </span>
+            </label>
+          ))
+        }
+      </div>
+
+      <div
+        id="gods-reveal"
+        class="god-reveal panel-carved mt-14 mx-auto max-w-2xl p-8 sm:p-10 animate-rise"
+        style="animation-delay: 0.25s; transition: border-color 0.6s ease, box-shadow 0.6s ease;"
+      >
+        <span class="corner-ornament tl"></span>
+        <span class="corner-ornament tr"></span>
+        <span class="corner-ornament bl"></span>
+        <span class="corner-ornament br"></span>
+
+        {
+          cards.map((c) => (
+            <div class={`god-entry god-entry--${c.id}`}>
+              <div class="god-entry-head">
+                <span class="god-entry-portrait" style={`--accent:${c.accent}`}>
+                  <Image
+                    src={c.image}
+                    alt={`${c.name}, ${c.epithet}`}
+                    class="god-entry-portrait-img"
+                    widths={[160, 240]}
+                    sizes="120px"
+                  />
+                  <span class="god-entry-portrait-emblem" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 34 34">
+                      <g fill="none" stroke="var(--accent)" stroke-width="1.2">
+                        <rect
+                          x="5"
+                          y="5"
+                          width="24"
+                          height="24"
+                          transform="rotate(45 17 17)"
+                        />
+                        <circle
+                          cx="17"
+                          cy="17"
+                          r="2"
+                          fill="var(--accent)"
+                          stroke="none"
+                        />
+                      </g>
+                    </svg>
+                  </span>
+                </span>
+                <div>
+                  <p
+                    class="font-display text-xs tracking-[0.25em]"
+                    style={`color:${c.accent}`}
+                  >
+                    {c.numeral}
+                  </p>
+                  <h3 class="mt-1 font-display text-2xl sm:text-3xl text-[var(--color-parchment)] tracking-wide">
+                    {c.name}
+                  </h3>
+                  <p
+                    class="font-display text-sm italic tracking-wide"
+                    style={`color:${c.accent}`}
+                  >
+                    {c.epithet}
+                  </p>
+                </div>
+              </div>
+
+              <p class="mt-6 font-display text-xs tracking-[0.18em] uppercase text-[var(--color-gold-dim)]">
+                {c.domain}
+              </p>
+              <p class="mt-3 text-[var(--color-parchment-dim)] leading-relaxed">
+                {c.body}
               </p>
             </div>
-          </div>
-
-          <p class="mt-6 font-display text-xs tracking-[0.18em] uppercase text-[var(--color-gold-dim)]">
-            {c.domain}
-          </p>
-          <p class="mt-3 text-[var(--color-parchment-dim)] leading-relaxed">{c.body}</p>
-        </div>
-      ))}
+          ))
+        }
+      </div>
     </div>
   </div>
-</section>
 
-<style set:html={`
+  <style
+    set:html={`
+  .gods-ambient {
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    translate: -50% 0;
+    width: 90vw;
+    max-width: 1100px;
+    aspect-ratio: 1.6 / 1;
+    opacity: 0.22;
+    filter: blur(70px);
+    pointer-events: none;
+    background: radial-gradient(circle, ${cards[0].accent} 0%, transparent 70%);
+    transition: background 0.8s ease;
+    z-index: 0;
+  }
+  #gods > .mx-auto {
+    position: relative;
+    z-index: 1;
+  }
   #gods .god-hand {
     display: flex;
     justify-content: center;
@@ -434,5 +537,15 @@ const cardCss = cards
     to { opacity: 1; transform: translateY(0); }
   }
 
+  /* No hover trigger here — with 12 fanned, overlapping cards, scanning the
+     hand with the mouse would fire a sweep on nearly every card in quick
+     succession. Instead each card's sweep plays once, when it's actually
+     selected (see the :checked rules below). */
+  #gods .god-card.shine-sweep::after {
+    opacity: 0;
+  }
+
   ${cardCss}
-`} />
+`}
+  ></style>
+</section>

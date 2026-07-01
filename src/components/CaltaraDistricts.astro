@@ -5,12 +5,12 @@ const districts = [
   {
     name: "The Old Wards",
     tag: "Guild Money, Old Marble",
-    body: "The central districts, built by the founding city-states and still governed by the habits they left behind. Guild seals here move through committees the newer wards don't have — slowly, for some applicants more than others. Every building over a century old is here, and most of them know it.",
+    body: "The central districts, built by the founding city-states and still governed by the habits they left behind. Guild seals here move through committees the newer wards don't have. That takes time, and some applicants wait longer than others. Every building over a century old is here, and most of them know it.",
   },
   {
     name: "The Ledger Quarter",
     tag: "Where the Senate Works",
-    body: "Wraps both Senate chambers, the public archive, and the coffee houses where aides trade favors between sessions. More petitions get filed here in a week than most Republic provinces file in a year — and most of the Republic's actual governing happens in the coffee houses, not the chambers.",
+    body: "Wraps both Senate chambers, the public archive, and the coffee houses where aides trade favors between sessions. More petitions get filed here in a week than most Republic provinces file in a year, and honestly, most of the actual governing happens over coffee, long before anything reaches the chambers.",
   },
   {
     name: "The Harbor District",
@@ -25,7 +25,7 @@ const districts = [
   {
     name: "The Old District",
     tag: "Where the Compact Lives",
-    body: "Caltara's oldest quarter by another measure — the ground the city was built over, and the district ceded under the Compact of Ash. Caltaran children learn what walks there before they're old enough to wander in and find out unprepared.",
+    body: "Caltara's oldest quarter by another measure: the ground the city was actually built over, ceded under the Compact of Ash. Caltaran children learn what walks there before they're old enough to wander in and find out unprepared.",
   },
 ];
 
@@ -33,7 +33,7 @@ const towns = [
   {
     name: "Wickmoor",
     tag: "Fishing Town, South Coast",
-    body: "A half-day's ride south, and the closest thing Caltara has to a company town — three fleets, one drying-shed guild, and a harbormaster who has outlasted four Senate administrations by simply never running for anything.",
+    body: "A half-day's ride south, and about as close as Caltara gets to a company town. Three fishing fleets, one drying-shed guild, and a harbormaster who has outlasted four Senate administrations by never once running for anything.",
   },
   {
     name: "Passfoot",
@@ -43,7 +43,7 @@ const towns = [
   {
     name: "Sallow Reach",
     tag: "River Town, Inland",
-    body: "A grain and timber town upriver, conservative by coastal standards and proud of it. The shop fronts here read like the Republic's founding census — mostly human, mostly old family names, and mostly uninterested in what the harbor thinks of that.",
+    body: "A grain and timber town upriver, conservative by coastal standards and proud of it. Walk the shop fronts and it reads like the Republic's founding census: mostly human, mostly old family names, and not terribly interested in what the harbor thinks of that.",
   },
 ];
 ---
@@ -64,7 +64,7 @@ const towns = [
 
     <div class="mt-16 grid gap-6 sm:gap-8 md:grid-cols-3">
       {districts.map((d, i) => (
-        <div class="panel-carved p-8 animate-rise" style={`animation-delay: ${0.08 + i * 0.08}s`}>
+        <div class="panel-carved glow-hover p-8 animate-rise" style={`animation-delay: ${0.08 + i * 0.08}s`}>
           <span class="corner-ornament tl"></span>
           <span class="corner-ornament tr"></span>
           <span class="corner-ornament bl"></span>
@@ -85,7 +85,7 @@ const towns = [
 
     <div class="mt-12 grid gap-6 sm:gap-8 md:grid-cols-3">
       {towns.map((t, i) => (
-        <div class="panel-carved p-8 animate-rise" style={`animation-delay: ${0.08 + i * 0.08}s`}>
+        <div class="panel-carved glow-hover p-8 animate-rise" style={`animation-delay: ${0.08 + i * 0.08}s`}>
           <span class="corner-ornament tl"></span>
           <span class="corner-ornament tr"></span>
           <span class="corner-ornament bl"></span>

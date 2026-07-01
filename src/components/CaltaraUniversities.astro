@@ -6,19 +6,19 @@ const universities = [
     name: "The Evarine Academy",
     epithet: "Seat of Forbidden Study",
     color: "var(--color-gold)",
-    body: "Chartered by Evari's clergy and never quite disowned by them, the Academy trains tutors, archivists, and self-taught mages the guild-licensed colleges won't touch. Admission has no fee and no faculty vote — only the Open Question, asked once a year, answered correctly or not at all.",
+    body: "Chartered by Evari's clergy and never quite disowned by them, the Academy trains tutors, archivists, and self-taught mages the guild-licensed colleges won't touch. There's no tuition and no faculty vote on who gets in. Just the Open Question, asked once a year, answered correctly or not at all.",
   },
   {
     name: "The College of the Ledger",
     epithet: "Law, Rhetoric, and the Long Record",
     color: "var(--color-verdigris)",
-    body: "Where the Republic trains the aides, advocates, and archivists who actually keep it running. Half the Open Senate's staff graduated here, and the College's oath of testimony — sworn before a portrait of Thessar, not her altar — is taken almost as seriously as the real thing.",
+    body: "Where the Republic trains the aides, advocates, and archivists who actually keep it running. Half the Open Senate's staff graduated here. The College's oath of testimony, sworn before a portrait of Thessar rather than her actual altar, is taken almost as seriously as the real thing anyway.",
   },
   {
     name: "The Iolan Institute of Making",
     epithet: "Engineering Under Iola's Seal",
     color: "var(--color-ember-bright)",
-    body: "Masons, smiths, and shipwrights train here before they're trusted with anything load-bearing. A journeyman's final project gets inspected by working Iolan clergy — the same certification that decides whether a building in the capital is one most Caltarans will enter.",
+    body: "Masons, smiths, and shipwrights train here before they're trusted with anything load-bearing. A journeyman's final project gets inspected by working Iolan clergy, using the same certification that decides whether a building in the capital is one most Caltarans will actually walk into.",
   },
 ];
 ---
@@ -39,7 +39,7 @@ const universities = [
 
     <div class="mt-16 grid gap-6 sm:gap-8 md:grid-cols-3">
       {universities.map((u, i) => (
-        <div class="panel-carved p-8 animate-rise" style={`animation-delay: ${0.08 + i * 0.1}s`}>
+        <div class="panel-carved glow-hover p-8 animate-rise" style={`animation-delay: ${0.08 + i * 0.1}s`}>
           <span class="corner-ornament tl"></span>
           <span class="corner-ornament tr"></span>
           <span class="corner-ornament bl"></span>

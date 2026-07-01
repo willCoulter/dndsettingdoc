@@ -2,17 +2,28 @@
 import { Image } from "astro:assets";
 import caltara from "../assets/Caltara.png";
 import Sigil from "./Sigil.astro";
+
+const embers = Array.from({ length: 16 }, (_, i) => ({
+  x: `${(i * 6.7 + (i % 3) * 9) % 100}%`,
+  size: 2 + ((i * 37) % 4),
+  dur: 11 + ((i * 13) % 10),
+  delay: -(i * 1.7),
+  dx: `${((i % 5) - 2) * 14}px`,
+  opacity: (0.35 + ((i * 17) % 45) / 100).toFixed(2),
+}));
 ---
 
 <section id="top" class="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-[var(--color-obsidian)]">
-  <Image
-    src={caltara}
-    alt="Caltara, capital of the Caltaran Republic"
-    class="absolute inset-0 h-full w-full object-cover object-center scale-[1.04]"
-    widths={[640, 1024, 1600, 2396]}
-    sizes="100vw"
-    priority
-  />
+  <div class="absolute inset-0 will-change-transform animate-ken-burns">
+    <Image
+      src={caltara}
+      alt="Caltara, capital of the Caltaran Republic"
+      class="h-full w-full object-cover object-center"
+      widths={[640, 1024, 1600, 2396]}
+      sizes="100vw"
+      priority
+    />
+  </div>
 
   <!-- atmospheric overlays -->
   <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-obsidian)] via-[var(--color-obsidian)]/35 to-transparent"></div>
@@ -20,7 +31,22 @@ import Sigil from "./Sigil.astro";
   <div class="absolute inset-0 bg-grain"></div>
   <div class="pointer-events-none absolute inset-0 shadow-[inset_0_0_160px_60px_rgba(10,9,7,0.55)]"></div>
 
-  <!-- top/bottom hairlines -->
+  <!-- rotating heraldic light rays behind the title -->
+  <div
+    class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[140vmax] w-[140vmax] opacity-[0.14] mix-blend-screen"
+    style="background: conic-gradient(from 0deg, transparent 0deg, var(--color-gold-bright) 4deg, transparent 10deg, transparent 40deg, var(--color-gold-bright) 44deg, transparent 50deg, transparent 90deg, var(--color-gold-bright) 94deg, transparent 100deg, transparent 140deg, var(--color-gold-bright) 144deg, transparent 150deg, transparent 190deg, var(--color-gold-bright) 194deg, transparent 200deg, transparent 260deg, var(--color-gold-bright) 264deg, transparent 270deg, transparent 320deg, var(--color-gold-bright) 324deg, transparent 330deg, transparent 360deg); animation: spin 90s linear infinite;"
+    aria-hidden="true"
+  ></div>
+
+  <div class="embers" aria-hidden="true">
+    {embers.map((e) => (
+      <span
+        style={`--x:${e.x}; --sz:${e.size}px; --dur:${e.dur}s; --delay:${e.delay}s; --dx:${e.dx}; --o:${e.opacity};`}
+      ></span>
+    ))}
+  </div>
+
+  <!-- top hairline -->
   <div class="absolute top-16 sm:top-[4.5rem] inset-x-0 h-px bg-gradient-to-r from-transparent via-[var(--color-gold-dim)]/60 to-transparent"></div>
 
   <div class="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
@@ -28,8 +54,9 @@ import Sigil from "./Sigil.astro";
       The World of Elderan &mdash; The Caltaran Republic
     </p>
 
-    <h1 class="mt-6 font-display font-black uppercase text-gold-gradient animate-rise leading-[0.95] text-6xl sm:text-8xl lg:text-[9rem] tracking-wide" style="animation-delay: 0.25s;">
-      Elderan
+    <h1 class="relative mt-6 font-display font-black uppercase animate-rise leading-[0.95] text-6xl sm:text-8xl lg:text-[9rem] tracking-wide" style="animation-delay: 0.25s;">
+      <span class="absolute inset-0 blur-2xl opacity-40 text-gold-gradient" aria-hidden="true">Elderan</span>
+      <span class="relative text-shimmer">Elderan</span>
     </h1>
 
     <div class="mt-6 animate-rise" style="animation-delay: 0.4s;">
@@ -45,14 +72,14 @@ import Sigil from "./Sigil.astro";
     <div class="mt-12 flex flex-col sm:flex-row items-center gap-5 animate-rise" style="animation-delay: 0.65s;">
       <a
         href="#creation"
-        class="group relative inline-flex items-center gap-3 border border-[var(--color-gold)] bg-[var(--color-gold)] px-8 py-3.5 font-display text-sm tracking-[0.2em] uppercase text-[var(--color-obsidian)] transition-all hover:bg-[var(--color-gold-bright)] hover:border-[var(--color-gold-bright)]"
+        class="group relative inline-flex items-center gap-3 border border-[var(--color-gold)] bg-[var(--color-gold)] px-8 py-3.5 font-display text-sm tracking-[0.2em] uppercase text-[var(--color-obsidian)] transition-all hover:bg-[var(--color-gold-bright)] hover:border-[var(--color-gold-bright)] hover:-translate-y-0.5 animate-pulse-glow"
       >
         Begin Your Legend
         <span class="transition-transform group-hover:translate-x-1">&rarr;</span>
       </a>
       <a
         href="#lore"
-        class="inline-flex items-center gap-3 border border-[var(--color-parchment-dim)]/50 px-8 py-3.5 font-display text-sm tracking-[0.2em] uppercase text-[var(--color-parchment)] transition-all hover:border-[var(--color-gold)] hover:text-[var(--color-gold-bright)]"
+        class="inline-flex items-center gap-3 border border-[var(--color-parchment-dim)]/50 px-8 py-3.5 font-display text-sm tracking-[0.2em] uppercase text-[var(--color-parchment)] transition-all hover:border-[var(--color-gold)] hover:text-[var(--color-gold-bright)] hover:-translate-y-0.5"
       >
         Read the Lore
       </a>
@@ -68,3 +95,9 @@ import Sigil from "./Sigil.astro";
     <span class="h-9 w-px bg-current"></span>
   </a>
 </section>
+
+<style>
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+</style>

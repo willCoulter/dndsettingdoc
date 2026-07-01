@@ -36,13 +36,13 @@ const accent = accents[index % accents.length];
 const reverse = image ? index % 2 === 1 : false;
 ---
 
-<div class={`relative flex flex-col ${image ? "min-h-[320px] md:min-h-[440px] md:flex-row" : ""} ${reverse ? "md:flex-row-reverse" : ""}`}>
+<div class={`group relative flex flex-col ${image ? "min-h-[320px] md:min-h-[440px] md:flex-row" : ""} ${reverse ? "md:flex-row-reverse" : ""}`}>
   {image && (
     <div class="relative h-[260px] w-full shrink-0 overflow-hidden md:h-auto md:w-1/2">
       <Image
         src={image}
         alt={name}
-        class="absolute inset-0 h-full w-full object-cover"
+        class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         widths={[480, 768, 1100]}
         sizes="(min-width: 768px) 50vw, 100vw"
       />

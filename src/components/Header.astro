@@ -4,43 +4,122 @@ const links = [
   { href: "/caltara", label: "Caltara" },
   { href: "/#gods", label: "Gods" },
   { href: "/#homelands", label: "Homelands" },
-  { href: "/#creation", label: "Create" },
   { href: "/#power", label: "Power" },
   { href: "/#factions", label: "Houses" },
   { href: "/#figures", label: "Figures" },
   { href: "/#summons", label: "The Summons" },
-  { href: "/#session-zero", label: "Session Zero" },
 ];
 ---
 
-<header class="fixed top-0 inset-x-0 z-50 border-b border-[var(--color-bronze-dark)]/70 bg-[var(--color-obsidian)]/85 backdrop-blur-md">
-  <div class="mx-auto max-w-7xl px-6 lg:px-10 flex items-center justify-between h-16 sm:h-[4.5rem]">
-    <a href="/#top" class="flex items-center gap-3 group">
-      <svg width="30" height="30" viewBox="0 0 30 30" class="text-[var(--color-gold)] shrink-0 transition-transform duration-500 group-hover:rotate-90">
+<header id="site-header" class="fixed top-4 sm:top-5 inset-x-0 z-50 px-3 sm:px-5">
+  <div
+    id="nav-island"
+    class="mx-auto flex max-w-6xl items-center justify-between gap-4 rounded-full border border-[var(--color-bronze-dark)]/80 bg-[var(--color-obsidian)]/75 px-4 py-2.5 sm:px-6 backdrop-blur-xl transition-[box-shadow,border-color,background-color] duration-500"
+    style="box-shadow: 0 1px 0 rgba(240,210,138,0.08) inset, 0 18px 40px -20px rgba(0,0,0,0.85);"
+  >
+    <a href="/#top" class="relative flex items-center gap-2.5 group shrink-0">
+      <svg width="26" height="26" viewBox="0 0 30 30" class="text-[var(--color-gold)] shrink-0 transition-transform duration-500 group-hover:rotate-90 drop-shadow-[0_0_6px_rgba(201,162,75,0.4)]">
         <g fill="none" stroke="currentColor" stroke-width="1.1">
           <rect x="3" y="3" width="24" height="24" transform="rotate(45 15 15)" />
           <circle cx="15" cy="15" r="3.5" />
         </g>
       </svg>
-      <span class="font-display text-lg sm:text-xl tracking-roman text-[var(--color-parchment)]">ELDERAN</span>
+      <span class="font-display text-base sm:text-lg tracking-roman text-[var(--color-parchment)]">ELDERAN</span>
     </a>
 
-    <nav class="hidden xl:flex items-center gap-5 2xl:gap-7">
+    <nav class="hidden xl:flex items-center gap-4 2xl:gap-6">
       {links.map((l) => (
         <a
           href={l.href}
-          class="font-display text-xs tracking-[0.22em] uppercase text-[var(--color-parchment-dim)] hover:text-[var(--color-gold-bright)] transition-colors"
+          class="relative py-1 font-display text-[0.68rem] tracking-[0.2em] uppercase text-[var(--color-parchment-dim)] hover:text-[var(--color-gold-bright)] transition-colors after:absolute after:left-0 after:-bottom-0.5 after:h-px after:w-0 after:bg-[var(--color-gold-bright)] after:transition-[width] after:duration-300 hover:after:w-full"
         >
           {l.label}
         </a>
       ))}
     </nav>
 
-    <a
-      href="/#creation"
-      class="hidden sm:inline-flex items-center gap-2 border border-[var(--color-gold-dim)] px-4 py-2 font-display text-xs tracking-[0.18em] uppercase text-[var(--color-gold-bright)] hover:bg-[var(--color-gold-dim)]/10 hover:border-[var(--color-gold)] transition-colors"
-    >
-      Enter the Republic
-    </a>
+    <div class="flex items-center gap-2.5 shrink-0">
+      <a
+        href="/#creation"
+        class="hidden sm:inline-flex items-center gap-2 rounded-full border border-[var(--color-gold-dim)] px-4 py-1.5 font-display text-[0.68rem] tracking-[0.18em] uppercase text-[var(--color-gold-bright)] hover:bg-[var(--color-gold-dim)]/10 hover:border-[var(--color-gold)] transition-colors"
+      >
+        Enter the Republic
+      </a>
+
+      <button
+        id="nav-toggle"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        class="xl:hidden relative h-8 w-8 shrink-0 text-[var(--color-gold-bright)]"
+      >
+        <span class="nav-bar absolute left-1/2 top-1/2 h-px w-5 -translate-x-1/2 bg-current transition-transform duration-300" style="translate: -50% -5px;"></span>
+        <span class="nav-bar absolute left-1/2 top-1/2 h-px w-5 -translate-x-1/2 bg-current transition-opacity duration-300"></span>
+        <span class="nav-bar absolute left-1/2 top-1/2 h-px w-5 -translate-x-1/2 bg-current transition-transform duration-300" style="translate: -50% 5px;"></span>
+      </button>
+    </div>
   </div>
+
+  <nav
+    id="mobile-nav"
+    class="xl:hidden mx-auto mt-2 grid max-w-6xl grid-rows-[0fr] transition-[grid-template-rows,opacity] duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] opacity-0"
+  >
+    <div class="overflow-hidden">
+      <div class="grid grid-cols-2 gap-x-6 gap-y-4 rounded-3xl border border-[var(--color-bronze-dark)]/80 bg-[var(--color-obsidian)]/95 bg-grain px-6 py-7 backdrop-blur-xl">
+        {links.map((l) => (
+          <a
+            href={l.href}
+            class="nav-link font-display text-sm tracking-[0.16em] uppercase text-[var(--color-parchment-dim)] hover:text-[var(--color-gold-bright)] transition-colors"
+          >
+            {l.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </nav>
 </header>
+
+<script>
+  const island = document.getElementById("nav-island");
+  const toggle = document.getElementById("nav-toggle");
+  const mobileNav = document.getElementById("mobile-nav");
+
+  const onScroll = () => {
+    if (!island) return;
+    const scrolled = window.scrollY > 24;
+    island.classList.toggle("bg-[var(--color-obsidian)]/95", scrolled);
+    island.classList.toggle("border-[var(--color-gold-dim)]/50", scrolled);
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  let open = false;
+  const setOpen = (next: boolean) => {
+    open = next;
+    toggle?.setAttribute("aria-expanded", String(open));
+    toggle?.classList.toggle("nav-open", open);
+    mobileNav?.classList.toggle("grid-rows-[1fr]", open);
+    mobileNav?.classList.toggle("grid-rows-[0fr]", !open);
+    mobileNav?.classList.toggle("opacity-100", open);
+    mobileNav?.classList.toggle("opacity-0", !open);
+  };
+
+  toggle?.addEventListener("click", () => setOpen(!open));
+  mobileNav?.querySelectorAll(".nav-link").forEach((a) =>
+    a.addEventListener("click", () => setOpen(false))
+  );
+</script>
+
+<style>
+  #nav-toggle.nav-open .nav-bar:nth-child(1) {
+    translate: -50% 0px;
+    rotate: 45deg;
+  }
+  #nav-toggle.nav-open .nav-bar:nth-child(2) {
+    opacity: 0;
+  }
+  #nav-toggle.nav-open .nav-bar:nth-child(3) {
+    translate: -50% 0px;
+    rotate: -45deg;
+  }
+</style>
