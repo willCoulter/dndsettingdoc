@@ -1,0 +1,75 @@
+---
+import Sigil from "./Sigil.astro";
+
+const factions = [
+  {
+    name: "The Open Senate",
+    motto: "“Trace the Vote, Trace the Name”",
+    color: "var(--color-gold)",
+    desc: "Eighteen seats, rotating elections, and ledgers any citizen may read. The Republic at its most sincere — and its most outvoted.",
+  },
+  {
+    name: "The Closed Senate",
+    motto: "“The Covenant Does Not Explain Itself”",
+    color: "var(--color-blood-bright)",
+    desc: "Three seats, three names, no election in two hundred years. They can veto what the people pass, on authority no one has been shown.",
+  },
+  {
+    name: "Caelindor's Legion",
+    motto: "“Equal Rank, Equal Line”",
+    color: "var(--color-verdigris)",
+    desc: "The northern command holding the Vorthani frontier, every race paid and ranked the same. Recalled by the Senate. Still not home.",
+  },
+  {
+    name: "The Guild Houses",
+    motto: "“Belonging Has a Waiting List”",
+    color: "var(--color-parchment-dim)",
+    desc: "Property, residency, a guild seal — that's the whole price of standing, the Republic says. The old central districts decide how long that's true.",
+  },
+];
+---
+
+<section id="factions" class="relative bg-marble bg-grain py-28 sm:py-36 px-6">
+  <div class="mx-auto max-w-6xl">
+    <div class="text-center">
+      <p class="eyebrow">Powers of the Republic</p>
+      <h2 class="mt-4 font-display text-4xl sm:text-5xl text-[var(--color-parchment)] tracking-wide">
+        Houses &amp; <span class="text-gold-gradient">Factions</span>
+      </h2>
+      <Sigil class="mt-7" />
+      <p class="mt-8 mx-auto max-w-2xl text-[var(--color-parchment-dim)] text-lg leading-relaxed">
+        No seat in Caltara goes unwatched. Choose where your loyalty bends
+        &mdash; or burn it at both ends.
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-6 sm:grid-cols-2">
+      {factions.map((f, i) => (
+        <div
+          class="group relative panel-carved p-8 overflow-hidden animate-rise"
+          style={`animation-delay: ${0.08 + i * 0.1}s`}
+        >
+          <span class="corner-ornament tl"></span>
+          <span class="corner-ornament tr"></span>
+          <span class="corner-ornament bl"></span>
+          <span class="corner-ornament br"></span>
+          <span
+            class="absolute left-0 top-0 h-full w-[3px] transition-[width] duration-300 group-hover:w-[5px]"
+            style={`background:${f.color};`}
+          ></span>
+
+          <div class="flex items-start justify-between gap-4">
+            <h3 class="font-display text-2xl text-[var(--color-parchment)] tracking-wide">
+              {f.name}
+            </h3>
+            <svg width="20" height="20" viewBox="0 0 20 20" class="shrink-0 mt-1" style={`color:${f.color}`}>
+              <rect x="2" y="2" width="16" height="16" fill="none" stroke="currentColor" transform="rotate(45 10 10)" />
+            </svg>
+          </div>
+          <p class="mt-1 font-display text-sm italic" style={`color:${f.color}`}>{f.motto}</p>
+          <p class="mt-4 text-[var(--color-parchment-dim)] leading-relaxed">{f.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

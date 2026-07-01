@@ -1,0 +1,231 @@
+---
+import Sigil from "./Sigil.astro";
+import HomelandRow from "./HomelandRow.astro";
+
+import caltaraImg from "../assets/Caltara.png";
+import luthmarImg from "../assets/locations/luthmar.jpg";
+import ellurImg from "../assets/locations/Ellur.jpg";
+import pharstImg from "../assets/locations/pharst.jpg";
+import thadmireImg from "../assets/locations/thadmire.jpg";
+import turakaiImg from "../assets/locations/turakai.jpg";
+import newgateImg from "../assets/locations/newgate.jpg";
+import auryhostImg from "../assets/locations/auryhost.jpg";
+import dralefonImg from "../assets/locations/dralefon.jpg";
+import nodelImg from "../assets/locations/nodel.jpg";
+import splintersImg from "../assets/locations/splinters.jpg";
+import sarianImg from "../assets/locations/Sarian.jpg";
+import vorthaniImg from "../assets/locations/Vorthani.jpg";
+import seaOfBonesImg from "../assets/locations/seaofbones.jpg";
+
+type Homeland = {
+  name: string;
+  epithet: string;
+  image?: ImageMetadata;
+  demo: { r: string; p: number }[] | string;
+  hook: string;
+  closer: string;
+  world: "new" | "old";
+};
+
+const homelands: Homeland[] = [
+  {
+    name: "Caltara",
+    epithet: "Capital of the Caltaran Republic",
+    image: caltaraImg,
+    demo: [
+      { r: "Human", p: 42 }, { r: "Half-Elf", p: 15 }, { r: "Dwarf", p: 12 },
+      { r: "Halfling", p: 9 }, { r: "Elf", p: 7 }, { r: "Gnome", p: 5 },
+      { r: "Tiefling", p: 4 }, { r: "Dragonborn", p: 3 }, { r: "Half-Orc", p: 2 },
+    ],
+    hook: "Two centuries of coastal trade have made it one of the most mixed nations in the world. Standing here is earned through guild seal and residency, not bloodline, and the Republic enforces that in court. What it doesn't enforce as quickly is everything else.",
+    closer: "A Caltaran character has grown up inside that gap, knowing exactly where the ideals hold and where they quietly don't.",
+    world: "new",
+  },
+  {
+    name: "Luth'mar",
+    epithet: "The Free City of Commerce",
+    image: luthmarImg,
+    demo: "Elf, Dwarf, and Human in roughly equal founding thirds, with most other races well represented",
+    hook: "Founded by three peoples who agreed a city belonging to none of them would trade with all of them. It worked so well the city outgrew everyone's expectations, and the original bargain is still the reason it functions.",
+    closer: "A Luth'marian is adaptable, sharp about worth, and probably carrying something from a market that shouldn't have been selling it.",
+    world: "old",
+  },
+  {
+    name: "Ellur",
+    epithet: "Where the Feywild Bleeds Through",
+    image: ellurImg,
+    demo: "Elf majority, significant Half-Elf population, few others",
+    hook: "An elven warrior-culture town in a forest where the Feywild bleeds through. The creatures that crossed over centuries ago have had generations to become something stranger than anyone intended.",
+    closer: "Ellur natives size up a new room the way they'd size up an unfamiliar stretch of forest: carefully, and for a reason.",
+    world: "old",
+  },
+  {
+    name: "Pharst",
+    epithet: "City of the Ageless King",
+    image: pharstImg,
+    demo: "Desert nomads — Human, Half-Elf, Gnome — plus a growing population of foreign scholars",
+    hook: "Built around ruins old enough to be sacred, and ruled by a king who has been there since before the War of Reclamation. He is warm, asks about your journey, has opinions about food, and nobody can explain why he hasn't aged.",
+    closer: "Growing up in Pharst means learning early that the most interesting person in the room rarely looks like it.",
+    world: "old",
+  },
+  {
+    name: "Thadmire",
+    epithet: "The City With No Front Door",
+    image: thadmireImg,
+    demo: "Highly mixed — descendants of the War of Reclamation's company, every race",
+    hook: "A city that floats above a jungle most people can't navigate, with no entrance that appears on any map. Everyone here can trace their bloodline to the war that ended the last age — with genealogical precision.",
+    closer: "Some wear that inheritance as identity. Some are exhausted by it. Both make for a good character.",
+    world: "old",
+  },
+  {
+    name: "Turakai",
+    epithet: "The Northernmost Hearth",
+    image: turakaiImg,
+    demo: "Predominantly Human",
+    hook: "The last settlement before the mountains stop blocking the wind, where faith and survival are the same practice. The priests chop wood. The warriors are quieter than their reputation in the south suggests.",
+    closer: "People from Turakai don't perform. They've spent their lives being tested by things that don't care how they look.",
+    world: "old",
+  },
+  {
+    name: "Newgate",
+    epithet: "The Port With No Questions",
+    image: newgateImg,
+    demo: "Extremely mixed, with high Tiefling, Half-Orc, and Half-Elf presence",
+    hook: "Built by a smuggler captain who needed a port where crews could spend their earnings without worrying about arrest. It's still exactly that, and it draws whoever doesn't fit anywhere else.",
+    closer: "Newgate teaches you to read a room fast and trust transactionally: here's what I'll do, here's what I need, here's what breaks the deal.",
+    world: "old",
+  },
+  {
+    name: "Auryhost",
+    epithet: "The Unbreakable Villages",
+    image: auryhostImg,
+    demo: [
+      { r: "Halfling", p: 35 }, { r: "Human", p: 30 }, { r: "Gnome", p: 15 },
+      { r: "Dwarf", p: 10 }, { r: "Half-Elf", p: 7 }, { r: "Other", p: 3 },
+    ],
+    hook: "Small, nearly unarmed, and functionally impossible to bully. Centuries of raids and occupations have come and gone without changing much about it, which tends to discourage whoever's applying the pressure.",
+    closer: "Someone raised in Auryhost starts fights rarely. They finish them.",
+    world: "new",
+  },
+  {
+    name: "The Dralefon Empire",
+    epithet: "The Watching Empire",
+    image: dralefonImg,
+    demo: [
+      { r: "Human", p: 30 }, { r: "Tiefling", p: 20 }, { r: "Dragonborn", p: 15 },
+      { r: "Half-Elf", p: 12 }, { r: "Gnome", p: 8 }, { r: "Dwarf", p: 7 }, { r: "Other", p: 8 },
+    ],
+    hook: "Home to the highest concentration of tieflings and dragonborn in the known world, long enough that the associations those races carry in the north simply don't apply here. The Empire also knows more about the Sarian Theocracy than it's shared with anyone.",
+    closer: "Dralefoni tend to be sophisticated, well-dressed, and quick to notice that what a nation doesn't say usually matters more.",
+    world: "new",
+  },
+  {
+    name: "Nod'el",
+    epithet: "The Island Nobody Keeps",
+    image: nodelImg,
+    demo: [
+      { r: "Human", p: 60 }, { r: "Half-Elf", p: 20 }, { r: "Wood Elf", p: 12 }, { r: "Other", p: 8 },
+    ],
+    hook: "An island in the gulf that everyone has tried to control and nobody has managed to hold. Its oral historians keep genealogies of who did what to whom further back than most written records.",
+    closer: "Nod'el folk are hospitable and unnervingly well-informed. They read power as leverage, not force.",
+    world: "new",
+  },
+  {
+    name: "The Splinters",
+    epithet: "The Kingdom That Broke",
+    image: splintersImg,
+    demo: "Predominantly Human, with variation by successor-state",
+    hook: "Once a single kingdom. Now the fault lines are in the stonework, the roads, and the way people still talk about the past, and the land is still worth fighting over.",
+    closer: "Someone from the Splinters knows their family's claim by heart. They trust slowly, but when they finally do, they mean it.",
+    world: "old",
+  },
+  {
+    name: "The Sarian Theocracy",
+    epithet: "The Occluded God's Faith",
+    image: sarianImg,
+    demo: "Varied — a Human core, plus the peoples of every nation the Theocracy has absorbed",
+    hook: "Organized around the belief that Sar, the god of Authority, was not destroyed but occluded, and that the power mortals wield was never truly theirs. The clergy performs genuine miracles. The paladins are formidable.",
+    closer: "Sarians tend to fall into two camps: true believers, or converts who've noticed things the lifelong faithful stopped seeing.",
+    world: "new",
+  },
+  {
+    name: "The Vorthani Dominion",
+    epithet: "The Kingdom That Looked North",
+    image: vorthaniImg,
+    demo: "Predominantly Human, with Dwarf and Half-Orc communities in the mountain territories",
+    hook: "A modest, sensible kingdom until its king looked north, understood exactly what the Sarian Theocracy was, and made a choice that has cost a great many Vorthani and Caltaran lives ever since.",
+    closer: "Vorthani are honest about fear. The enemy in the passes isn't an abstraction to them.",
+    world: "new",
+  },
+  {
+    name: "The Sea of Bones",
+    epithet: "Where No Peace Holds",
+    image: seaOfBonesImg,
+    demo: "Human tribes, with scattered Half-Orc and Dwarf clans",
+    hook: "A dry steppe where the grass never grows back thick enough to hide what's underneath: bones, mostly, left by centuries of tribes fighting over water rights, grazing land, and grudges nobody remembers starting. Alliances shift with the seasons. Wars rarely end. They just go quiet for a while.",
+    closer: "Someone from the Sea of Bones has picked a side more than once, and switched more than once too. Loyalty here is real. It's just rarely permanent.",
+    world: "new",
+  },
+];
+
+const newWorld = homelands.filter((h) => h.world === "new");
+const oldWorld = homelands.filter((h) => h.world === "old");
+---
+
+<section id="homelands" class="relative bg-[var(--color-obsidian-light)] bg-grain py-28 sm:py-36">
+  <div class="mx-auto max-w-6xl px-6 text-center">
+    <p class="eyebrow">Choose Your Origin</p>
+    <h2 class="mt-4 font-display text-4xl sm:text-5xl text-[var(--color-parchment)] tracking-wide">
+      Homelands of <span class="text-gold-gradient">Elderan</span>
+    </h2>
+    <Sigil class="mt-7" />
+    <p class="mt-8 mx-auto max-w-2xl text-[var(--color-parchment-dim)] text-lg leading-relaxed">
+      A proper map is coming. For now, the broad strokes: fourteen places
+      worth calling home before the story even starts.
+    </p>
+  </div>
+
+  <div class="mt-20">
+    <div class="mx-auto max-w-6xl px-6 text-center">
+      <p class="eyebrow text-[var(--color-gold-bright)]">Where the Campaign Begins</p>
+      <h3 class="mt-3 font-display text-3xl sm:text-4xl text-[var(--color-parchment)] tracking-wide">
+        The New World
+      </h3>
+    </div>
+    <div class="mt-12 divide-y divide-[var(--color-bronze-dark)]/60 border-y border-[var(--color-bronze-dark)]/60">
+      {newWorld.map((h, i) => (
+        <HomelandRow
+          name={h.name}
+          epithet={h.epithet}
+          image={h.image}
+          demo={h.demo}
+          hook={h.hook}
+          closer={h.closer}
+          index={i}
+        />
+      ))}
+    </div>
+  </div>
+
+  <div class="mt-24">
+    <div class="mx-auto max-w-6xl px-6 text-center">
+      <p class="eyebrow">Where Every Bloodline Started</p>
+      <h3 class="mt-3 font-display text-3xl sm:text-4xl text-[var(--color-parchment)] tracking-wide">
+        The Old World
+      </h3>
+    </div>
+    <div class="mt-12 divide-y divide-[var(--color-bronze-dark)]/60 border-y border-[var(--color-bronze-dark)]/60">
+      {oldWorld.map((h, i) => (
+        <HomelandRow
+          name={h.name}
+          epithet={h.epithet}
+          image={h.image}
+          demo={h.demo}
+          hook={h.hook}
+          closer={h.closer}
+          index={i}
+        />
+      ))}
+    </div>
+  </div>
+</section>

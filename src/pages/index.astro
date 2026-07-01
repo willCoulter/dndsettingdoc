@@ -1,11 +1,33 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Lore from "../components/Lore.astro";
+import CityShowcase from "../components/CityShowcase.astro";
+import GodsPantheon from "../components/GodsPantheon.astro";
+import Homelands from "../components/Homelands.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import PowerPaths from "../components/PowerPaths.astro";
+import Factions from "../components/Factions.astro";
+import MajorCharacters from "../components/MajorCharacters.astro";
+import QuestHook from "../components/QuestHook.astro";
+import SessionZero from "../components/SessionZero.astro";
+
 ---
 
 <Layout>
-	<Welcome />
+  <Header />
+  <main>
+    <Hero />
+    <Lore />
+    <CityShowcase />
+    <GodsPantheon />
+    <Homelands />
+    <PowerPaths />
+    <Factions />
+    <MajorCharacters />
+    <QuestHook />
+    <SessionZero />
+
+  </main>
 </Layout>

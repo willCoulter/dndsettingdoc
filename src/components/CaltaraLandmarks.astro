@@ -1,0 +1,61 @@
+---
+import { Image } from "astro:assets";
+import Sigil from "./Sigil.astro";
+import caltaraCity from "../assets/CaltaraCity.jpg";
+
+const landmarks = [
+  {
+    name: "The Ledger Steps",
+    body: "Seventy marble stairs connect the harbor district to the Open Senate's chamber, worn smooth by two centuries of petitioners climbing them to file a grievance. Tradition holds that a petition read aloud from the fourth step from the top will reach a senator's desk within the week. No one has ever confirmed this. No one has stopped doing it, either.",
+  },
+  {
+    name: "The Open Senate Chamber",
+    body: "A glass-roofed hall built to let ordinary light fall on ordinary votes — a deliberate contrast to the Closed Senate's windowless meeting rooms nearby. The public gallery has stood open through two hundred years of sessions and has never once been closed to a citizen who wanted to sit through one.",
+  },
+  {
+    name: "The Three Unlit Windows",
+    body: "The Closed Senate's residence keeps exactly three windows lit after dark, regardless of season, regardless of whether anyone can confirm the seats are occupied. Caltarans who've lived their whole lives under those windows have opinions about what it means when, on rare nights, only two are lit.",
+  },
+  {
+    name: "Maren's Toll",
+    body: "A weathered shrine at the harbor mouth where outbound captains leave a coin before departure — not payment, tradition insists, just an admission that the sea doesn't owe anyone safe passage. The collection plate is never emptied by the same hand twice; nobody's found out yet who empties it.",
+  },
+];
+---
+
+<section id="landmarks" class="relative w-full overflow-hidden bg-[var(--color-obsidian)] py-28 sm:py-36 px-6">
+  <Image
+    src={caltaraCity}
+    alt=""
+    aria-hidden="true"
+    class="absolute inset-0 h-full w-full object-cover object-[70%_30%]"
+    widths={[640, 1024, 1294]}
+    sizes="100vw"
+  />
+  <div class="absolute inset-0 bg-[var(--color-obsidian)]/55"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-obsidian)] via-[var(--color-obsidian)]/50 to-[var(--color-obsidian)]/35"></div>
+  <div class="absolute inset-0 bg-grain"></div>
+
+  <div class="relative mx-auto max-w-6xl">
+    <div class="text-center">
+      <p class="eyebrow">What Every Caltaran Points To</p>
+      <h2 class="mt-4 font-display text-4xl sm:text-5xl text-[var(--color-parchment)] tracking-wide">
+        Landmarks of <span class="text-gold-gradient">the Capital</span>
+      </h2>
+      <Sigil class="mt-7" />
+    </div>
+
+    <div class="mt-16 grid gap-6 sm:gap-8 md:grid-cols-2">
+      {landmarks.map((l, i) => (
+        <div class="panel-carved p-8 animate-rise" style={`animation-delay: ${0.08 + i * 0.1}s`}>
+          <span class="corner-ornament tl"></span>
+          <span class="corner-ornament tr"></span>
+          <span class="corner-ornament bl"></span>
+          <span class="corner-ornament br"></span>
+          <h3 class="font-display text-2xl text-[var(--color-gold-bright)] tracking-wide">{l.name}</h3>
+          <p class="mt-4 text-[var(--color-parchment-dim)] leading-relaxed">{l.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

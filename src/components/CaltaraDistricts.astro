@@ -1,0 +1,100 @@
+---
+import Sigil from "./Sigil.astro";
+
+const districts = [
+  {
+    name: "The Old Wards",
+    tag: "Guild Money, Old Marble",
+    body: "The central districts, built by the founding city-states and still governed by the habits they left behind. Guild seals here move through committees the newer wards don't have — slowly, for some applicants more than others. Every building over a century old is here, and most of them know it.",
+  },
+  {
+    name: "The Ledger Quarter",
+    tag: "Where the Senate Works",
+    body: "Wraps both Senate chambers, the public archive, and the coffee houses where aides trade favors between sessions. More petitions get filed here in a week than most Republic provinces file in a year — and most of the Republic's actual governing happens in the coffee houses, not the chambers.",
+  },
+  {
+    name: "The Harbor District",
+    tag: "Deep-Water Docks",
+    body: "Caltara's original reason for existing. A dozen languages on a busy afternoon, warehouses stacked three deep with goods that never touch a shelf, and a waterfront where a dockworker, a merchant, and a customs clerk share a table without anyone finding it remarkable.",
+  },
+  {
+    name: "The Outer Wards",
+    tag: "Newer, Denser, Louder",
+    body: "Built to house two centuries of growth the Old Wards never planned for. Working families, first-generation guild members, and the neighborhoods that follow the northern dispatches most closely — Caelindor's name comes up here in a tone the Ledger Quarter doesn't use.",
+  },
+  {
+    name: "The Old District",
+    tag: "Where the Compact Lives",
+    body: "Caltara's oldest quarter by another measure — the ground the city was built over, and the district ceded under the Compact of Ash. Caltaran children learn what walks there before they're old enough to wander in and find out unprepared.",
+  },
+];
+
+const towns = [
+  {
+    name: "Wickmoor",
+    tag: "Fishing Town, South Coast",
+    body: "A half-day's ride south, and the closest thing Caltara has to a company town — three fleets, one drying-shed guild, and a harbormaster who has outlasted four Senate administrations by simply never running for anything.",
+  },
+  {
+    name: "Passfoot",
+    tag: "Garrison Supply Town",
+    body: "Where the road north stops being a road and starts being a military logistics problem. Every wagon bound for Caelindor's line passes through Passfoot's depots first, and the town has quietly become one of the better-fed places in the Republic because of it.",
+  },
+  {
+    name: "Sallow Reach",
+    tag: "River Town, Inland",
+    body: "A grain and timber town upriver, conservative by coastal standards and proud of it. The shop fronts here read like the Republic's founding census — mostly human, mostly old family names, and mostly uninterested in what the harbor thinks of that.",
+  },
+];
+---
+
+<section id="districts" class="relative bg-marble bg-grain py-28 sm:py-36 px-6">
+  <div class="mx-auto max-w-6xl">
+    <div class="text-center">
+      <p class="eyebrow">Within the Walls, and Past Them</p>
+      <h2 class="mt-4 font-display text-4xl sm:text-5xl text-[var(--color-parchment)] tracking-wide">
+        Districts &amp; <span class="text-gold-gradient">Towns</span>
+      </h2>
+      <Sigil class="mt-7" />
+      <p class="mt-8 mx-auto max-w-2xl text-[var(--color-parchment-dim)] text-lg leading-relaxed">
+        Caltara isn't one city so much as five that agreed to share a
+        harbor, plus the towns that keep it fed, supplied, and reinforced.
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-6 sm:gap-8 md:grid-cols-3">
+      {districts.map((d, i) => (
+        <div class="panel-carved p-8 animate-rise" style={`animation-delay: ${0.08 + i * 0.08}s`}>
+          <span class="corner-ornament tl"></span>
+          <span class="corner-ornament tr"></span>
+          <span class="corner-ornament bl"></span>
+          <span class="corner-ornament br"></span>
+          <p class="font-display text-xs tracking-[0.25em] uppercase text-[var(--color-gold-dim)]">{d.tag}</p>
+          <h3 class="mt-3 font-display text-2xl text-[var(--color-gold-bright)] tracking-wide">{d.name}</h3>
+          <p class="mt-4 text-[var(--color-parchment-dim)] leading-relaxed">{d.body}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-20 text-center">
+      <p class="eyebrow">Beyond the Wards</p>
+      <h3 class="mt-3 font-display text-3xl sm:text-4xl text-[var(--color-parchment)] tracking-wide">
+        The Satellite Towns
+      </h3>
+    </div>
+
+    <div class="mt-12 grid gap-6 sm:gap-8 md:grid-cols-3">
+      {towns.map((t, i) => (
+        <div class="panel-carved p-8 animate-rise" style={`animation-delay: ${0.08 + i * 0.08}s`}>
+          <span class="corner-ornament tl"></span>
+          <span class="corner-ornament tr"></span>
+          <span class="corner-ornament bl"></span>
+          <span class="corner-ornament br"></span>
+          <p class="font-display text-xs tracking-[0.25em] uppercase text-[var(--color-gold-dim)]">{t.tag}</p>
+          <h3 class="mt-3 font-display text-2xl text-[var(--color-gold-bright)] tracking-wide">{t.name}</h3>
+          <p class="mt-4 text-[var(--color-parchment-dim)] leading-relaxed">{t.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

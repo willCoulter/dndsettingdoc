@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import CaltaraHero from "../components/CaltaraHero.astro";
+import CaltaraDistricts from "../components/CaltaraDistricts.astro";
+import CaltaraUniversities from "../components/CaltaraUniversities.astro";
+import CaltaraLandmarks from "../components/CaltaraLandmarks.astro";
+import CaltaraEconomy from "../components/CaltaraEconomy.astro";
+import CaltaraGuilds from "../components/CaltaraGuilds.astro";
+import CaltaraDailyLife from "../components/CaltaraDailyLife.astro";
+import CtaFooter from "../components/CtaFooter.astro";
+---
+
+<Layout
+  title="Caltara — Capital of the Caltaran Republic | Elderan"
+  description="A guide to Caltara: its districts and satellite towns, universities, landmarks, economy, guilds, and daily life."
+>
+  <Header />
+  <main>
+    <CaltaraHero />
+    <CaltaraDistricts />
+    <CaltaraUniversities />
+    <CaltaraLandmarks />
+    <CaltaraEconomy />
+    <CaltaraGuilds />
+    <CaltaraDailyLife />
+  </main>
+  <CtaFooter />
+</Layout>

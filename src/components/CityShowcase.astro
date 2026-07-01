@@ -1,0 +1,65 @@
+---
+import { Image } from "astro:assets";
+import caltaraCity from "../assets/CaltaraCity.jpg";
+---
+
+<section id="city" class="relative min-h-[900px] w-full overflow-hidden bg-[var(--color-obsidian)] py-20 sm:py-0">
+  <Image
+    src={caltaraCity}
+    alt="Caltara, capital of the Caltaran Republic"
+    class="absolute inset-0 h-full w-full object-cover object-center"
+    widths={[640, 1024, 1294]}
+    sizes="100vw"
+  />
+
+  <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-obsidian)] via-[var(--color-obsidian)]/50 to-transparent"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-[var(--color-obsidian)]/55 via-transparent to-transparent"></div>
+  <div class="absolute inset-0 bg-grain"></div>
+
+  <div class="relative z-10 flex min-h-[900px] items-end px-6 py-16 sm:py-20">
+    <div class="panel-carved max-w-2xl p-8 sm:p-10 animate-rise">
+      <span class="corner-ornament tl"></span>
+      <span class="corner-ornament tr"></span>
+      <span class="corner-ornament bl"></span>
+      <span class="corner-ornament br"></span>
+
+      <p class="eyebrow">Capital of the Republic</p>
+      <h2 class="mt-4 font-display text-3xl sm:text-4xl text-[var(--color-parchment)] tracking-wide">
+        Caltara
+      </h2>
+
+      <div class="mt-5 space-y-4 text-[var(--color-parchment-dim)] leading-relaxed">
+        <p>
+          Caltara is the capital of the <span class="text-[var(--color-gold-bright)]">Caltaran Republic</span>,
+          and one of the three original city-states that signed the
+          <span class="text-[var(--color-gold-bright)]">Covenant of White Shores</span>.
+          The name passed from city to nation gradually &mdash; people
+          started calling the Republic after its capital out of convenience,
+          and convenience became convention. The Republic's official name is
+          still the Caltaran Republic. Most people just say Caltara.
+        </p>
+        <p>
+          It is the seat of both Senates, the largest city in the Republic,
+          and where most of what matters politically gets decided &mdash; in
+          the Open Senate's chamber, the harbor-district coffee houses, the
+          counting rooms of the old guild houses, and whatever room the
+          Closed Senate uses for the conversations that never appear in any
+          public record.
+        </p>
+        <p>
+          The older central wards remember being independent, built to
+          outlast whatever government claimed them next. The outer wards are
+          newer, denser, and considerably louder. Lately, the tension between
+          the two has been running higher than usual.
+        </p>
+      </div>
+
+      <a
+        href="/caltara"
+        class="mt-7 inline-flex items-center gap-2 font-display text-sm tracking-[0.2em] uppercase text-[var(--color-gold)] hover:text-[var(--color-gold-bright)] border-b border-[var(--color-gold-dim)] pb-1 transition-colors"
+      >
+        Discover Caltara &rarr;
+      </a>
+    </div>
+  </div>
+</section>

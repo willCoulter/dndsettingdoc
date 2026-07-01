@@ -1,0 +1,207 @@
+---
+import { Image } from "astro:assets";
+import Sigil from "./Sigil.astro";
+import parchment from "../assets/ParachmentTexture.jpg";
+import lysander from "../assets/lysander.jpg";
+import calden from "../assets/calden.jpg";
+---
+
+<section
+  id="summons"
+  class="relative bg-[var(--color-obsidian)] bg-grain py-28 sm:py-36 px-6 overflow-hidden min-h-[760px]"
+>
+  <div class="quest-figure quest-figure--left" aria-hidden="true">
+    <Image
+      src={lysander}
+      alt=""
+      class="h-full w-full object-cover object-[50%_22%]"
+      widths={[480, 720, 992]}
+      sizes="40vw"
+    />
+    <div class="quest-figure-fade quest-figure-fade--left"></div>
+    <div class="quest-figure-vignette"></div>
+  </div>
+
+  <div class="quest-figure quest-figure--right" aria-hidden="true">
+    <Image
+      src={calden}
+      alt=""
+      class="h-full w-full object-cover object-[60%_35%]"
+      widths={[480, 564]}
+      sizes="40vw"
+    />
+    <div class="quest-figure-fade quest-figure-fade--right"></div>
+    <div class="quest-figure-vignette"></div>
+  </div>
+
+  <div
+    class="pointer-events-none absolute inset-0 opacity-[0.08]"
+    style="background: radial-gradient(circle at 50% 30%, var(--color-blood-bright) 0%, transparent 55%);"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="relative mx-auto max-w-6xl">
+    <div class="text-center">
+      <p class="eyebrow text-[var(--color-gold-bright)]">
+        A Summons From the Senate
+      </p>
+      <h2
+        class="mt-4 font-display text-4xl sm:text-5xl text-[var(--color-parchment)] tracking-wide"
+      >
+        The Silence at <span class="text-gold-gradient">Calden</span>
+      </h2>
+      <Sigil class="mt-7" />
+      <p
+        class="mt-8 mx-auto max-w-2xl text-[var(--color-parchment-dim)] text-lg leading-relaxed"
+      >
+        Every legion Caltara owns stands at the mountain wall, blades turned
+        north against the Vorthani line. The capital has never been thinner.
+        Which is perhaps why no one noticed the silence from Calden.
+      </p>
+    </div>
+
+    <div class="mt-16 flex justify-center">
+      <div class="quest-letter relative w-full max-w-xl">
+        <Image
+          src={parchment}
+          alt=""
+          aria-hidden="true"
+          class="absolute inset-0 h-full w-full object-cover"
+          widths={[480, 640]}
+          sizes="(min-width: 640px) 576px, 90vw"
+        />
+        <div class="quest-letter-shade absolute inset-0"></div>
+
+        <div class="relative px-9 py-12 sm:px-14 sm:py-16">
+          <p
+            class="text-center font-display text-xs tracking-[0.3em] uppercase text-[var(--color-blood)]"
+          >
+            By the Senator's Own Hand
+          </p>
+
+          <div
+            class="mt-7 font-body text-[var(--color-ink)] leading-relaxed space-y-4 text-[1.05rem]"
+          >
+            <p>To whoever still answers a summons,</p>
+            <p>
+              My courier checked in from Calden three weeks past, carrying
+              papers the Republic cannot afford to lose. I have heard nothing
+              since. The relay fires go unanswered, and I have no soldiers left
+              to spare for asking why.
+            </p>
+            <p>
+              Find my courier. Find what has silenced a town that has not missed
+              a single report in thirty years of loyal service to this Republic.
+            </p>
+            <p>
+              I will pay in coin the Senate won't miss, and ask far fewer
+              questions than it would.
+            </p>
+          </div>
+
+          <div class="mt-9 flex items-center justify-end gap-4">
+            <span
+              class="text-right font-display italic text-[var(--color-ink)]"
+            >
+              &mdash; Lysander<br />
+              <span
+                class="text-sm not-italic tracking-wide text-[var(--color-ink-dim)]"
+              >
+                Senator of the Open Senate
+              </span>
+            </span>
+            <span class="wax-seal" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 22 22">
+                <rect
+                  x="3"
+                  y="3"
+                  width="16"
+                  height="16"
+                  fill="none"
+                  stroke="var(--color-parchment)"
+                  stroke-width="1.1"
+                  transform="rotate(45 11 11)"></rect>
+                <circle cx="11" cy="11" r="2.5" fill="var(--color-parchment)"
+                ></circle>
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .quest-figure {
+    position: absolute;
+    inset: 0;
+    width: 42%;
+    overflow: hidden;
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    .quest-figure {
+      display: block;
+    }
+  }
+  .quest-figure--left {
+    left: 0;
+  }
+  .quest-figure--right {
+    left: auto;
+    right: 0;
+  }
+  .quest-figure :global(img) {
+    filter: grayscale(0.55) brightness(0.5) contrast(1.05);
+  }
+
+  .quest-figure-fade {
+    position: absolute;
+    inset: 0;
+  }
+  .quest-figure-fade--left {
+    background: linear-gradient(to right, transparent 0%, transparent 25%, var(--color-obsidian) 92%);
+  }
+  .quest-figure-fade--right {
+    background: linear-gradient(to left, transparent 0%, transparent 25%, var(--color-obsidian) 92%);
+  }
+  .quest-figure-vignette {
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 0 140px 60px rgba(10, 9, 7, 0.9);
+    background: linear-gradient(to bottom, var(--color-obsidian) 0%, transparent 18%, transparent 78%, var(--color-obsidian) 100%);
+  }
+
+  .quest-letter {
+    box-shadow:
+      0 28px 60px -20px rgba(0, 0, 0, 0.85),
+      0 0 0 1px var(--color-bronze-dark);
+    transform: rotate(-0.6deg);
+  }
+  .quest-letter-shade {
+    background: radial-gradient(
+      ellipse at 50% 0%,
+      rgba(44, 32, 20, 0.05),
+      rgba(44, 32, 20, 0.22) 100%
+    );
+  }
+  .wax-seal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle at 35% 30%,
+      var(--color-blood-bright),
+      var(--color-blood) 70%
+    );
+    box-shadow:
+      0 3px 6px rgba(0, 0, 0, 0.5),
+      inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    flex-shrink: 0;
+  }
+</style>

@@ -1,0 +1,68 @@
+---
+import Sigil from "./Sigil.astro";
+
+const pillars = [
+  {
+    title: "A Promise, Two Centuries Old",
+    body: "Three city-states once swore that Caltara would be built on what its people do, not what they were born as. Guild seal, property, five years of honest residency — that was the whole price of belonging. The courts still enforce it. They just don't enforce how long an application sits on a desk.",
+  },
+  {
+    title: "Eighteen Elected, Three Untouchable",
+    body: "The Open Senate holds eighteen seats, rotating elections, and ledgers any citizen may read. The Closed Senate holds three — never elected, never replaced, free to veto or compel on authority drawn from Covenant clauses no one has read in a hundred years.",
+  },
+  {
+    title: "The General the Senate Can't Recall",
+    body: "In the northern passes, General Caelindor holds the line against the Vorthani Dominion with every rank and race paid the same. Three weeks ago the Senate summoned him south. He hasn't answered, and the capital can't agree whether that makes him its conscience or its first crack.",
+  },
+];
+---
+
+<section id="lore" class="relative bg-marble bg-grain py-28 sm:py-36 px-6">
+  <div class="mx-auto max-w-6xl">
+    <div class="text-center">
+      <p class="eyebrow">Where Our Story Begins</p>
+      <h2 class="mt-4 font-display text-4xl sm:text-5xl text-[var(--color-parchment)] tracking-wide">
+        The <span class="text-gold-gradient">Caltaran Republic</span>
+      </h2>
+      <Sigil class="mt-7" />
+      <p class="mt-8 mx-auto max-w-2xl text-[var(--color-parchment-dim)] text-lg leading-relaxed italic">
+        Every nation has a story it tells about itself. Caltara's is the one
+        you'll have to decide whether to believe.
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-6 sm:gap-8 md:grid-cols-3">
+      {pillars.map((p, i) => (
+        <div class="panel-carved p-8 animate-rise" style={`animation-delay: ${0.1 + i * 0.12}s`}>
+          <span class="corner-ornament tl"></span>
+          <span class="corner-ornament tr"></span>
+          <span class="corner-ornament bl"></span>
+          <span class="corner-ornament br"></span>
+          <span class="font-display text-[var(--color-gold-dim)] text-sm tracking-[0.3em]">
+            {String(i + 1).padStart(2, "0")}
+          </span>
+          <h3 class="mt-3 font-display text-2xl text-[var(--color-gold-bright)] tracking-wide">
+            {p.title}
+          </h3>
+          <p class="mt-4 text-[var(--color-parchment-dim)] leading-relaxed">
+            {p.body}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <p class="mt-14 mx-auto max-w-2xl text-center font-display text-lg sm:text-xl text-[var(--color-parchment)] italic leading-relaxed">
+      The promise is real. The cracks are real. Caltara won't tell you which
+      one matters more &mdash; that's the player's job.
+    </p>
+
+    <div class="mt-10 text-center">
+      <a
+        href="#"
+        class="inline-flex items-center gap-2 font-display text-sm tracking-[0.2em] uppercase text-[var(--color-gold)] hover:text-[var(--color-gold-bright)] border-b border-[var(--color-gold-dim)] pb-1 transition-colors"
+      >
+        Open the Full Chronicle &rarr;
+      </a>
+    </div>
+  </div>
+</section>

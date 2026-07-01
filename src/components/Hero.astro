@@ -1,0 +1,70 @@
+---
+import { Image } from "astro:assets";
+import caltara from "../assets/Caltara.png";
+import Sigil from "./Sigil.astro";
+---
+
+<section id="top" class="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-[var(--color-obsidian)]">
+  <Image
+    src={caltara}
+    alt="Caltara, capital of the Caltaran Republic"
+    class="absolute inset-0 h-full w-full object-cover object-center scale-[1.04]"
+    widths={[640, 1024, 1600, 2396]}
+    sizes="100vw"
+    priority
+  />
+
+  <!-- atmospheric overlays -->
+  <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-obsidian)] via-[var(--color-obsidian)]/35 to-transparent"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-[var(--color-obsidian)]/45 via-transparent to-[var(--color-obsidian)]/35"></div>
+  <div class="absolute inset-0 bg-grain"></div>
+  <div class="pointer-events-none absolute inset-0 shadow-[inset_0_0_160px_60px_rgba(10,9,7,0.55)]"></div>
+
+  <!-- top/bottom hairlines -->
+  <div class="absolute top-16 sm:top-[4.5rem] inset-x-0 h-px bg-gradient-to-r from-transparent via-[var(--color-gold-dim)]/60 to-transparent"></div>
+
+  <div class="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+    <p class="eyebrow animate-rise text-[var(--color-gold-bright)]" style="animation-delay: 0.1s;">
+      The World of Elderan &mdash; The Caltaran Republic
+    </p>
+
+    <h1 class="mt-6 font-display font-black uppercase text-gold-gradient animate-rise leading-[0.95] text-6xl sm:text-8xl lg:text-[9rem] tracking-wide" style="animation-delay: 0.25s;">
+      Elderan
+    </h1>
+
+    <div class="mt-6 animate-rise" style="animation-delay: 0.4s;">
+      <Sigil />
+    </div>
+
+    <p class="mt-7 max-w-xl font-body text-lg sm:text-xl text-[var(--color-parchment)]/90 italic animate-rise" style="animation-delay: 0.5s;">
+      Two centuries ago, Caltara promised a republic built on what its
+      people do, not what they were born as. The law still keeps that
+      promise. Not everyone agrees the Republic does.
+    </p>
+
+    <div class="mt-12 flex flex-col sm:flex-row items-center gap-5 animate-rise" style="animation-delay: 0.65s;">
+      <a
+        href="#creation"
+        class="group relative inline-flex items-center gap-3 border border-[var(--color-gold)] bg-[var(--color-gold)] px-8 py-3.5 font-display text-sm tracking-[0.2em] uppercase text-[var(--color-obsidian)] transition-all hover:bg-[var(--color-gold-bright)] hover:border-[var(--color-gold-bright)]"
+      >
+        Begin Your Legend
+        <span class="transition-transform group-hover:translate-x-1">&rarr;</span>
+      </a>
+      <a
+        href="#lore"
+        class="inline-flex items-center gap-3 border border-[var(--color-parchment-dim)]/50 px-8 py-3.5 font-display text-sm tracking-[0.2em] uppercase text-[var(--color-parchment)] transition-all hover:border-[var(--color-gold)] hover:text-[var(--color-gold-bright)]"
+      >
+        Read the Lore
+      </a>
+    </div>
+  </div>
+
+  <a
+    href="#lore"
+    aria-label="Scroll to lore"
+    class="absolute bottom-7 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-[var(--color-gold-dim)] hover:text-[var(--color-gold-bright)] transition-colors animate-flicker"
+  >
+    <span class="font-display text-[0.65rem] tracking-[0.3em] uppercase">Descend</span>
+    <span class="h-9 w-px bg-current"></span>
+  </a>
+</section>

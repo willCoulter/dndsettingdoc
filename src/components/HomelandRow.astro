@@ -1,0 +1,96 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  name: string;
+  epithet: string;
+  image?: ImageMetadata;
+  demo: { r: string; p: number }[] | string;
+  hook: string;
+  closer: string;
+  index: number;
+}
+
+const { name, epithet, image, demo, hook, closer, index } = Astro.props;
+
+const accents = [
+  "var(--color-gold)",
+  "var(--color-verdigris)",
+  "var(--color-blood-bright)",
+  "var(--color-ember-bright)",
+];
+
+const barPalette = [
+  "var(--color-gold)",
+  "var(--color-verdigris)",
+  "var(--color-blood-bright)",
+  "var(--color-ember-bright)",
+  "var(--color-bronze)",
+  "var(--color-parchment-dim)",
+  "var(--color-gold-dim)",
+  "var(--color-stone-light)",
+  "var(--color-blood)",
+];
+
+const accent = accents[index % accents.length];
+const reverse = image ? index % 2 === 1 : false;
+---
+
+<div class={`relative flex flex-col ${image ? "min-h-[320px] md:min-h-[440px] md:flex-row" : ""} ${reverse ? "md:flex-row-reverse" : ""}`}>
+  {image && (
+    <div class="relative h-[260px] w-full shrink-0 overflow-hidden md:h-auto md:w-1/2">
+      <Image
+        src={image}
+        alt={name}
+        class="absolute inset-0 h-full w-full object-cover"
+        widths={[480, 768, 1100]}
+        sizes="(min-width: 768px) 50vw, 100vw"
+      />
+      <div class="pointer-events-none absolute inset-0 bg-grain"></div>
+      <div class="pointer-events-none absolute inset-0 shadow-[inset_0_0_120px_50px_rgba(10,9,7,0.7)]"></div>
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-[var(--color-obsidian-light)]/60 via-transparent to-[var(--color-obsidian-light)]/70 md:hidden"></div>
+      <div
+        class={`pointer-events-none absolute inset-0 hidden md:block bg-gradient-to-${reverse ? "l" : "r"} from-transparent from-45% to-[var(--color-obsidian-light)]`}
+      ></div>
+    </div>
+  )}
+
+  <div class={`relative flex w-full items-center ${image ? "md:w-1/2" : ""}`}>
+    <div class={`w-full px-6 py-10 sm:px-10 md:py-16 lg:px-16 ${reverse ? "md:text-right" : ""}`}>
+      <div class={`max-w-md ${image ? "" : "mx-auto text-center"} ${reverse ? "md:ml-auto" : ""}`}>
+        <p class="font-display text-[0.65rem] tracking-[0.25em] uppercase" style={`color:${accent}`}>
+          {epithet}
+        </p>
+        <h3 class="mt-2 font-display text-2xl sm:text-3xl text-[var(--color-parchment)] tracking-wide">
+          {name}
+        </h3>
+
+        {Array.isArray(demo) ? (
+          <div class="mt-4">
+            <div class="flex h-2 w-full overflow-hidden">
+              {demo.map((d, di) => (
+                <span
+                  style={`width:${d.p}%; background:${barPalette[di % barPalette.length]};`}
+                  title={`${d.r} ${d.p}%`}
+                />
+              ))}
+            </div>
+            <p class="mt-2 text-xs leading-relaxed text-[var(--color-parchment-dim)]">
+              {demo.slice(0, 3).map((d) => `${d.r} ${d.p}%`).join(" · ")}
+              {demo.length > 3 ? ` · +${demo.length - 3} more` : ""}
+            </p>
+          </div>
+        ) : (
+          <p class="mt-4 text-xs leading-relaxed text-[var(--color-parchment-dim)]">
+            {demo}
+          </p>
+        )}
+
+        <p class="mt-5 text-[var(--color-parchment-dim)] leading-relaxed">{hook}</p>
+        <p class="mt-3 font-display text-sm italic text-[var(--color-parchment)] leading-relaxed">
+          {closer}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

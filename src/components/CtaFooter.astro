@@ -1,0 +1,103 @@
+---
+import Sigil from "./Sigil.astro";
+
+const year = new Date().getFullYear();
+
+const footerLinks = [
+  {
+    heading: "Campaign",
+    links: ["The Lore Codex", "The Living Gods", "Houses & Factions", "The Summons"],
+  },
+  {
+    heading: "Players",
+    links: ["Character Creation", "Calling Index", "Character Sheet", "House Rules"],
+  },
+  {
+    heading: "Table",
+    links: ["Discord", "Roll20 / VTT", "Session Zero Notes", "Contact the GM"],
+  },
+];
+---
+
+<section class="relative overflow-hidden bg-[var(--color-obsidian)] px-6 py-28 sm:py-36 text-center">
+  <div
+    class="pointer-events-none absolute inset-0 opacity-[0.06]"
+    style="background: radial-gradient(circle at 50% 0%, var(--color-gold) 0%, transparent 55%);"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative mx-auto max-w-2xl">
+    <p class="eyebrow">The Table Awaits</p>
+    <h2 class="mt-5 font-display text-4xl sm:text-6xl text-gold-gradient tracking-wide leading-tight">
+      Your Name Belongs<br />in the Chronicle
+    </h2>
+    <Sigil class="mt-8" />
+    <p class="mt-8 text-lg text-[var(--color-parchment-dim)] leading-relaxed">
+      A republic can crack in an evening at this table. Bring a character, a
+      grudge, or just your curiosity &mdash; Caltara will provide the rest.
+    </p>
+
+    <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-5">
+      <a
+        href="#creation"
+        class="inline-flex items-center gap-3 border border-[var(--color-gold)] bg-[var(--color-gold)] px-9 py-3.5 font-display text-sm tracking-[0.2em] uppercase text-[var(--color-obsidian)] hover:bg-[var(--color-gold-bright)] hover:border-[var(--color-gold-bright)] transition-colors"
+      >
+        Begin Your Legend
+      </a>
+      <a
+        href="#"
+        class="inline-flex items-center gap-3 border border-[var(--color-parchment-dim)]/50 px-9 py-3.5 font-display text-sm tracking-[0.2em] uppercase text-[var(--color-parchment)] hover:border-[var(--color-gold)] hover:text-[var(--color-gold-bright)] transition-colors"
+      >
+        Join the Discord
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="relative border-t border-[var(--color-bronze-dark)] bg-[var(--color-obsidian-light)] px-6 pt-20 pb-10">
+  <div class="mx-auto max-w-6xl">
+    <div class="grid gap-12 sm:grid-cols-2 md:grid-cols-4">
+      <div>
+        <a href="#top" class="flex items-center gap-3">
+          <svg width="26" height="26" viewBox="0 0 30 30" class="text-[var(--color-gold)] shrink-0">
+            <g fill="none" stroke="currentColor" stroke-width="1.1">
+              <rect x="3" y="3" width="24" height="24" transform="rotate(45 15 15)" />
+              <circle cx="15" cy="15" r="3.5" />
+            </g>
+          </svg>
+          <span class="font-display text-lg tracking-roman text-[var(--color-parchment)]">ELDERAN</span>
+        </a>
+        <p class="mt-4 text-sm text-[var(--color-parchment-dim)] leading-relaxed max-w-[20rem]">
+          A homebrew fantasy-Roman campaign &mdash; chronicles, character
+          creation, and dispatches from the table.
+        </p>
+      </div>
+
+      {footerLinks.map((col) => (
+        <div>
+          <h4 class="font-display text-xs tracking-[0.25em] uppercase text-[var(--color-gold-dim)]">
+            {col.heading}
+          </h4>
+          <ul class="mt-5 space-y-3">
+            {col.links.map((l) => (
+              <li>
+                <a href="#" class="text-sm text-[var(--color-parchment-dim)] hover:text-[var(--color-gold-bright)] transition-colors">
+                  {l}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-16 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[var(--color-bronze-dark)]/60 pt-8">
+      <p class="text-xs tracking-wide text-[var(--color-parchment-dim)]/70">
+        &copy; {year} Elderan Campaign. For private table use only.
+      </p>
+      <p class="font-display text-[0.65rem] tracking-[0.3em] uppercase text-[var(--color-gold-dim)]">
+        Ad Astra Per Aspera
+      </p>
+    </div>
+  </div>
+</footer>

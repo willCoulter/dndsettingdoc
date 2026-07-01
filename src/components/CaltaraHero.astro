@@ -1,0 +1,33 @@
+---
+import { Image } from "astro:assets";
+import Sigil from "./Sigil.astro";
+import caltara from "../assets/Caltara.png";
+---
+
+<section id="caltara-top" class="relative h-[86svh] min-h-[560px] w-full overflow-hidden bg-[var(--color-obsidian)]">
+  <Image
+    src={caltara}
+    alt="Caltara, capital of the Caltaran Republic"
+    class="absolute inset-0 h-full w-full object-cover object-center scale-[1.04]"
+    widths={[640, 1024, 1600, 2396]}
+    sizes="100vw"
+    priority
+  />
+
+  <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-obsidian)] via-[var(--color-obsidian)]/40 to-transparent"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-[var(--color-obsidian)]/50 via-transparent to-[var(--color-obsidian)]/30"></div>
+  <div class="absolute inset-0 bg-grain"></div>
+  <div class="pointer-events-none absolute inset-0 shadow-[inset_0_0_160px_60px_rgba(10,9,7,0.55)]"></div>
+
+  <div class="relative z-10 flex h-full flex-col items-center justify-end px-6 pb-20 text-center sm:pb-24">
+    <p class="eyebrow text-[var(--color-gold-bright)]">Capital of the Caltaran Republic</p>
+    <h1 class="mt-5 font-display font-black uppercase text-gold-gradient leading-[0.95] text-6xl sm:text-7xl lg:text-8xl tracking-wide">
+      Caltara
+    </h1>
+    <Sigil class="mt-6" />
+    <p class="mt-6 max-w-xl font-body text-lg text-[var(--color-parchment)]/90 italic">
+      Where the Covenant of White Shores was signed two centuries ago, and
+      where its cracks still show clearest.
+    </p>
+  </div>
+</section>

@@ -1,0 +1,17 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className = "" } = Astro.props;
+---
+
+<div class={`flex items-center justify-center gap-4 ${className}`} aria-hidden="true">
+  <span class="h-px w-16 sm:w-28 bg-gradient-to-r from-transparent to-[var(--color-gold-dim)]"></span>
+  <svg width="26" height="26" viewBox="0 0 26 26" class="text-[var(--color-gold)] shrink-0">
+    <g fill="none" stroke="currentColor" stroke-width="1">
+      <rect x="8" y="8" width="10" height="10" transform="rotate(45 13 13)" />
+      <circle cx="13" cy="13" r="2" fill="currentColor" stroke="none" />
+    </g>
+  </svg>
+  <span class="h-px w-16 sm:w-28 bg-gradient-to-l from-transparent to-[var(--color-gold-dim)]"></span>
+</div>

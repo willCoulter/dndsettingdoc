@@ -1,0 +1,62 @@
+---
+import Sigil from "./Sigil.astro";
+
+const guilds = [
+  {
+    name: "The Merchant Marine Guild",
+    color: "var(--color-gold)",
+    body: "Every hull that clears Caltara's harbor under Republic colors answers to this guild first and the Senate second. It sets shipping rates, arbitrates cargo disputes, and keeps the only chart of the coast anyone trusts without double-checking.",
+  },
+  {
+    name: "The Masons' & Smiths' Guild",
+    color: "var(--color-ember-bright)",
+    body: "Nothing load-bearing goes up in the capital without their stamp, which in practice means the Iolan Institute's graduates and the guild's inspectors are the same dozen faces at every major site. Getting one to fast-track a permit is a favor people remember owing.",
+  },
+  {
+    name: "The Vintners' Guild",
+    color: "var(--color-verdigris)",
+    body: "Run for eleven years now from a lily pond in its own courtyard by Guildmaster Ferro — a hag's work, depending who's asked — with a secretary fluent in croaks. The wine is, against all odds, better than it was under his predecessor.",
+  },
+  {
+    name: "The Central Districts' Guild Houses",
+    color: "var(--color-blood-bright)",
+    body: "Not one guild but the old alliance of them, headquartered in the Old Wards and quietly run by Guildmistress Corvane. She decides how long a guild application sits on a desk. She has never once explained why, and the Senate bill meant to change that has sat in committee for two sessions.",
+  },
+];
+---
+
+<section id="guilds" class="relative bg-[var(--color-obsidian-light)] bg-grain py-28 sm:py-36 px-6">
+  <div class="mx-auto max-w-6xl">
+    <div class="text-center">
+      <p class="eyebrow">Belonging, Priced Accordingly</p>
+      <h2 class="mt-4 font-display text-4xl sm:text-5xl text-[var(--color-parchment)] tracking-wide">
+        The Guild <span class="text-gold-gradient">Houses</span>
+      </h2>
+      <Sigil class="mt-7" />
+      <p class="mt-8 mx-auto max-w-2xl text-[var(--color-parchment-dim)] text-lg leading-relaxed">
+        A guild seal is the fastest legal route to civic standing in the
+        Republic. Which guild, and how fast, depends on who's asking.
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-6 sm:grid-cols-2">
+      {guilds.map((g, i) => (
+        <div
+          class="group relative panel-carved p-8 overflow-hidden animate-rise"
+          style={`animation-delay: ${0.08 + i * 0.1}s`}
+        >
+          <span class="corner-ornament tl"></span>
+          <span class="corner-ornament tr"></span>
+          <span class="corner-ornament bl"></span>
+          <span class="corner-ornament br"></span>
+          <span
+            class="absolute left-0 top-0 h-full w-[3px] transition-[width] duration-300 group-hover:w-[5px]"
+            style={`background:${g.color};`}
+          ></span>
+          <h3 class="font-display text-2xl text-[var(--color-parchment)] tracking-wide">{g.name}</h3>
+          <p class="mt-4 text-[var(--color-parchment-dim)] leading-relaxed">{g.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,54 @@
+---
+import Sigil from "./Sigil.astro";
+
+const universities = [
+  {
+    name: "The Evarine Academy",
+    epithet: "Seat of Forbidden Study",
+    color: "var(--color-gold)",
+    body: "Chartered by Evari's clergy and never quite disowned by them, the Academy trains tutors, archivists, and self-taught mages the guild-licensed colleges won't touch. Admission has no fee and no faculty vote — only the Open Question, asked once a year, answered correctly or not at all.",
+  },
+  {
+    name: "The College of the Ledger",
+    epithet: "Law, Rhetoric, and the Long Record",
+    color: "var(--color-verdigris)",
+    body: "Where the Republic trains the aides, advocates, and archivists who actually keep it running. Half the Open Senate's staff graduated here, and the College's oath of testimony — sworn before a portrait of Thessar, not her altar — is taken almost as seriously as the real thing.",
+  },
+  {
+    name: "The Iolan Institute of Making",
+    epithet: "Engineering Under Iola's Seal",
+    color: "var(--color-ember-bright)",
+    body: "Masons, smiths, and shipwrights train here before they're trusted with anything load-bearing. A journeyman's final project gets inspected by working Iolan clergy — the same certification that decides whether a building in the capital is one most Caltarans will enter.",
+  },
+];
+---
+
+<section id="universities" class="relative bg-[var(--color-obsidian-light)] bg-grain py-28 sm:py-36 px-6">
+  <div class="mx-auto max-w-6xl">
+    <div class="text-center">
+      <p class="eyebrow">Where the Republic Trains Its Own</p>
+      <h2 class="mt-4 font-display text-4xl sm:text-5xl text-[var(--color-parchment)] tracking-wide">
+        Halls of <span class="text-gold-gradient">Learning</span>
+      </h2>
+      <Sigil class="mt-7" />
+      <p class="mt-8 mx-auto max-w-2xl text-[var(--color-parchment-dim)] text-lg leading-relaxed">
+        None of the three answer to the guild houses, which is precisely why
+        the guild houses keep trying to buy a seat on each of their boards.
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-6 sm:gap-8 md:grid-cols-3">
+      {universities.map((u, i) => (
+        <div class="panel-carved p-8 animate-rise" style={`animation-delay: ${0.08 + i * 0.1}s`}>
+          <span class="corner-ornament tl"></span>
+          <span class="corner-ornament tr"></span>
+          <span class="corner-ornament bl"></span>
+          <span class="corner-ornament br"></span>
+          <p class="font-display text-xs tracking-[0.25em] uppercase" style={`color:${u.color}`}>{u.epithet}</p>
+          <h3 class="mt-3 font-display text-2xl text-[var(--color-parchment)] tracking-wide">{u.name}</h3>
+          <p class="mt-4 text-[var(--color-parchment-dim)] leading-relaxed">{u.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

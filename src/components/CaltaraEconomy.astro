@@ -1,0 +1,51 @@
+---
+import Sigil from "./Sigil.astro";
+
+const pillars = [
+  {
+    title: "The Harbor Runs the Ledger",
+    body: "Deep-water trade is Caltara's real treasury — grain and timber down the coast, salt and dye up it, and whatever Luth'mar's markets are moving through in a given season. Senate tariffs fund most of the Republic's budget, which is why the Open Senate fights harder over harbor policy than almost anything else on its docket.",
+  },
+  {
+    title: "Standing Is Currency, Too",
+    body: "A guild seal doesn't just grant civic standing — it grants pricing. Sealed goods clear customs faster, sealed contracts hold up better in court, and an unsealed merchant competing against a guild house is competing with one hand behind their back. The old central districts still decide who gets sealed quickly and who waits.",
+  },
+  {
+    title: "War Pays Better Than Peace",
+    body: "The northern campaign has been good for Passfoot's depots, the Iolan Institute's fortification contracts, and every quartermaster with a supply line to the pass. Nobody in the Ledger Quarter says this out loud in front of the families who've sent someone north, but the budget votes say it plainly enough.",
+  },
+];
+---
+
+<section id="economy" class="relative bg-marble bg-grain py-28 sm:py-36 px-6">
+  <div class="mx-auto max-w-6xl">
+    <div class="text-center">
+      <p class="eyebrow">What Actually Funds the Republic</p>
+      <h2 class="mt-4 font-display text-4xl sm:text-5xl text-[var(--color-parchment)] tracking-wide">
+        The <span class="text-gold-gradient">Economy</span>
+      </h2>
+      <Sigil class="mt-7" />
+      <p class="mt-8 mx-auto max-w-2xl text-[var(--color-parchment-dim)] text-lg leading-relaxed">
+        Two centuries of coastal trade built the Republic's treasury. It also
+        built the exact leverage the old guild houses use to slow-walk
+        everyone else.
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-6 sm:gap-8 md:grid-cols-3">
+      {pillars.map((p, i) => (
+        <div class="panel-carved p-8 animate-rise" style={`animation-delay: ${0.1 + i * 0.12}s`}>
+          <span class="corner-ornament tl"></span>
+          <span class="corner-ornament tr"></span>
+          <span class="corner-ornament bl"></span>
+          <span class="corner-ornament br"></span>
+          <span class="font-display text-[var(--color-gold-dim)] text-sm tracking-[0.3em]">
+            {String(i + 1).padStart(2, "0")}
+          </span>
+          <h3 class="mt-3 font-display text-2xl text-[var(--color-gold-bright)] tracking-wide">{p.title}</h3>
+          <p class="mt-4 text-[var(--color-parchment-dim)] leading-relaxed">{p.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

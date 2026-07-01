@@ -1,0 +1,46 @@
+---
+const links = [
+  { href: "/#lore", label: "Lore" },
+  { href: "/caltara", label: "Caltara" },
+  { href: "/#gods", label: "Gods" },
+  { href: "/#homelands", label: "Homelands" },
+  { href: "/#creation", label: "Create" },
+  { href: "/#power", label: "Power" },
+  { href: "/#factions", label: "Houses" },
+  { href: "/#figures", label: "Figures" },
+  { href: "/#summons", label: "The Summons" },
+  { href: "/#session-zero", label: "Session Zero" },
+];
+---
+
+<header class="fixed top-0 inset-x-0 z-50 border-b border-[var(--color-bronze-dark)]/70 bg-[var(--color-obsidian)]/85 backdrop-blur-md">
+  <div class="mx-auto max-w-7xl px-6 lg:px-10 flex items-center justify-between h-16 sm:h-[4.5rem]">
+    <a href="/#top" class="flex items-center gap-3 group">
+      <svg width="30" height="30" viewBox="0 0 30 30" class="text-[var(--color-gold)] shrink-0 transition-transform duration-500 group-hover:rotate-90">
+        <g fill="none" stroke="currentColor" stroke-width="1.1">
+          <rect x="3" y="3" width="24" height="24" transform="rotate(45 15 15)" />
+          <circle cx="15" cy="15" r="3.5" />
+        </g>
+      </svg>
+      <span class="font-display text-lg sm:text-xl tracking-roman text-[var(--color-parchment)]">ELDERAN</span>
+    </a>
+
+    <nav class="hidden xl:flex items-center gap-5 2xl:gap-7">
+      {links.map((l) => (
+        <a
+          href={l.href}
+          class="font-display text-xs tracking-[0.22em] uppercase text-[var(--color-parchment-dim)] hover:text-[var(--color-gold-bright)] transition-colors"
+        >
+          {l.label}
+        </a>
+      ))}
+    </nav>
+
+    <a
+      href="/#creation"
+      class="hidden sm:inline-flex items-center gap-2 border border-[var(--color-gold-dim)] px-4 py-2 font-display text-xs tracking-[0.18em] uppercase text-[var(--color-gold-bright)] hover:bg-[var(--color-gold-dim)]/10 hover:border-[var(--color-gold)] transition-colors"
+    >
+      Enter the Republic
+    </a>
+  </div>
+</header>

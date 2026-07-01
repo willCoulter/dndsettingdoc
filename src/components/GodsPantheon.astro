@@ -1,0 +1,438 @@
+---
+import { Image } from "astro:assets";
+import Sigil from "./Sigil.astro";
+
+import turakImg from "../assets/gods/turak.jpg";
+import oakheartImg from "../assets/gods/oakheart.jpg";
+import enochImg from "../assets/gods/enoch.jpg";
+import elisarAlderImg from "../assets/gods/elisarAlder.jpg";
+import karnaImg from "../assets/gods/karna.jpg";
+import evariImg from "../assets/gods/evari.jpg";
+import aurenImg from "../assets/gods/auren.jpg";
+import marenImg from "../assets/gods/maren.jpg";
+import cassImg from "../assets/gods/cass.jpg";
+import iolaImg from "../assets/gods/Iola.jpg";
+import saethImg from "../assets/gods/Saeth.jpg";
+import thessarImg from "../assets/gods/Thessar.jpg";
+
+const accents = [
+  "var(--color-gold)",
+  "var(--color-verdigris)",
+  "var(--color-blood-bright)",
+  "var(--color-ember-bright)",
+];
+
+const gods = [
+  {
+    name: "Turak",
+    epithet: "The Titan",
+    image: turakImg,
+    domain: "God of strength, contests, and open challenge",
+    body: "His followers are champions, arena fighters, and anyone who'd rather win in front of a crowd than in the dark. The Standing Challenge, sworn in his name, is a formal, witnessed duel. Refusing one costs you standing in any guild that recognizes the rite. Caltara's guild houses still settle disputed contracts this way more often than the courts would like.",
+  },
+  {
+    name: "Oakheart",
+    epithet: "The Sentinel",
+    image: oakheartImg,
+    domain: "God of sentinels, soldiers, and the wilderness",
+    body: "His followers tend to be soldiers, wardens, parents, and anyone else whose life is organized around protecting something specific. The Warden's Vow, taken before his altar, is a binding formal oath his clergy takes seriously enough to track. There are outstanding Warden's Vows in the Republic right now whose holders his clergy is watching.",
+  },
+  {
+    name: "Enoch",
+    epithet: "The Mortal",
+    image: enochImg,
+    domain: "God of refusal, restraint, and willpower",
+    body: "His followers are ex-soldiers, the recovering, and anyone who has had to say no to something that wanted them badly. The Plain Refusal — a spoken renunciation before his altar — is recorded by his clergy without explanation required. By a custom older than the Senate, people who take it are left alone about it afterward.",
+  },
+  {
+    name: "Elisar & Alder",
+    epithet: "The Fates",
+    image: elisarAlderImg,
+    domain: "Gods of mortality, shared duty, and twin obligation",
+    body: "Their followers are undertakers, midwives, and anyone tending both ends of a life at once. The Paired Vow is sworn by two people taking on a shared duty neither could carry alone — twins, partners, co-guardians. Breaking it is said to cost both parties, not just the one who broke it.",
+  },
+  {
+    name: "Karna",
+    epithet: "The Lady of Ash",
+    image: karnaImg,
+    domain: "God of strategy, command, and hard choices made early",
+    body: "Her followers are officers, quartermasters, and anyone who has to decide before they have enough information. Petitioners pray to her before an engagement, not after — asking for the read, not the rescue. Caltaran officers still consult Karnite oracles before major troop movements, including, reportedly, the current northern campaign.",
+  },
+  {
+    name: "Evari",
+    epithet: "The Scholar",
+    image: evariImg,
+    domain: "God of forbidden study and hard-won knowledge",
+    body: "His followers are tutors, archivists, and self-taught mages who learned outside any guild license. His clergy keeps the Open Question — one true question, answered once a year, for anyone who asks it correctly. What 'correctly' means is the entire trick, and his church isn't telling.",
+  },
+  {
+    name: "Auren",
+    epithet: "The Voice",
+    image: aurenImg,
+    domain: "God of song, memory, and grief turned into art",
+    body: "Her followers are bards, mourners-for-hire, and anyone who'd rather sing the truth than say it plainly. Her clergy maintains an unperformed archive of her wartime compositions. Scholars have petitioned for decades to hear them and been refused every time.",
+  },
+  {
+    name: "Maren",
+    epithet: "The Current",
+    image: marenImg,
+    domain: "God of the sea, travel, and calculated risk",
+    body: "Her followers are sailors, smugglers, and merchants who ship anything by water. The Toll — a coin left at her shrine before departure — isn't payment; it's an admission the sea doesn't owe anyone safe passage. Captains who skip it are remembered for it, usually after the fact.",
+  },
+  {
+    name: "Cass",
+    epithet: "The Wanderer",
+    image: cassImg,
+    domain: "God of bargains, luck, and travel between places that don't want to be connected",
+    body: "His followers are merchants, gamblers, couriers, and debt-collectors. The Honest Wager — any bet made in his name — is treated as legally binding in Caltara's lower courts, provided both sides agreed knowingly. His church polices the 'knowingly' part more strictly than most expect.",
+  },
+  {
+    name: "Iola",
+    epithet: "The Maker",
+    image: iolaImg,
+    domain: "God of craft, construction, and work done right under pressure",
+    body: "Her followers are engineers, masons, and smiths — anyone building something that has to hold. Her clergy certifies major construction work in the capital. A building stamped uninspected by an Iolan mason is a building most Caltarans won't enter.",
+  },
+  {
+    name: "Saeth",
+    epithet: "The Quiet",
+    image: saethImg,
+    domain: "God of survivors and what war costs after it's over",
+    body: "His followers are medics, veterans, refugees, and half-orcs in particular, given his own face. His shrines keep a standing, unbooked appointment called the Quiet Hour — open to anyone who needs to sit without being asked questions. No vow, no offering required.",
+  },
+  {
+    name: "Thessar",
+    epithet: "The Witness",
+    image: thessarImg,
+    domain: "God of record, testimony, and things written down so they can't be argued away",
+    body: "Her followers are scribes, historians, and court recorders. Testimony given before her altar is treated as sworn fact by tradition, if not always by law. The Senate has spent sixty years trying to formally change that, and failing.",
+  },
+];
+
+const toRoman = (n: number) => {
+  const table: [number, string][] = [
+    [1000, "M"], [900, "CM"], [500, "D"], [400, "CD"],
+    [100, "C"], [90, "XC"], [50, "L"], [40, "XL"],
+    [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"],
+  ];
+  let result = "";
+  let num = n;
+  for (const [value, symbol] of table) {
+    while (num >= value) {
+      result += symbol;
+      num -= value;
+    }
+  }
+  return result;
+};
+
+const mid = (gods.length - 1) / 2;
+const cards = gods.map((g, i) => {
+  const offset = i - mid;
+  return {
+    ...g,
+    id: g.name.toLowerCase().replace(/[^a-z]+/g, "-"),
+    numeral: toRoman(i + 1),
+    accent: accents[i % accents.length],
+    rot: +(offset * 4.6).toFixed(1),
+    lift: Math.round(Math.pow(Math.abs(offset), 1.5) * 4.1),
+  };
+});
+
+const cardCss = cards
+  .map(
+    (c) => `
+#gods:has(#god-${c.id}:checked) #gods-hand label[for="god-${c.id}"] {
+  border-color: var(--color-gold);
+  box-shadow: 0 18px 34px -16px rgba(0, 0, 0, 0.9), 0 0 0 1px var(--color-gold);
+  transform: translateY(calc(var(--lift) * -1 - 33px)) rotate(0deg);
+  z-index: 50;
+}
+#gods:has(#god-${c.id}:checked) #gods-reveal .god-entry--${c.id} {
+  display: block;
+}`
+  )
+  .join("\n");
+---
+
+<section id="gods" class="relative bg-marble bg-grain py-28 sm:py-36 px-6 overflow-hidden">
+  <div class="mx-auto max-w-6xl">
+    <div class="text-center">
+      <p class="eyebrow">What the War Left Behind</p>
+      <h2 class="mt-4 font-display text-4xl sm:text-5xl text-[var(--color-parchment)] tracking-wide">
+        The <span class="text-gold-gradient">Living Gods</span>
+      </h2>
+      <Sigil class="mt-7" />
+      <p class="mt-8 mx-auto max-w-2xl text-[var(--color-parchment-dim)] text-lg leading-relaxed">
+        Twelve mortals fought in the God Wars and did not die. The Republic
+        doesn't call what happened to them magic, or miracle, or curse &mdash;
+        only ascension, because none of those words quite cover it. Most
+        haven't been seen in two centuries. Their clergy keep their houses
+        anyway.
+      </p>
+      <p class="mt-3 text-sm tracking-wide text-[var(--color-gold-dim)] font-display uppercase">
+        Draw a card to hear their account
+      </p>
+    </div>
+
+    <div id="gods-hand" class="god-hand mt-20 sm:mt-24">
+      {cards.map((c, i) => (
+        <label
+          for={`god-${c.id}`}
+          class="god-card"
+          style={`--rot:${c.rot}deg; --lift:${c.lift}px; --accent:${c.accent};`}
+        >
+          <input
+            type="radio"
+            name="god-card"
+            id={`god-${c.id}`}
+            class="sr-only"
+            checked={i === 0}
+          />
+          <Image
+            src={c.image}
+            alt=""
+            aria-hidden="true"
+            class="god-card-img"
+            widths={[172, 188, 376]}
+            sizes="188px"
+          />
+          <span class="god-card-shade" aria-hidden="true"></span>
+          <span class="god-card-glow" aria-hidden="true"></span>
+          <span class="god-card-numeral">{c.numeral}</span>
+          <span class="god-card-emblem" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 34 34">
+              <g fill="none" stroke="var(--accent)" stroke-width="1">
+                <rect x="5" y="5" width="24" height="24" transform="rotate(45 17 17)" />
+                <circle cx="17" cy="17" r="9" />
+                <circle cx="17" cy="17" r="2" fill="var(--accent)" stroke="none" />
+              </g>
+            </svg>
+          </span>
+          <span class="god-card-name">{c.name}</span>
+          <span class="god-card-epithet" style={`color:${c.accent}`}>{c.epithet}</span>
+        </label>
+      ))}
+    </div>
+
+    <div id="gods-reveal" class="god-reveal panel-carved mt-14 mx-auto max-w-2xl p-8 sm:p-10">
+      <span class="corner-ornament tl"></span>
+      <span class="corner-ornament tr"></span>
+      <span class="corner-ornament bl"></span>
+      <span class="corner-ornament br"></span>
+
+      {cards.map((c) => (
+        <div class={`god-entry god-entry--${c.id}`}>
+          <div class="god-entry-head">
+            <span class="god-entry-portrait" style={`--accent:${c.accent}`}>
+              <Image
+                src={c.image}
+                alt={`${c.name}, ${c.epithet}`}
+                class="god-entry-portrait-img"
+                widths={[160, 240]}
+                sizes="120px"
+              />
+              <span class="god-entry-portrait-emblem" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 34 34">
+                  <g fill="none" stroke="var(--accent)" stroke-width="1.2">
+                    <rect x="5" y="5" width="24" height="24" transform="rotate(45 17 17)" />
+                    <circle cx="17" cy="17" r="2" fill="var(--accent)" stroke="none" />
+                  </g>
+                </svg>
+              </span>
+            </span>
+            <div>
+              <p class="font-display text-xs tracking-[0.25em]" style={`color:${c.accent}`}>
+                {c.numeral}
+              </p>
+              <h3 class="mt-1 font-display text-2xl sm:text-3xl text-[var(--color-parchment)] tracking-wide">
+                {c.name}
+              </h3>
+              <p class="font-display text-sm italic tracking-wide" style={`color:${c.accent}`}>
+                {c.epithet}
+              </p>
+            </div>
+          </div>
+
+          <p class="mt-6 font-display text-xs tracking-[0.18em] uppercase text-[var(--color-gold-dim)]">
+            {c.domain}
+          </p>
+          <p class="mt-3 text-[var(--color-parchment-dim)] leading-relaxed">{c.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style set:html={`
+  #gods .god-hand {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding: 2.5rem 1rem 1rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #gods .god-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 0 auto;
+    width: 172px;
+    aspect-ratio: 0.6;
+    padding: 0.9rem 0.7rem 1.05rem;
+    cursor: pointer;
+    overflow: hidden;
+    border: 1px solid var(--color-bronze-dark);
+    background: linear-gradient(165deg, var(--color-charcoal), var(--color-obsidian-light));
+    box-shadow: 0 10px 22px -14px rgba(0, 0, 0, 0.85);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+  }
+  #gods .god-card + .god-card {
+    margin-left: -69px;
+  }
+  #gods .god-card-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.5) brightness(0.55) contrast(1.05);
+  }
+  #gods .god-card-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10, 9, 7, 0.25) 0%, rgba(10, 9, 7, 0.55) 55%, rgba(10, 9, 7, 0.92) 100%);
+  }
+  #gods .god-card::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent);
+    pointer-events: none;
+    z-index: 2;
+  }
+  #gods .god-card:hover {
+    transform: translateY(-19px);
+    z-index: 40;
+  }
+  #gods .god-card:hover .god-card-img {
+    filter: grayscale(0.15) brightness(0.65) contrast(1.05);
+  }
+
+  @media (min-width: 768px) {
+    #gods .god-hand {
+      overflow: visible;
+    }
+    #gods .god-card {
+      width: 188px;
+      transform: rotate(var(--rot)) translateY(var(--lift));
+      transform-origin: bottom center;
+    }
+    #gods .god-card + .god-card {
+      margin-left: -78px;
+    }
+    #gods .god-card:hover {
+      transform: rotate(var(--rot)) translateY(calc(var(--lift) * -1 - 17px));
+    }
+  }
+
+  #gods .god-card-glow {
+    position: absolute;
+    top: 26%;
+    left: 50%;
+    width: 70%;
+    height: 38%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--accent) 40%, transparent) 0%, transparent 75%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  #gods .god-card-numeral,
+  #gods .god-card-emblem,
+  #gods .god-card-name,
+  #gods .god-card-epithet {
+    position: relative;
+    z-index: 2;
+  }
+  #gods .god-card-numeral {
+    font-family: var(--font-display);
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    color: var(--color-gold-dim);
+  }
+  #gods .god-card-emblem {
+    margin-top: 0.7rem;
+  }
+  #gods .god-card-emblem svg {
+    width: 36px;
+    height: 36px;
+  }
+  #gods .god-card-name {
+    margin-top: auto;
+    font-family: var(--font-display);
+    font-size: 0.98rem;
+    letter-spacing: 0.03em;
+    color: var(--color-parchment);
+    text-align: center;
+    line-height: 1.15;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  }
+  #gods .god-card-epithet {
+    margin-top: 0.25rem;
+    font-family: var(--font-display);
+    font-size: 0.68rem;
+    font-style: italic;
+    letter-spacing: 0.03em;
+    text-align: center;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  }
+
+  #gods .god-entry {
+    display: none;
+    animation: gods-rise 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  #gods .god-entry-head {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+  }
+  #gods .god-entry-portrait {
+    position: relative;
+    flex-shrink: 0;
+    width: 76px;
+    height: 76px;
+    border-radius: 9999px;
+    overflow: hidden;
+    border: 1px solid var(--accent);
+    box-shadow: 0 0 0 4px var(--color-obsidian), 0 0 0 5px color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  #gods .god-entry-portrait-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.35) brightness(0.85) contrast(1.05);
+  }
+  #gods .god-entry-portrait-emblem {
+    position: absolute;
+    right: -3px;
+    bottom: -3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 9999px;
+    background: var(--color-obsidian);
+    border: 1px solid var(--accent);
+  }
+  @keyframes gods-rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  ${cardCss}
+`} />

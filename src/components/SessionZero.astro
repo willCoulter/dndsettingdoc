@@ -1,0 +1,55 @@
+---
+import Sigil from "./Sigil.astro";
+
+const pillars = [
+  {
+    title: "The Table We're Building",
+    body: "Elderan runs on politics, war, and characters who have to live with their choices — the Republic rarely offers a clean option. Expect moral ambiguity, factions that all have a point, and consequences that outlast a single session. It is not a grimdark game; it's one where people are trying, and mostly failing, to be as good as their laws say they are.",
+  },
+  {
+    title: "Say What You Need",
+    body: "There's no card to tap or safe word mid-scene — we handle this the direct way. Before the campaign starts, everyone at the table talks through tone, content lines, and what they're here for, out loud, together. If something needs adjusting once we're playing, say so and we'll pause and sort it out then, too.",
+  },
+  {
+    title: "Where Every Story Starts",
+    body: "Whatever homeland your character claims — or doesn't — the story picks up in Caltara, drawn in by Lysander's summons to Calden. You don't need a reason prepared in advance for why you're there; you need a reason your character would answer that letter at all.",
+  },
+];
+---
+
+<section id="session-zero" class="relative bg-[var(--color-obsidian-light)] bg-grain py-28 sm:py-36 px-6">
+  <div class="mx-auto max-w-6xl">
+    <div class="text-center">
+      <p class="eyebrow">Before You Sit Down</p>
+      <h2 class="mt-4 font-display text-4xl sm:text-5xl text-[var(--color-parchment)] tracking-wide">
+        Session <span class="text-gold-gradient">Zero</span>
+      </h2>
+      <Sigil class="mt-7" />
+      <p class="mt-8 mx-auto max-w-2xl text-[var(--color-parchment-dim)] text-lg leading-relaxed">
+        Before the dice come out, here's the conversation we're already having
+        — what this game is, how we look out for each other, and how your
+        character gets pulled into it.
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-6 sm:gap-8 md:grid-cols-3">
+      {pillars.map((p, i) => (
+        <div class="panel-carved p-8 animate-rise" style={`animation-delay: ${0.1 + i * 0.12}s`}>
+          <span class="corner-ornament tl"></span>
+          <span class="corner-ornament tr"></span>
+          <span class="corner-ornament bl"></span>
+          <span class="corner-ornament br"></span>
+          <span class="font-display text-[var(--color-gold-dim)] text-sm tracking-[0.3em]">
+            {String(i + 1).padStart(2, "0")}
+          </span>
+          <h3 class="mt-3 font-display text-2xl text-[var(--color-gold-bright)] tracking-wide">
+            {p.title}
+          </h3>
+          <p class="mt-4 text-[var(--color-parchment-dim)] leading-relaxed">
+            {p.body}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

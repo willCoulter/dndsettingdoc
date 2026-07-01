@@ -1,0 +1,499 @@
+---
+import { Image } from "astro:assets";
+import Sigil from "./Sigil.astro";
+import authorityImg from "../assets/authority.jpg";
+import compassionImg from "../assets/compassion.jpg";
+import ambitionImg from "../assets/ambition.jpg";
+import zealImg from "../assets/zeal.jpg";
+import vigilImg from "../assets/vigil.jpg";
+import decayImg from "../assets/decay.jpg";
+import creationImg from "../assets/creation.jpg";
+import guileImg from "../assets/guile.jpg";
+import justiceImg from "../assets/justice.jpg";
+import reasonImg from "../assets/reason.jpg";
+
+const paths = [
+  {
+    id: "authority",
+    name: "Authority",
+    epithet: "The Root Aspect",
+    color: "var(--color-gold)",
+    image: authorityImg,
+    blurb:
+      "Every heir in Elderan carries a sliver of Authority — it is the divine power all others descend from. Those who manifest it directly bend law, oath, and order to their will.",
+    major: [
+      { name: "The Unbroken Word", desc: "Passive: gain expertise in one Charisma skill of your choice (double your proficiency bonus on checks with it). Your word, once given, simply tends to carry." },
+      { name: "Mantle of the Closed Seat", desc: "1/long rest, bonus action: up to three creatures within 30 ft who can hear you make a Wisdom save or are frightened of you and can take no action against you until the end of your next turn." },
+      { name: "The Last Verdict", desc: "1/long rest, reaction when reduced to 0 HP: drop to 1 HP instead, and the triggering creature must succeed on a Wisdom save or be unable to target you again for the rest of the encounter." },
+    ],
+    minor: [
+      { name: "Steady Hand", desc: "Passive: allies within 10 ft of you have advantage on saves against being frightened while you remain conscious." },
+      { name: "The Long Memory", desc: "Passive: you perfectly recall every oath sworn to you and instantly know if someone present has broken one." },
+      { name: "Borrowed Crown", desc: "1/long rest: gain advantage on a Deception or Persuasion check made to claim authority you don't actually hold." },
+    ],
+  },
+  {
+    id: "compassion",
+    name: "Compassion",
+    epithet: "The Sheltering Aspect",
+    color: "var(--color-verdigris)",
+    image: compassionImg,
+    blurb:
+      "Compassion is Authority turned toward protection — the divine right to shelter, heal, and hold a line others have given up on.",
+    major: [
+      { name: "The Open Hand", desc: "1/long rest: a creature you touch can't be charmed, frightened, or possessed for 8 hours." },
+      { name: "Caltara's Mercy", desc: "1/long rest, reaction: when a creature within 30 ft drops to 0 HP, it instead drops to 1 HP." },
+      { name: "The Unbroken Vigil", desc: "When you take the Watch during a short or long rest, each ally who spends a Hit Die to heal regains an extra 1d8 HP." },
+    ],
+    minor: [
+      { name: "A Kind Face", desc: "Passive: advantage on Insight checks against frightened, grieving, or distressed creatures." },
+      { name: "Shared Burden", desc: "1/short rest: touch a creature to remove the frightened or poisoned condition from it; you suffer that condition in its place for 1 minute." },
+      { name: "The Healer's Memory", desc: "Passive: you automatically know the general cause of any wound you treat with a Medicine check." },
+    ],
+  },
+  {
+    id: "ambition",
+    name: "Ambition",
+    epithet: "The Climbing Aspect",
+    color: "var(--color-blood-bright)",
+    image: ambitionImg,
+    blurb:
+      "Ambition is Authority unclaimed — the conviction that what you want should, eventually, become what you have. The Republic calls it dangerous. It is rarely wrong.",
+    major: [
+      { name: "The Climbing Oath", desc: "1/long rest: after you drop a creature to 0 HP or succeed on a check tied to a personal goal, gain advantage on your next attack roll, ability check, or save." },
+      { name: "Eyes on the Throne", desc: "1/long rest, action: sense the strongest desire of one creature within 30 ft. No save, but it knows its mind was read." },
+      { name: "What I Am Owed", desc: "1/long rest: an unattended object within 5 ft (worth up to 50 gp) counts as legally yours for 1 minute, for any effect or claim that cares about ownership." },
+    ],
+    minor: [
+      { name: "Hunger's Edge", desc: "When a creature insults or wrongs you, gain advantage on your next attack roll or ability check against it before the end of your next turn." },
+      { name: "Worth Watching", desc: "Passive: advantage on Persuasion checks to be remembered, recognized, or sought out later." },
+      { name: "The First Step", desc: "1/short rest: automatically succeed on an Investigation or Survival check to identify the first concrete step toward a stated goal." },
+    ],
+  },
+  {
+    id: "zeal",
+    name: "Zeal",
+    epithet: "The Burning Aspect",
+    color: "var(--color-ember-bright)",
+    image: zealImg,
+    blurb:
+      "Zeal is Authority set alight — devotion sharp enough to cut. Its heirs do not ask permission to believe, and the world has a habit of answering them anyway.",
+    major: [
+      { name: "The Burning Vow", desc: "1/long rest, action: allies within 30 ft who can hear you gain advantage on saves against being frightened or charmed until the end of your next turn." },
+      { name: "Witness Flame", desc: "1/long rest: a flame you light in true devotion can't be extinguished by non-magical means for 24 hours." },
+      { name: "The Final Sermon", desc: "1/long rest, action: make a Persuasion or Intimidation check against a crowd already wavering; treat the result as a natural 20." },
+    ],
+    minor: [
+      { name: "Unshaken", desc: "Passive: advantage on saving throws against being frightened." },
+      { name: "The Devoted Mark", desc: "Passive: you instantly recognize others devoted to your cause or faith on sight, and they recognize you." },
+      { name: "Small Miracles", desc: "1/long rest: perform a harmless, minor effect with no combat impact — a candle that won't gutter, a lock that clicks if already unlocked." },
+    ],
+  },
+  {
+    id: "vigil",
+    name: "Vigil",
+    epithet: "The Watching Aspect",
+    color: "var(--color-bronze)",
+    image: vigilImg,
+    blurb:
+      "Vigil is Authority that never rests — the divine claim to watch what others cannot bear to. Its heirs stand the post nobody relieves them from, and see what waits in the dark before it arrives.",
+    major: [
+      { name: "The Unclosing Eye", desc: "Passive: you can't be surprised while conscious, and you always act during a surprise round." },
+      { name: "The Long Watch", desc: "1/long rest, reaction: when an ally within 30 ft is targeted by an attack you can see coming, force the attacker to reroll the attack and use the new result." },
+      { name: "None Shall Pass Unmarked", desc: "1/long rest, action: mark up to three creatures within 60 ft you can see. For the next hour, you always know their exact direction and distance, even through walls." },
+    ],
+    minor: [
+      { name: "Sleepless", desc: "Passive: you no longer need to sleep to gain the benefits of a long rest, though you still require 4 hours of light activity." },
+      { name: "The Watcher's Instinct", desc: "Passive: advantage on Perception checks made to notice ambushes or hidden creatures." },
+      { name: "Stand the Post", desc: "1/short rest: for 1 minute, you remain aware of your surroundings even while unconscious or incapacitated, though you still cannot act." },
+    ],
+  },
+  {
+    id: "decay",
+    name: "Decay",
+    epithet: "The Withering Aspect",
+    color: "var(--color-ink-dim)",
+    image: decayImg,
+    blurb:
+      "Decay is Authority spent — the divine right to end what has overstayed. Its heirs feel the rot beneath every gilded thing, and the Republic fears what they could hasten if they chose to.",
+    major: [
+      { name: "The Patient Rot", desc: "1/long rest, action: touch an unattended object or structure; it ages a hundred years in an instant, crumbling to dust if organic or turning brittle if not." },
+      { name: "Withering Grasp", desc: "1/long rest: your next melee attack that hits deals an extra 2d6 necrotic damage, and the target's wounds resist natural healing for 24 hours." },
+      { name: "The Last Harvest", desc: "1/long rest, reaction when a creature within 30 ft dies: regain a number of hit points equal to half your level." },
+    ],
+    minor: [
+      { name: "Rendered Unto Dust", desc: "Passive: perishable food or drink you touch spoils within the hour, unless you will otherwise." },
+      { name: "The Smell of Endings", desc: "Passive: advantage on checks made to sense when something — a plan, an institution, a person — is dying or already dead." },
+      { name: "One Foot In", desc: "1/short rest: advantage on a saving throw against being frightened by death or the undead." },
+    ],
+  },
+  {
+    id: "creation",
+    name: "Creation",
+    epithet: "The Shaping Aspect",
+    color: "var(--color-ember)",
+    image: creationImg,
+    blurb:
+      "Creation is Authority given form — the divine hand that first drew order out of raw and formless stuff. Its heirs shape what does not yet exist, though the Republic keeps careful ledgers of everyone who can.",
+    major: [
+      { name: "The First Word", desc: "1/long rest, action: shape up to 5 cubic feet of unworked stone, wood, or metal into any simple object or structure of your choosing, no tools required." },
+      { name: "Breath of Making", desc: "1/long rest: restore a broken or damaged object, up to Large size, to pristine condition, as if it had never been harmed." },
+      { name: "What Was Not, Now Is", desc: "1/long rest, action: conjure a simple mundane item, no larger than you can carry, out of nothing. It persists until you will it away or 24 hours pass." },
+    ],
+    minor: [
+      { name: "Steady Hands", desc: "Passive: advantage on checks made using artisan's tools you're proficient with." },
+      { name: "The Maker's Eye", desc: "Passive: you instantly know how a crafted object was made and what it would take to replicate it." },
+      { name: "Seed of Something", desc: "1/short rest: cause a plant seed to sprout and grow to maturity in front of you over the course of a minute." },
+    ],
+  },
+  {
+    id: "guile",
+    name: "Guile",
+    epithet: "The Veiled Aspect",
+    color: "var(--color-parchment-dim)",
+    image: guileImg,
+    blurb:
+      "Guile is Authority worn as a mask — the divine gift of being underestimated until it is far too late. Its heirs write the story others believe, and let the truth catch up whenever it likes.",
+    major: [
+      { name: "The Convenient Truth", desc: "1/long rest: when you tell a lie, up to three creatures who hear it must succeed on a Wisdom save or believe it wholeheartedly for 1 hour, even against evidence to the contrary." },
+      { name: "Borrowed Face", desc: "1/long rest, action: your appearance shifts to match any humanoid you've seen for 1 hour. Those who knew the original well get a Wisdom save to notice something is off." },
+      { name: "The Trap Already Sprung", desc: "1/long rest, reaction when you're targeted by an attack: reveal the moment was a setup and redirect the attack to another valid target within range, if you can justify how." },
+    ],
+    minor: [
+      { name: "Always a Way Out", desc: "Passive: you always know the quickest route to the nearest exit or hiding place in a room you've occupied for at least a minute." },
+      { name: "The Practiced Lie", desc: "Passive: advantage on Deception checks made to maintain a story you prepared in advance." },
+      { name: "Second Set of Books", desc: "1/short rest: forge or falsify a simple document convincingly enough to pass casual inspection." },
+    ],
+  },
+  {
+    id: "justice",
+    name: "Justice",
+    epithet: "The Weighing Aspect",
+    color: "var(--color-gold-bright)",
+    image: justiceImg,
+    blurb:
+      "Justice is Authority made impartial — the divine claim to weigh a matter clean of favor, kinship, or coin. Its heirs are trusted by strangers and feared by everyone with something to hide.",
+    major: [
+      { name: "The Even Scale", desc: "Passive: you always know if a creature within 30 ft is lying to you, though not what the truth is." },
+      { name: "The Bound Verdict", desc: "1/long rest, action: a creature you can see who has wronged another must succeed on a Wisdom save or be compelled to confess that wrong to the nearest lawful authority within the hour." },
+      { name: "Sentence Carried Out", desc: "1/long rest: your next attack against a creature you have witnessed commit a crime deals an extra 3d6 radiant damage." },
+    ],
+    minor: [
+      { name: "Impartial Eye", desc: "Passive: advantage on Insight checks made to determine whether someone believes they are in the right." },
+      { name: "The Fair Hearing", desc: "Passive: creatures find it difficult to interrupt or dismiss you while you are formally presenting a grievance or accusation." },
+      { name: "Small Reckonings", desc: "1/short rest: cause a minor, fitting inconvenience to befall someone who has recently wronged another in your presence — nothing harmful, just deserved." },
+    ],
+  },
+  {
+    id: "reason",
+    name: "Reason",
+    epithet: "The Measuring Aspect",
+    color: "var(--color-gold-dim)",
+    image: reasonImg,
+    blurb:
+      "Reason is Authority stripped of feeling — the divine certainty that a problem, held long enough, will yield to a clear enough mind. Its heirs solve what the rest of the Republic has stopped trying to.",
+    major: [
+      { name: "The Clean Solution", desc: "1/long rest: when you fail an Intelligence check, you may take a full minute to reconsider and treat the result as a natural 20 instead." },
+      { name: "Working Backward", desc: "1/long rest, action: examine the aftermath of an event and know the exact sequence of actions that caused it, though not who performed them." },
+      { name: "The Foreseen Flaw", desc: "1/long rest, reaction when a trap, device, or plan is about to affect you: identify its single greatest weakness in time to exploit or avoid it." },
+    ],
+    minor: [
+      { name: "Show Your Work", desc: "Passive: advantage on checks made to explain or teach a concept you understand to someone else." },
+      { name: "No Wasted Motion", desc: "Passive: you always know the most efficient way to accomplish a task you've already thought through." },
+      { name: "The Second Look", desc: "1/short rest: reexamine a conclusion you've already reached and gain advantage on one check made to verify or disprove it." },
+    ],
+  },
+  {
+    id: "convergence",
+    name: "Convergence",
+    epithet: "Uncharted Aspects",
+    color: "var(--color-parchment)",
+    image: null,
+    comingSoon: true,
+    blurb:
+      "Authority, Compassion, Ambition, Zeal, Vigil, Decay, Creation, Guile, Justice, and Reason are only the aspects the Republic has bothered to name. Other faces of the divine power are said to sleep in Elderan's heirs still, unclaimed and unmapped — waiting on the right story to wake them.",
+    major: [] as { name: string; desc: string }[],
+    minor: [] as { name: string; desc: string }[],
+  },
+];
+---
+
+<section id="power" class="relative bg-[var(--color-obsidian-light)] bg-grain py-28 sm:py-36 px-6">
+  <div class="mx-auto max-w-6xl">
+    <div class="text-center">
+      <p class="eyebrow">Heirs of the Divine</p>
+      <h2 class="mt-4 font-display text-4xl sm:text-5xl text-[var(--color-parchment)] tracking-wide">
+        Embrace Your <span class="text-gold-gradient">Power</span>
+      </h2>
+      <Sigil class="mt-7" />
+      <p class="mt-8 mx-auto max-w-2xl text-[var(--color-parchment-dim)] text-lg leading-relaxed">
+        Every soul born of Elderan is an heir to Authority, the divine power
+        beneath the world's order. Few ever wield it directly. This is that
+        track — separate from your level, and shaped by you alone.
+        <span class="block mt-3 text-base">
+          <span class="text-[var(--color-gold-bright)]">Major Powers</span>
+          rise with the campaign's main story.
+          <span class="text-[var(--color-gold-bright)]">Minor Powers</span>
+          are earned through backstory and the goals you set yourself.
+        </span>
+      </p>
+    </div>
+
+    <div class="power-track mt-16">
+      <input type="radio" name="power-path" id="tab-authority" class="sr-only" checked />
+      <input type="radio" name="power-path" id="tab-compassion" class="sr-only" />
+      <input type="radio" name="power-path" id="tab-ambition" class="sr-only" />
+      <input type="radio" name="power-path" id="tab-zeal" class="sr-only" />
+      <input type="radio" name="power-path" id="tab-vigil" class="sr-only" />
+      <input type="radio" name="power-path" id="tab-decay" class="sr-only" />
+      <input type="radio" name="power-path" id="tab-creation" class="sr-only" />
+      <input type="radio" name="power-path" id="tab-guile" class="sr-only" />
+      <input type="radio" name="power-path" id="tab-justice" class="sr-only" />
+      <input type="radio" name="power-path" id="tab-reason" class="sr-only" />
+      <input type="radio" name="power-path" id="tab-convergence" class="sr-only" />
+
+      <div class="power-grid">
+        <div class="power-cards">
+          {paths.map((p) => (
+            <label for={`tab-${p.id}`} class={`power-card power-card--${p.id}`}>
+              {p.image ? (
+                <Image
+                  src={p.image}
+                  alt={`The Path of ${p.name}`}
+                  class="power-card-img"
+                  widths={[240, 320, 480]}
+                  sizes="(min-width: 1024px) 180px, (min-width: 640px) 25vw, 45vw"
+                />
+              ) : (
+                <span class="power-card-placeholder" aria-hidden="true">
+                  <span class="conv-glow conv-glow--1"></span>
+                  <span class="conv-glow conv-glow--2"></span>
+                  <span class="conv-glow conv-glow--3"></span>
+                  <span class="conv-glow conv-glow--4"></span>
+                </span>
+              )}
+              <span class="power-card-overlay" aria-hidden="true"></span>
+              {p.comingSoon && (
+                <span class="power-card-badge">Coming Soon</span>
+              )}
+              <span class="power-card-text">
+                <span class="block font-display text-[0.5rem] tracking-[0.22em] uppercase" style={`color:${p.color}`}>
+                  {p.comingSoon ? "More Paths" : "Path of"}
+                </span>
+                <span class="block font-display text-sm sm:text-base text-[var(--color-parchment)] tracking-wide">
+                  {p.name}
+                </span>
+              </span>
+            </label>
+          ))}
+        </div>
+
+        <div class="power-panels panel-carved p-8 sm:p-10">
+          <span class="corner-ornament tl"></span>
+          <span class="corner-ornament tr"></span>
+          <span class="corner-ornament bl"></span>
+          <span class="corner-ornament br"></span>
+
+          {paths.map((p) => (
+            <div class={`power-panel power-panel--${p.id}`}>
+              <p class="eyebrow" style={`color:${p.color}`}>{p.epithet}</p>
+              <h3 class="mt-3 font-display text-3xl sm:text-4xl text-[var(--color-parchment)] tracking-wide">
+                {p.name}
+              </h3>
+              <p class="mt-4 text-[var(--color-parchment-dim)] leading-relaxed max-w-xl">
+                {p.blurb}
+              </p>
+
+              {p.comingSoon ? (
+                <div class="mt-9 flex flex-wrap items-center gap-4 border-t border-[var(--color-bronze-dark)]/60 pt-7">
+                  <span class="font-display text-xs tracking-[0.3em] uppercase text-[var(--color-gold-dim)]">
+                    &mdash; Undiscovered &mdash;
+                  </span>
+                  <span class="h-px flex-1 min-w-[3rem] bg-gradient-to-r from-[var(--color-bronze-dark)] to-transparent"></span>
+                  <span class="font-display text-sm text-[var(--color-parchment-dim)] italic">
+                    More Paths will be revealed as the campaign unfolds.
+                  </span>
+                </div>
+              ) : (
+                <div class="mt-9 grid gap-9 sm:grid-cols-2">
+                  <div>
+                    <h4 class="font-display text-xs tracking-[0.25em] uppercase" style={`color:${p.color}`}>
+                      Major Powers
+                      <span class="ml-2 normal-case tracking-normal text-[0.7rem] text-[var(--color-parchment-dim)]">
+                        — main story
+                      </span>
+                    </h4>
+                    <ul class="mt-5 space-y-4">
+                      {p.major.map((power) => (
+                        <li class="border-l border-[var(--color-bronze-dark)] pl-4">
+                          <p class="font-display text-[var(--color-parchment)]">{power.name}</p>
+                          <p class="mt-1 text-sm text-[var(--color-parchment-dim)] leading-relaxed">{power.desc}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 class="font-display text-xs tracking-[0.25em] uppercase" style={`color:${p.color}`}>
+                      Minor Powers
+                      <span class="ml-2 normal-case tracking-normal text-[0.7rem] text-[var(--color-parchment-dim)]">
+                        — backstory &amp; goals
+                      </span>
+                    </h4>
+                    <ul class="mt-5 space-y-4">
+                      {p.minor.map((power) => (
+                        <li class="border-l border-[var(--color-bronze-dark)] pl-4">
+                          <p class="font-display text-[var(--color-parchment)]">{power.name}</p>
+                          <p class="mt-1 text-sm text-[var(--color-parchment-dim)] leading-relaxed">{power.desc}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .power-grid {
+    display: grid;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .power-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
+  }
+  @media (min-width: 640px) {
+    .power-cards {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .power-cards {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  .power-card {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid var(--color-bronze-dark);
+    background: var(--color-charcoal);
+  }
+  .power-card-img {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    filter: grayscale(0.4) brightness(0.55);
+    transition: transform 0.6s ease, filter 0.4s ease;
+  }
+  .power-card:hover .power-card-img {
+    transform: scale(1.07);
+    filter: grayscale(0.05) brightness(0.7);
+  }
+  .power-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 35%, rgba(10, 9, 7, 0.85) 100%);
+  }
+  .power-card-text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.65rem 0.85rem;
+  }
+
+  .power-card-badge {
+    position: absolute;
+    top: 0.55rem;
+    right: 0.55rem;
+    border: 1px solid var(--color-gold-dim);
+    background: rgba(10, 9, 7, 0.7);
+    padding: 0.15rem 0.5rem;
+    font-family: var(--font-display);
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-gold-bright);
+  }
+
+  .power-card-placeholder {
+    position: absolute;
+    inset: 0;
+    background: var(--color-obsidian);
+    overflow: hidden;
+  }
+  .conv-glow {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    border-radius: 9999px;
+    filter: blur(18px);
+    opacity: 0.55;
+    transition: transform 0.6s ease, opacity 0.4s ease;
+  }
+  .conv-glow--1 { top: -10%; left: -10%; background: var(--color-gold); }
+  .conv-glow--2 { top: -10%; right: -10%; background: var(--color-blood-bright); }
+  .conv-glow--3 { bottom: -15%; left: -5%; background: var(--color-verdigris); }
+  .conv-glow--4 { bottom: -15%; right: -5%; background: var(--color-ember-bright); }
+  .power-card:hover .conv-glow {
+    opacity: 0.75;
+    transform: scale(1.15);
+  }
+
+  .power-panels {
+    position: relative;
+  }
+  .power-panel {
+    display: none;
+  }
+  @keyframes power-rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* active card highlight */
+  #tab-authority:checked ~ .power-grid label[for="tab-authority"],
+  #tab-compassion:checked ~ .power-grid label[for="tab-compassion"],
+  #tab-ambition:checked ~ .power-grid label[for="tab-ambition"],
+  #tab-zeal:checked ~ .power-grid label[for="tab-zeal"],
+  #tab-vigil:checked ~ .power-grid label[for="tab-vigil"],
+  #tab-decay:checked ~ .power-grid label[for="tab-decay"],
+  #tab-creation:checked ~ .power-grid label[for="tab-creation"],
+  #tab-guile:checked ~ .power-grid label[for="tab-guile"],
+  #tab-justice:checked ~ .power-grid label[for="tab-justice"],
+  #tab-reason:checked ~ .power-grid label[for="tab-reason"],
+  #tab-convergence:checked ~ .power-grid label[for="tab-convergence"] {
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 1px var(--color-gold), 0 14px 30px -16px rgba(0, 0, 0, 0.9);
+  }
+
+  /* panel visibility */
+  #tab-authority:checked ~ .power-grid .power-panel--authority,
+  #tab-compassion:checked ~ .power-grid .power-panel--compassion,
+  #tab-ambition:checked ~ .power-grid .power-panel--ambition,
+  #tab-zeal:checked ~ .power-grid .power-panel--zeal,
+  #tab-vigil:checked ~ .power-grid .power-panel--vigil,
+  #tab-decay:checked ~ .power-grid .power-panel--decay,
+  #tab-creation:checked ~ .power-grid .power-panel--creation,
+  #tab-guile:checked ~ .power-grid .power-panel--guile,
+  #tab-justice:checked ~ .power-grid .power-panel--justice,
+  #tab-reason:checked ~ .power-grid .power-panel--reason,
+  #tab-convergence:checked ~ .power-grid .power-panel--convergence {
+    display: block;
+    animation: power-rise 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+</style>

@@ -1,0 +1,87 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  name: string;
+  role: string;
+  hook: string;
+  color: string;
+  image?: ImageMetadata;
+  delay?: number;
+}
+
+const { name, role, hook, color, image, delay } = Astro.props;
+---
+
+<div
+  class={`figure-card panel-carved overflow-hidden ${delay !== undefined ? "animate-rise" : ""}`}
+  style={delay !== undefined ? `animation-delay: ${delay}s` : undefined}
+>
+  <span class="corner-ornament tl"></span>
+  <span class="corner-ornament tr"></span>
+  <span class="corner-ornament bl"></span>
+  <span class="corner-ornament br"></span>
+
+  <div class="figure-portrait-lg" style={`--accent:${color}`}>
+    {image ? (
+      <Image
+        src={image}
+        alt={name}
+        class="h-full w-full object-cover"
+        widths={[320, 480, 640]}
+        sizes="(min-width: 1024px) 25vw, 50vw"
+      />
+    ) : (
+      <span class="figure-portrait-fallback">
+        <span class="figure-portrait-glow" aria-hidden="true"></span>
+        <svg width="56" height="56" viewBox="0 0 34 34">
+          <g fill="none" stroke="var(--accent)" stroke-width="1">
+            <rect x="5" y="5" width="24" height="24" transform="rotate(45 17 17)" />
+            <circle cx="17" cy="17" r="9" />
+            <circle cx="17" cy="17" r="2" fill="var(--accent)" stroke="none" />
+          </g>
+        </svg>
+      </span>
+    )}
+  </div>
+
+  <div class="p-6 pt-4">
+    <p class="font-display text-[0.62rem] tracking-[0.2em] uppercase" style={`color:${color}`}>
+      {role}
+    </p>
+    <h3 class="mt-1 font-display text-lg text-[var(--color-parchment)] tracking-wide">
+      {name}
+    </h3>
+    <p class="mt-3 text-sm text-[var(--color-parchment-dim)] leading-relaxed">
+      {hook}
+    </p>
+  </div>
+</div>
+
+<style>
+  .figure-card {
+    position: relative;
+  }
+  .figure-portrait-lg {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-bottom: 1px solid var(--accent);
+    background: var(--color-charcoal);
+  }
+  .figure-portrait-fallback {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  .figure-portrait-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, color-mix(in srgb, var(--accent) 40%, transparent) 0%, transparent 70%);
+    pointer-events: none;
+  }
+</style>

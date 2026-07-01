@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Cormorant+SC:wght@500;600;700&display=swap");
+
+@theme {
+  --color-obsidian: #0a0907;
+  --color-obsidian-light: #14110d;
+  --color-charcoal: #1c1712;
+  --color-stone: #2a241c;
+  --color-stone-light: #3c3326;
+
+  --color-gold: #c9a24b;
+  --color-gold-bright: #f0d28a;
+  --color-gold-dim: #8a7038;
+  --color-bronze: #8a6638;
+  --color-bronze-dark: #5c4526;
+
+  --color-parchment: #ebe0c8;
+  --color-parchment-dim: #b8ab8a;
+  --color-blood: #6e1f1f;
+  --color-blood-bright: #9c2f2f;
+  --color-verdigris: #4c6b5e;
+  --color-ember: #c2682f;
+  --color-ember-bright: #e08c4f;
+
+  --color-ink: #2c2014;
+  --color-ink-dim: #5a4630;
+
+  --font-display: "Cinzel", "Cormorant SC", serif;
+  --font-deco: "Cinzel Decorative", "Cinzel", serif;
+  --font-body: "Crimson Pro", "Iowan Old Style", serif;
+
+  --shadow-relief: inset 0 1px 0 rgba(240, 210, 138, 0.12), inset 0 -1px 0 rgba(0, 0, 0, 0.6);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-obsidian);
+  color: var(--color-parchment);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-gold-dim);
+  color: var(--color-obsidian);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 11px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-obsidian);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-stone-light);
+  border: 2px solid var(--color-obsidian);
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-dim);
+}
+
+/* Shared texture layers */
+.bg-grain {
+  position: relative;
+}
+.bg-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+.bg-marble {
+  background-color: var(--color-obsidian);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 15% 0%, rgba(201, 162, 75, 0.07), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 100%, rgba(110, 31, 31, 0.08), transparent 60%),
+    linear-gradient(180deg, var(--color-obsidian) 0%, var(--color-obsidian-light) 100%);
+}
+
+/* Carved/engraved ornate panel border */
+.panel-carved {
+  position: relative;
+  border: 1px solid var(--color-bronze-dark);
+  box-shadow: var(--shadow-relief), 0 18px 40px -20px rgba(0, 0, 0, 0.8);
+  background: linear-gradient(180deg, var(--color-charcoal), var(--color-obsidian-light));
+}
+.panel-carved::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(201, 162, 75, 0.18);
+  pointer-events: none;
+}
+
+/* Corner ornaments for carved panels */
+.corner-ornament {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--color-gold-dim);
+  opacity: 0.85;
+}
+.corner-ornament.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.corner-ornament.tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+.corner-ornament.bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+.corner-ornament.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+.text-gold-gradient {
+  background: linear-gradient(180deg, var(--color-gold-bright) 0%, var(--color-gold) 45%, var(--color-bronze) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.tracking-roman {
+  letter-spacing: 0.22em;
+}
+
+.eyebrow {
+  font-family: var(--font-display);
+  letter-spacing: 0.35em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-gold);
+  text-transform: uppercase;
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 54%, 56%, 100% { opacity: 1; }
+  20%, 22%, 55% { opacity: 0.85; }
+}
+.animate-flicker {
+  animation: flicker 5s infinite;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-rise {
+  animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
