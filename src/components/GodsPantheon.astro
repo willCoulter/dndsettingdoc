@@ -14,6 +14,8 @@ import cassImg from "../assets/gods/cass.jpg";
 import iolaImg from "../assets/gods/Iola.jpg";
 import saethImg from "../assets/gods/Saeth.jpg";
 import thessarImg from "../assets/gods/Thessar.jpg";
+import vecnaImg from "../assets/gods/vecna.jpg";
+import blackwellImg from "../assets/gods/blackwell.jpg";
 
 const accents = [
   "var(--color-gold)",
@@ -109,6 +111,33 @@ const gods = [
       "God of record, testimony, and things written down so they can't be argued away",
     body: "Her followers are scribes, historians, and court recorders. Testimony given before her altar is treated as sworn fact by tradition, if not always by law. The Senate has spent sixty years trying to formally change that, and failing.",
   },
+  {
+    name: "Vecna & Blackwell",
+    epithet: "The One Throne",
+    accent: "color-mix(in srgb, var(--color-verdigris) 50%, var(--color-blood-bright))",
+    faces: [
+      {
+        key: "vecna",
+        name: "Vecna",
+        epithet: "The Undying King",
+        image: vecnaImg,
+        accent: "var(--color-verdigris)",
+        domain: "God of death, undeath, secrets, and schemes carried past the grave",
+        body: "His followers are necromancers, tomb-wardens, and anyone plotting further ahead than a single lifetime allows. The Long Secret — a truth confided to his priesthood and sealed by the confider's death — is never repeated, not even to the Senate. Caltara's oldest families still pay well to keep certain names out of that archive.",
+      },
+      {
+        key: "blackwell",
+        name: "Blackwell",
+        epithet: "The Drowned Captain",
+        image: blackwellImg,
+        accent: "var(--color-blood-bright)",
+        domain: "God of piracy, sea monsters, strife, and shipboard life",
+        body: "His followers are pirates, wreckers, and sailors who've made their peace with being feared. Articles sworn before his mark are binding even between enemies — break them and the sea itself is said to collect the debt. His clergy keep four cleric domains: Trickery, War, Storm, and Tempest.",
+      },
+    ],
+    domain: "Two mortals, one throne — sovereign over both the grave and the sea",
+    body: "Vecna and Blackwell rose together and were granted a single seat between them, sharing it rather than splitting it. Scholars still argue over which face came first.",
+  },
 ];
 
 const toRoman = (n: number) => {
@@ -145,9 +174,9 @@ const cards = gods.map((g, i) => {
     ...g,
     id: g.name.toLowerCase().replace(/[^a-z]+/g, "-"),
     numeral: toRoman(i + 1),
-    accent: accents[i % accents.length],
+    accent: g.accent ?? accents[i % accents.length],
     rot: +(offset * 4.6).toFixed(1),
-    lift: Math.round(Math.pow(Math.abs(offset), 1.5) * 4.1),
+    lift: Math.round(Math.abs(offset) * 8.3),
   };
 });
 
@@ -157,7 +186,8 @@ const cardCss = cards
 #gods:has(#god-${c.id}:checked) #gods-hand label[for="god-${c.id}"] {
   border-color: var(--color-gold);
   box-shadow: 0 18px 34px -16px rgba(0, 0, 0, 0.9), 0 0 0 1px var(--color-gold);
-  transform: translateY(calc(var(--lift) * -1 - 33px)) rotate(0deg);
+  translate: 0 calc(var(--lift) - 33px);
+  rotate: 0deg;
   z-index: 50;
 }
 #gods:has(#god-${c.id}:checked) #gods-reveal .god-entry--${c.id} {
@@ -196,7 +226,7 @@ const cardCss = cards
       <p
         class="mt-8 mx-auto max-w-2xl text-[var(--color-parchment-dim)] text-lg leading-relaxed"
       >
-        Twelve mortals rose up to overthrow the Tyrant God Manus, ascending in
+        Thirteen mortals rose up to overthrow the Tyrant God Manus, ascending in
         victory to become the Pantheon. Across Caltara, people honour and worship
         these gods throughout their lives, offering prayers and devotion to
         different deities as the occasion demands. While every culture reveres
@@ -218,57 +248,145 @@ const cardCss = cards
         style="animation-delay: 0.15s;"
       >
         {
-          cards.map((c, i) => (
-            <label
-              for={`god-${c.id}`}
-              class="god-card shine-sweep"
-              style={`--rot:${c.rot}deg; --lift:${c.lift}px; --accent:${c.accent};`}
-            >
-              <input
-                type="radio"
-                name="god-card"
-                id={`god-${c.id}`}
-                class="sr-only"
-                checked={i === 0}
-              />
-              <Image
-                src={c.image}
-                alt=""
-                aria-hidden="true"
-                class="god-card-img"
-                widths={[172, 188, 376]}
-                sizes="188px"
-              />
-              <span class="god-card-shade" aria-hidden="true" />
-              <span class="god-card-glow" aria-hidden="true" />
-              <span class="god-card-numeral">{c.numeral}</span>
-              <span class="god-card-emblem" aria-hidden="true">
-                <svg width="30" height="30" viewBox="0 0 34 34">
-                  <g fill="none" stroke="var(--accent)" stroke-width="1">
-                    <rect
-                      x="5"
-                      y="5"
-                      width="24"
-                      height="24"
-                      transform="rotate(45 17 17)"
-                    />
-                    <circle cx="17" cy="17" r="9" />
-                    <circle
-                      cx="17"
-                      cy="17"
-                      r="2"
-                      fill="var(--accent)"
-                      stroke="none"
-                    />
-                  </g>
-                </svg>
-              </span>
-              <span class="god-card-name">{c.name}</span>
-              <span class="god-card-epithet" style={`color:${c.accent}`}>
-                {c.epithet}
-              </span>
-            </label>
-          ))
+          cards.map((c, i) =>
+            c.faces ? (
+              <label
+                for={`god-${c.id}`}
+                class="god-card god-card--dual shine-sweep"
+                style={`--rot:${c.rot}deg; --lift:${c.lift}px; --accent:${c.accent};`}
+              >
+                <input
+                  type="radio"
+                  name="god-card"
+                  id={`god-${c.id}`}
+                  class="sr-only"
+                  checked={i === 0}
+                />
+                <input
+                  type="checkbox"
+                  id={`flip-${c.id}`}
+                  class="sr-only god-flip-input"
+                />
+                <span class="god-card-flip-btn-wrap">
+                  <label
+                    for={`flip-${c.id}`}
+                    class="god-card-flip-btn"
+                    aria-label={`Flip to reveal ${c.faces[1].name}`}
+                  >
+                    <svg width="15" height="15" viewBox="0 0 20 20">
+                      <path
+                        d="M4 8a6 6 0 0 1 10.9-3.4M16 12a6 6 0 0 1-10.9 3.4"
+                        fill="none"
+                        stroke="var(--color-gold)"
+                        stroke-width="1.4"
+                      />
+                      <path
+                        d="M15 2v3.2h-3.2M5 18v-3.2h3.2"
+                        fill="none"
+                        stroke="var(--color-gold)"
+                        stroke-width="1.4"
+                      />
+                    </svg>
+                  </label>
+                </span>
+                <span class="god-card-flipper">
+                  {c.faces.map((f, fi) => (
+                    <span
+                      class={`god-card-face god-card-face--${fi === 0 ? "front" : "back"}`}
+                      style={`--accent:${f.accent}`}
+                    >
+                      <Image
+                        src={f.image}
+                        alt=""
+                        aria-hidden="true"
+                        class="god-card-img"
+                        widths={[172, 188, 376]}
+                        sizes="188px"
+                      />
+                      <span class="god-card-shade" aria-hidden="true" />
+                      <span class="god-card-glow" aria-hidden="true" />
+                      <span class="god-card-numeral">{c.numeral}</span>
+                      <span class="god-card-emblem" aria-hidden="true">
+                        <svg width="30" height="30" viewBox="0 0 34 34">
+                          <g fill="none" stroke="var(--accent)" stroke-width="1">
+                            <rect
+                              x="5"
+                              y="5"
+                              width="24"
+                              height="24"
+                              transform="rotate(45 17 17)"
+                            />
+                            <circle cx="17" cy="17" r="9" />
+                            <circle
+                              cx="17"
+                              cy="17"
+                              r="2"
+                              fill="var(--accent)"
+                              stroke="none"
+                            />
+                          </g>
+                        </svg>
+                      </span>
+                      <span class="god-card-name">{f.name}</span>
+                      <span class="god-card-epithet" style={`color:${f.accent}`}>
+                        {f.epithet}
+                      </span>
+                    </span>
+                  ))}
+                </span>
+              </label>
+            ) : (
+              <label
+                for={`god-${c.id}`}
+                class="god-card shine-sweep"
+                style={`--rot:${c.rot}deg; --lift:${c.lift}px; --accent:${c.accent};`}
+              >
+                <input
+                  type="radio"
+                  name="god-card"
+                  id={`god-${c.id}`}
+                  class="sr-only"
+                  checked={i === 0}
+                />
+                <Image
+                  src={c.image}
+                  alt=""
+                  aria-hidden="true"
+                  class="god-card-img"
+                  widths={[172, 188, 376]}
+                  sizes="188px"
+                />
+                <span class="god-card-shade" aria-hidden="true" />
+                <span class="god-card-glow" aria-hidden="true" />
+                <span class="god-card-numeral">{c.numeral}</span>
+                <span class="god-card-emblem" aria-hidden="true">
+                  <svg width="30" height="30" viewBox="0 0 34 34">
+                    <g fill="none" stroke="var(--accent)" stroke-width="1">
+                      <rect
+                        x="5"
+                        y="5"
+                        width="24"
+                        height="24"
+                        transform="rotate(45 17 17)"
+                      />
+                      <circle cx="17" cy="17" r="9" />
+                      <circle
+                        cx="17"
+                        cy="17"
+                        r="2"
+                        fill="var(--accent)"
+                        stroke="none"
+                      />
+                    </g>
+                  </svg>
+                </span>
+                <span class="god-card-name">{c.name}</span>
+                <span class="god-card-epithet" style={`color:${c.accent}`}>
+                  {c.epithet}
+                </span>
+              </label>
+            ),
+          )
         }
       </div>
 
@@ -283,65 +401,129 @@ const cardCss = cards
         <span class="corner-ornament br"></span>
 
         {
-          cards.map((c) => (
-            <div class={`god-entry god-entry--${c.id}`}>
-              <div class="god-entry-head">
-                <span class="god-entry-portrait" style={`--accent:${c.accent}`}>
-                  <Image
-                    src={c.image}
-                    alt={`${c.name}, ${c.epithet}`}
-                    class="god-entry-portrait-img"
-                    widths={[160, 240]}
-                    sizes="120px"
-                  />
-                  <span class="god-entry-portrait-emblem" aria-hidden="true">
-                    <svg width="20" height="20" viewBox="0 0 34 34">
-                      <g fill="none" stroke="var(--accent)" stroke-width="1.2">
-                        <rect
-                          x="5"
-                          y="5"
-                          width="24"
-                          height="24"
-                          transform="rotate(45 17 17)"
+          cards.map((c) =>
+            c.faces ? (
+              <div class={`god-entry god-entry--${c.id} god-entry--dual`}>
+                <p class="font-display text-xs tracking-[0.25em]" style={`color:${c.accent}`}>
+                  {c.numeral} &middot; {c.epithet}
+                </p>
+                <p class="mt-3 text-[var(--color-parchment-dim)] leading-relaxed">
+                  {c.body}
+                </p>
+                {c.faces.map((f, fi) => (
+                  <div class={fi > 0 ? "god-entry-face mt-8 pt-8 god-entry-face--divider" : "god-entry-face mt-6"}>
+                    <div class="god-entry-head">
+                      <span class="god-entry-portrait" style={`--accent:${f.accent}`}>
+                        <Image
+                          src={f.image}
+                          alt={`${f.name}, ${f.epithet}`}
+                          class="god-entry-portrait-img"
+                          widths={[160, 240]}
+                          sizes="120px"
                         />
-                        <circle
-                          cx="17"
-                          cy="17"
-                          r="2"
-                          fill="var(--accent)"
-                          stroke="none"
-                        />
-                      </g>
-                    </svg>
-                  </span>
-                </span>
-                <div>
-                  <p
-                    class="font-display text-xs tracking-[0.25em]"
-                    style={`color:${c.accent}`}
-                  >
-                    {c.numeral}
-                  </p>
-                  <h3 class="mt-1 font-display text-2xl sm:text-3xl text-[var(--color-parchment)] tracking-wide">
-                    {c.name}
-                  </h3>
-                  <p
-                    class="font-display text-sm italic tracking-wide"
-                    style={`color:${c.accent}`}
-                  >
-                    {c.epithet}
-                  </p>
-                </div>
-              </div>
+                        <span class="god-entry-portrait-emblem" aria-hidden="true">
+                          <svg width="20" height="20" viewBox="0 0 34 34">
+                            <g fill="none" stroke="var(--accent)" stroke-width="1.2">
+                              <rect
+                                x="5"
+                                y="5"
+                                width="24"
+                                height="24"
+                                transform="rotate(45 17 17)"
+                              />
+                              <circle
+                                cx="17"
+                                cy="17"
+                                r="2"
+                                fill="var(--accent)"
+                                stroke="none"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                      </span>
+                      <div>
+                        <h3 class="font-display text-2xl sm:text-3xl text-[var(--color-parchment)] tracking-wide">
+                          {f.name}
+                        </h3>
+                        <p
+                          class="font-display text-sm italic tracking-wide"
+                          style={`color:${f.accent}`}
+                        >
+                          {f.epithet}
+                        </p>
+                      </div>
+                    </div>
 
-              <p class="mt-6 font-display text-xs tracking-[0.18em] uppercase text-[var(--color-gold-dim)]">
-                {c.domain}
-              </p>
-              <p class="mt-3 text-[var(--color-parchment-dim)] leading-relaxed">
-                {c.body}
-              </p>
-            </div>
-          ))
+                    <p class="mt-6 font-display text-xs tracking-[0.18em] uppercase text-[var(--color-gold-dim)]">
+                      {f.domain}
+                    </p>
+                    <p class="mt-3 text-[var(--color-parchment-dim)] leading-relaxed">
+                      {f.body}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div class={`god-entry god-entry--${c.id}`}>
+                <div class="god-entry-head">
+                  <span class="god-entry-portrait" style={`--accent:${c.accent}`}>
+                    <Image
+                      src={c.image}
+                      alt={`${c.name}, ${c.epithet}`}
+                      class="god-entry-portrait-img"
+                      widths={[160, 240]}
+                      sizes="120px"
+                    />
+                    <span class="god-entry-portrait-emblem" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 34 34">
+                        <g fill="none" stroke="var(--accent)" stroke-width="1.2">
+                          <rect
+                            x="5"
+                            y="5"
+                            width="24"
+                            height="24"
+                            transform="rotate(45 17 17)"
+                          />
+                          <circle
+                            cx="17"
+                            cy="17"
+                            r="2"
+                            fill="var(--accent)"
+                            stroke="none"
+                          />
+                        </g>
+                      </svg>
+                    </span>
+                  </span>
+                  <div>
+                    <p
+                      class="font-display text-xs tracking-[0.25em]"
+                      style={`color:${c.accent}`}
+                    >
+                      {c.numeral}
+                    </p>
+                    <h3 class="mt-1 font-display text-2xl sm:text-3xl text-[var(--color-parchment)] tracking-wide">
+                      {c.name}
+                    </h3>
+                    <p
+                      class="font-display text-sm italic tracking-wide"
+                      style={`color:${c.accent}`}
+                    >
+                      {c.epithet}
+                    </p>
+                  </div>
+                </div>
+
+                <p class="mt-6 font-display text-xs tracking-[0.18em] uppercase text-[var(--color-gold-dim)]">
+                  {c.domain}
+                </p>
+                <p class="mt-3 text-[var(--color-parchment-dim)] leading-relaxed">
+                  {c.body}
+                </p>
+              </div>
+            ),
+          )
         }
       </div>
     </div>
@@ -419,7 +601,7 @@ const cardCss = cards
     z-index: 2;
   }
   #gods .god-card:hover {
-    transform: translateY(-19px);
+    translate: 0 -19px;
     z-index: 40;
   }
   #gods .god-card:hover .god-card-img {
@@ -432,14 +614,15 @@ const cardCss = cards
     }
     #gods .god-card {
       width: 188px;
-      transform: rotate(var(--rot)) translateY(var(--lift));
+      rotate: var(--rot);
+      translate: 0 var(--lift);
       transform-origin: bottom center;
     }
     #gods .god-card + .god-card {
       margin-left: -78px;
     }
     #gods .god-card:hover {
-      transform: rotate(var(--rot)) translateY(calc(var(--lift) * -1 - 17px));
+      translate: 0 calc(var(--lift) - 19px);
     }
   }
 
@@ -494,9 +677,63 @@ const cardCss = cards
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
   }
 
+  #gods .god-card--dual {
+    padding: 0;
+    perspective: 1400px;
+  }
+  #gods .god-card-flipper {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  }
+  #gods .god-card:has(.god-flip-input:checked) .god-card-flipper {
+    transform: rotateY(180deg);
+  }
+  #gods .god-card-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.9rem 0.7rem 1.05rem;
+    backface-visibility: hidden;
+  }
+  #gods .god-card-face--back {
+    transform: rotateY(180deg);
+  }
+  #gods .god-card-flip-btn-wrap {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 5;
+  }
+  #gods .god-card-flip-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 9999px;
+    background: color-mix(in srgb, var(--color-obsidian) 80%, transparent);
+    border: 1px solid var(--color-gold-dim);
+    cursor: pointer;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+  #gods .god-card-flip-btn:hover {
+    border-color: var(--color-gold);
+    transform: scale(1.1);
+  }
+  #gods .god-card:has(.god-flip-input:checked) .god-card-flip-btn {
+    transform: rotate(180deg);
+  }
+
   #gods .god-entry {
     display: none;
     animation: gods-rise 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  #gods .god-entry-face--divider {
+    border-top: 1px solid var(--color-bronze-dark);
   }
   #gods .god-entry-head {
     display: flex;
