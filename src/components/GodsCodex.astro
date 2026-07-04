@@ -1,0 +1,1351 @@
+---
+import { Image } from "astro:assets";
+import Sigil from "./Sigil.astro";
+
+import parchmentImg from "../assets/ParachmentTexture.jpg";
+
+import turakImg from "../assets/gods/turak.jpg";
+import oakheartImg from "../assets/gods/oakheart.jpg";
+import enochImg from "../assets/gods/enoch.jpg";
+import elisarAlderImg from "../assets/gods/elisarAlder.jpg";
+import karnaImg from "../assets/gods/karna.jpg";
+import evariImg from "../assets/gods/evari.jpg";
+import aurenImg from "../assets/gods/auren.jpg";
+import marenImg from "../assets/gods/maren.jpg";
+import cassImg from "../assets/gods/cass.jpg";
+import iolaImg from "../assets/gods/Iola.jpg";
+import saethImg from "../assets/gods/Saeth.jpg";
+import thessarImg from "../assets/gods/Thessar.jpg";
+import vecnaImg from "../assets/gods/vecna.jpg";
+import blackwellImg from "../assets/gods/blackwell.jpg";
+
+import sarImg from "../assets/gods/sar.jpg";
+import titaniaImg from "../assets/gods/titania.jpg";
+import ravenQueenImg from "../assets/gods/ravenQueen.jpg";
+import courtOfFallImg from "../assets/gods/coutOfFalljpg.jpg";
+import springImg from "../assets/gods/spring.jpg";
+import wildHuntImg from "../assets/gods/wild_huntjpg.jpg";
+import bahamutImg from "../assets/gods/bahamut.jpg";
+import almImg from "../assets/gods/alm.jpg";
+import manusImg from "../assets/gods/Manus.jpg";
+import abyssImg from "../assets/gods/abyss.jpg";
+import hellImg from "../assets/gods/hell.jpg";
+
+const accents = [
+  "var(--color-gold)",
+  "var(--color-verdigris)",
+  "var(--color-blood-bright)",
+  "var(--color-ember-bright)",
+];
+
+interface Face {
+  key: string;
+  name: string;
+  epithet: string;
+  image: ImageMetadata;
+  accent: string;
+  domain: string;
+  body: string[];
+}
+
+interface God {
+  name: string;
+  epithet: string;
+  image?: ImageMetadata;
+  sigilOnly?: boolean;
+  accent?: string;
+  domain: string;
+  body: string[];
+  faces?: Face[];
+}
+
+interface Pantheon {
+  id: string;
+  eyebrow: string;
+  heading: string;
+  goldWord: string;
+  intro: string;
+  gods: God[];
+}
+
+const pantheons: Pantheon[] = [
+  {
+    id: "living-gods",
+    eyebrow: "Gods of a New Age",
+    heading: "The {} Gods",
+    goldWord: "Living",
+    intro:
+      "Thirteen mortals rose up to overthrow the Tyrant God Manus, ascending in victory to become the Pantheon. Across Caltara, people honour these gods throughout their lives, offering prayers to different deities as the occasion demands, though the customs and favoured gods vary from region to region.",
+    gods: [
+      {
+        name: "Turak",
+        epithet: "The Titan",
+        image: turakImg,
+        domain: "God of strength, contests, and open challenge",
+        body: [
+          "His followers are champions, arena fighters, and anyone who'd rather win in front of a crowd than in the dark. The Standing Challenge, sworn in his name, is a formal, witnessed duel. Refusing one costs you standing in any guild that recognizes the rite. Caltara's guild houses still settle disputed contracts this way more often than the courts would like.",
+          "Of the Thirteen, Turak is said to have struck the first open blow against Manus, not from ambush, but after a challenge shouted at the Tyrant's own gates. His faithful hold that no victory counts unless the defeated saw it coming.",
+        ],
+      },
+      {
+        name: "Oakheart",
+        epithet: "The Sentinel",
+        image: oakheartImg,
+        domain: "God of sentinels, soldiers, and the wilderness",
+        body: [
+          "His followers tend to be soldiers, wardens, parents, and anyone else whose life is organized around protecting something specific. The Warden's Vow, taken before his altar, is a binding formal oath his clergy takes seriously enough to track. There are outstanding Warden's Vows in the Republic right now whose holders his clergy is watching.",
+          "Among elves it is whispered that Oakheart rode with the Wild Hunt before his ascension, and that he left it for the one heresy the Hunt cannot forgive: he stopped chasing and chose a single thing to stand in front of, forever.",
+        ],
+      },
+      {
+        name: "Enoch",
+        epithet: "The Mortal",
+        image: enochImg,
+        domain: "God of refusal, restraint, and willpower",
+        body: [
+          "His followers are ex-soldiers, the recovering, and anyone who has had to say no to something that wanted them badly. The Plain Refusal, a spoken renunciation before his altar, is recorded by his clergy without explanation required. By a custom older than the Senate, people who take it are left alone about it afterward.",
+          "He is called the Mortal because, alone of the Thirteen, he is said to have hesitated at the moment of ascension, and his church teaches that the hesitation, not the godhood, is the part worth imitating.",
+        ],
+      },
+      {
+        name: "Elisar & Alder",
+        epithet: "The Fates",
+        image: elisarAlderImg,
+        domain: "Gods of mortality, shared duty, and twin obligation",
+        body: [
+          "Their followers are undertakers, midwives, and anyone tending both ends of a life at once. The Paired Vow is sworn by two people taking on a shared duty neither could carry alone: twins, partners, co-guardians. Breaking it is said to cost both parties, not just the one who broke it.",
+          "Twins in life, they ascended together and have never been depicted apart. Their shrines keep two doors, and tradition holds that whichever one you enter by, you leave by the other.",
+        ],
+      },
+      {
+        name: "Karna",
+        epithet: "The Lady of Ash",
+        image: karnaImg,
+        domain: "God of strategy, command, and hard choices made early",
+        body: [
+          "Her followers are officers, quartermasters, and anyone who has to decide before they have enough information. Petitioners pray to her before an engagement, not after, asking for the read, not the rescue. Caltaran officers still consult Karnite oracles before major troop movements, including, reportedly, the current northern campaign.",
+          "She earned her epithet in the war against Manus, when she burned her own supply lines rather than let them be taken, a decision made three days before anyone else understood why it was necessary.",
+        ],
+      },
+      {
+        name: "Evari",
+        epithet: "The Scholar",
+        image: evariImg,
+        domain: "God of forbidden study and hard-won knowledge",
+        body: [
+          "His followers are scholars, archivists, and mages seeking truths. His priesthood maintains the Open Question, a single petition answered by the god once a year. The privilege is granted only to the one who frames their inquiry flawlessly, though the precise ritual for asking is a fiercely guarded secret, and failure often costs the petitioner their sanity.",
+          "He is said to have paid for his ascension with something he has never named, and his clergy consider it the height of blasphemy to ask him what it was.",
+        ],
+      },
+      {
+        name: "Auren",
+        epithet: "The Voice",
+        image: aurenImg,
+        domain: "God of song, memory, and grief turned into art",
+        body: [
+          "Her followers are bards, mourners-for-hire, and anyone who'd rather sing the truth than say it plainly. Her clergy maintains an unperformed archive of her wartime compositions. Scholars have petitioned for decades to hear them and been refused every time.",
+          "The archive is said to hold the only honest account of what the war against Manus cost the Thirteen themselves, set to music because she could not bear to write it in prose.",
+        ],
+      },
+      {
+        name: "Maren",
+        epithet: "The Current",
+        image: marenImg,
+        domain: "God of the sea, travel, and calculated risk",
+        body: [
+          "Her followers are sailors, smugglers, and merchants who ship anything by water. The Toll, a coin left at her shrine before departure, isn't payment; it's an admission the sea doesn't owe anyone safe passage. Captains who skip it are remembered for it, usually after the fact.",
+          "Her priesthood teaches that the sea is older and crueler than any god who claims it, and that she rules it the way a good captain rules a ship: by respecting what it can do to her. The drowned cults of old Summanus call this doctrine theft.",
+        ],
+      },
+      {
+        name: "Cass",
+        epithet: "The Wanderer",
+        image: cassImg,
+        domain:
+          "God of bargains, luck, and travel between places that don't want to be connected",
+        body: [
+          "His followers are merchants, gamblers, couriers, and debt-collectors. The Honest Wager, any bet made in his name, is treated as legally binding in Caltara's lower courts, provided both sides agreed knowingly. His church polices the 'knowingly' part more strictly than most expect.",
+          "Roadside shrines to Cass stand at crossroads no map agrees on. Travellers leave a die or a coin balanced on edge; finding one fallen heads-up is held to be the god's answer to a question you hadn't asked yet.",
+        ],
+      },
+      {
+        name: "Iola",
+        epithet: "The Maker",
+        image: iolaImg,
+        domain: "God of craft, construction, and work done right under pressure",
+        body: [
+          "Her followers are engineers, masons, and smiths: anyone building something that has to hold. Her clergy certifies major construction work in the capital. A building stamped uninspected by an Iolan mason is a building most Caltarans won't enter.",
+          "It was Iola who rebuilt what the war against Manus levelled, and her church still holds that the truest act of worship is a repair made so well that no one ever learns the thing was broken.",
+        ],
+      },
+      {
+        name: "Saeth",
+        epithet: "The Quiet",
+        image: saethImg,
+        domain: "God of survivors and what war costs after it's over",
+        body: [
+          "His followers are medics, veterans, refugees, and half-orcs in particular, given his own face. His shrines keep a standing, unbooked appointment called the Quiet Hour, open to anyone who needs to sit without being asked questions. No vow, no offering required.",
+          "He speaks less than any other god, and his clergy have made a theology of it: that some things are witnessed, not answered, and that staying in the room is itself a form of prayer.",
+        ],
+      },
+      {
+        name: "Thessar",
+        epithet: "The Witness",
+        image: thessarImg,
+        domain:
+          "God of record, testimony, and things written down so they can't be argued away",
+        body: [
+          "Her followers are scribes, historians, and court recorders. Testimony given before her altar is treated as sworn fact by tradition, if not always by law. The Senate has spent sixty years trying to formally change that, and failing.",
+          "Her first act as a god was to seal her own account of the fall of Manus in a vault beneath her high temple. It has never been opened, and her clergy say only that it will be read when it is needed, and that they hope it never is.",
+        ],
+      },
+      {
+        name: "Vecna & Blackwell",
+        epithet: "The One Throne",
+        accent:
+          "color-mix(in srgb, var(--color-verdigris) 50%, var(--color-blood-bright))",
+        domain: "Two mortals, one throne, sovereign over both the grave and the sea",
+        body: [
+          "Vecna and Blackwell rose together and were granted a single seat between them, sharing it rather than splitting it. Scholars still argue over which face came first.",
+        ],
+        faces: [
+          {
+            key: "vecna",
+            name: "Vecna",
+            epithet: "The Undying King",
+            image: vecnaImg,
+            accent: "var(--color-verdigris)",
+            domain:
+              "God of death, undeath, secrets, and schemes carried past the grave",
+            body: [
+              "His followers are necromancers, tomb-wardens, and anyone plotting further ahead than a single lifetime allows. The Long Secret, a truth confided to his priesthood and sealed by the confider's death, is never repeated, not even to the Senate. Caltara's oldest families still pay well to keep certain names out of that archive.",
+            ],
+          },
+          {
+            key: "blackwell",
+            name: "Blackwell",
+            epithet: "The Drowned Captain",
+            image: blackwellImg,
+            accent: "var(--color-blood-bright)",
+            domain: "God of piracy, sea monsters, strife, and shipboard life",
+            body: [
+              "His followers are pirates, wreckers, and sailors who've made their peace with being feared. Articles sworn before his mark are binding even between enemies. Break them and the sea itself is said to collect the debt. His clergy keep four cleric domains: Trickery, War, Storm, and Tempest.",
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "reclamation",
+    eyebrow: "The State Faith of Saria",
+    heading: "The {}",
+    goldWord: "Reclamation",
+    intro:
+      "The Reclamation is built on a single reframe: Sar, the god of Authority, was not killed in the First Age but occluded, cut off from the world's perception, not destroyed. Every power that has filled the silence since, the Living Gods included, is squatting on borrowed ground until the fog lifts. That lifting is called the Manifest Return, and it turns the Theocracy's slow absorption of its neighbours from conquest into religious inevitability.",
+    gods: [
+      {
+        name: "Sar",
+        epithet: "The Occluded",
+        image: sarImg,
+        accent: "var(--color-gold-bright)",
+        domain: "God of authority, dominion, and rightful rule",
+        body: [
+          "The Reclamation teaches that Sar still reigns, unseen, unheard, but undiminished, and that the world's inability to perceive him is the wound, not his absence. His clergy are organized as an administration-in-waiting: Voicebearers carry the doctrine abroad as missionaries, Wardens of the Clearing govern territory already absorbed, and above them stands the Paladinate, warrior-clergy who work genuine miracles in his name. At the summit sits the Matriarch, sole holder of the title Sovereign of Sar, ruling Saria as regent for a god who cannot yet answer.",
+          "The Paladinate's miracles are the faith's standing argument: power flowing from somewhere, attributed to a god no one has perceived in an age. Whether it pours from behind the veil or from something else wearing Sar's silence is a question scholars ask carefully, and never inside Saria's borders.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "elven-courts",
+    eyebrow: "The Faith of the Elves",
+    heading: "The Elven {}",
+    goldWord: "Courts",
+    intro:
+      "Traditionalist elves worship four courts of the fey, each ruled by a sovereign who is the season itself. A court's favour is asked the way one asks anything of the fey: precisely, politely, and with close attention to the wording.",
+    gods: [
+      {
+        name: "Titania",
+        epithet: "The Summer Queen",
+        image: titaniaImg,
+        accent: "var(--color-gold-bright)",
+        domain: "Lady of light, the sun, and the high season",
+        body: [
+          "Titania rules the Summer Court, and unlike most of her kind she carries her crown gravely. She is depicted as firm but fair, a sovereign of long summers and longer memory, whose light is said to burn glamours and falsehoods away simply by falling on them.",
+          "Oaths sworn beneath the midsummer sun are held to be sworn in her hearing, and her court treats a broken one as a personal discourtesy. Elven judges still convene their gravest cases at noon for exactly this reason.",
+        ],
+      },
+      {
+        name: "Auril",
+        epithet: "The Queen of Ravens",
+        image: ravenQueenImg,
+        accent: "#8fa7bd",
+        domain: "Queen of Winter, the moon, and death in its season",
+        body: [
+          "Auril rules the Winter Court and holds domain over the natural courses of death: not slaughter, but the ending that each thing is owed. She is often depicted as the moon to her sister Titania's sun, and shares her stern, unsmiling gravity. Unlike Titania, she is a known meddler in the mortal world rather than the feywilds.",
+          "She despises those who resist their appointed ends above all else. Her holy warriors are dispatched against powerful undead and the necromancers who make them, and her ravens are said to attend deathbeds in numbers proportional to how interesting the death is.",
+        ],
+      },
+      {
+        name: "The Court of Fall",
+        epithet: "The Great Changing",
+        image: courtOfFallImg,
+        accent: "var(--color-ember-bright)",
+        domain: "The turning season: harvest, decline, and change",
+        body: [
+          "The throne of Autumn does not keep an occupant. Its ruler changes like the court itself: sometimes a humble fey who embodies the harvest and the full table, sometimes a capricious thing that trails terror and mischief in its wake. Mortals long ago stopped worshipping the seat's holder and began worshipping the turning itself: the Great Fall, the Changing.",
+          "Autumn is the fading of Summer's light and vitality, waning until from its throes comes the season of Winter. Its faithful hold that every ending is a harvest, and its harvest-rites are equal parts thanksgiving and apology.",
+        ],
+      },
+      {
+        name: "The Lord of Flowers",
+        epithet: "The Spring Sovereign",
+        image: springImg,
+        accent: "#7fa05f",
+        domain: "Lord of beauty, renewal, and the gift of music",
+        body: [
+          "The Court of Spring worships the Lord of Flowers, who is said to grant things great beauty (a face, a valley, a single hour of light) as casually as other fey grant curses. The elves credit him with the oldest gift of all: it was the Lord of Flowers, they say, who first gave music to mortals, and every song since has been an interest payment.",
+          "His worship is the least formal of the four courts. Musicians leave the first performance of any new piece unwitnessed, played once alone, as his share.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "wild-hunt",
+    eyebrow: "The Warrior Cult",
+    heading: "The Wild {}",
+    goldWord: "Hunt",
+    intro:
+      "Neither a court nor quite a god, the Wild Hunt is a warrior faith and, its followers insist, an afterlife. The bold, the reckless, and the just among elven warriors are said to be gathered up at death to ride with it forever.",
+    gods: [
+      {
+        name: "The Wild Hunt",
+        epithet: "The Ride Eternal",
+        image: wildHuntImg,
+        accent: "var(--color-verdigris)",
+        domain: "The endless hunt: combat as ritual, the fair chase as creed",
+        body: [
+          "Followers of the Hunt treat combat as ritual, but the creed forbids great acts of cruelty: the Hunt honours the fair chase, the quarry given its chance, the kill that means something. A huntsman who butchers the helpless has not won. He has merely stopped hunting, and the Hunt has no use for him.",
+          "The powerful spirits and fey who ride in the Hunt rarely associate with the courts, though their origin lies in the mingled influence of Autumn and Winter: the season of the chase and the season of the kill. It is rumored the living god Oakheart once rode among them, before he traded the endless chase for a single, unending watch.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "ancient-religions",
+    eyebrow: "Faiths of the First Age",
+    heading: "The {} Religions",
+    goldWord: "Ancient",
+    intro:
+      "Older than the Republic, older than the Pantheon, these faiths were established before the Living Gods rose, and their followers see no reason a young pantheon should change anything.",
+    gods: [
+      {
+        name: "Bahamut",
+        epithet: "The Platinum Dragon",
+        image: bahamutImg,
+        accent: "#c9d4dd",
+        domain: "God of dragons, wisdom, and enlightened justice",
+        body: [
+          "Bahamut is the god of all dragons and dragonborn, and the patron of the metallic kind. His justice is the enlightened sort: tempered with mercy, punishment with forgiveness, and his faith holds that the strong owe the weak exactly as much as the strong once needed themselves.",
+          "At the height of a terrible war he is said to have slain his own mate, Tiamat, and cast her remains down to the earth for the sake of peace. He is depicted as a platinum dragon, the only one of his kind, though platinum dragonborn, rare and watched closely, are said to be born in his image.",
+        ],
+      },
+      {
+        name: "Alm",
+        epithet: "The All-Father",
+        image: almImg,
+        accent: "#b08d57",
+        domain: "God of giant-kind, mountains, the earth and the heavens",
+        body: [
+          "Alm is the god of the giants, and of everything a giant can stand on or under: the mountains, the deep earth, the vault of the heavens. After the war with the dragons, it is said, he molded the ruined world back into shape, drawing the rivers with his fingers and placing each stone along the riverbed by hand.",
+          "His worship survives wherever the land itself feels deliberate: giant steadings, dwarven deepholds, mountain villages that treat the peak above them as an altar. His faithful do not build temples. The temple, they say, was finished long ago, and everyone is already standing in it.",
+        ],
+      },
+      {
+        name: "Summanus",
+        epithet: "The Drowning Deep",
+        sigilOnly: true,
+        accent: "#4d7d8a",
+        domain: "Evil god of the seas, vengeance, glory, and greed",
+        body: [
+          "Summanus is a vengeful god of elemental water who relishes violence on the sea: the boarding action, the wreck on the reef, the score settled in open water where no law can follow. He is patron of pirates and vigilantes alike, and of the three appetites that put both to sea: vengeance, glory, and greed.",
+          "His worship is old, scattered, and jealous. His remaining cults hold that the sea was his before any mortal-born god presumed to claim it, and they hate the Drowned Captain Blackwell above all others, a usurper twice over, mortal and late. No shrine to Summanus keeps his image. His faithful say the sea in a rage is likeness enough.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "titanic-cults",
+    eyebrow: "Forbidden Faiths",
+    heading: "The Titanic {}",
+    goldWord: "Cults",
+    intro:
+      "Before the Pantheon, before the courts, the world answered to older and hungrier powers. Their worship is banned across the Republic, which has never yet made a faith die.",
+    gods: [
+      {
+        name: "Manus",
+        epithet: "The Phoenix King",
+        image: manusImg,
+        accent: "var(--color-ember-bright)",
+        domain: "The first god: fire, conquest, and the promised return",
+        body: [
+          "Manus was the first god, the Tyrant the Thirteen rose to overthrow, and his cult holds that a phoenix has never once stayed dead. They believe he will rise again, and that when he does he will lead his faithful in a great conquest amongst the stars, with this world as merely the mustering ground.",
+          "The cult persists in cells, drawn to those who feel the age of Living Gods has made the world small. Its rites are fire-rites, and its recruiters ask a single, patient question: when he returns, do you want to be found waiting, or warned?",
+        ],
+      },
+      {
+        name: "The Abyss",
+        epithet: "The Rotten Corpse",
+        image: abyssImg,
+        accent: "#8a5fa0",
+        domain: "Demons: a plane of pain and madness, and the flesh of a dead god",
+        body: [
+          "The demons come from a plane of pain and madness, and its nature is the cult's darkest article of faith: the Abyss is said to be the rotten corpse of the first god Aternus, still decaying after an age, its layers the strata of his decomposition. Demons, by this reckoning, are not a race but a symptom.",
+          "Those who traffic with the Abyss rarely worship it in any organized sense. One does not organize a wound. They feed it, bargain into it, and are eaten by it, in roughly that order.",
+        ],
+      },
+      {
+        name: "The Hells",
+        epithet: "The Lawful Flame",
+        image: hellImg,
+        accent: "var(--color-blood-bright)",
+        domain: "The Nine Hells: layers, lords, and the letter of the contract",
+        body: [
+          "The Hells are everything the Abyss is not: layered, ruled, and scrupulously lawful in their evil. Each layer keeps its lord, each lord keeps its ledgers, and no devil has ever broken the letter of a contract. The spirit of one, endlessly.",
+          "A contract sealed with the Hells to help defeat the god Manus allowed certain devils to remain in the world afterward, and they have been collecting on it since. Devil worship is banned throughout the Republic. Devil service (consultation, contract, and commission) is not, a distinction the Hells' lawyers drafted personally and defend with pride.",
+        ],
+      },
+    ],
+  },
+];
+
+const toRoman = (n: number) => {
+  const table: [number, string][] = [
+    [1000, "M"],
+    [900, "CM"],
+    [500, "D"],
+    [400, "CD"],
+    [100, "C"],
+    [90, "XC"],
+    [50, "L"],
+    [40, "XL"],
+    [10, "X"],
+    [9, "IX"],
+    [5, "V"],
+    [4, "IV"],
+    [1, "I"],
+  ];
+  let result = "";
+  let num = n;
+  for (const [value, symbol] of table) {
+    while (num >= value) {
+      result += symbol;
+      num -= value;
+    }
+  }
+  return result;
+};
+
+const sections = pantheons.map((p) => {
+  const [headBefore, headAfter] = p.heading.split("{}");
+  return {
+    ...p,
+    headBefore,
+    headAfter,
+    gods: p.gods.map((g, i) => ({
+      ...g,
+      id: g.name.toLowerCase().replace(/[^a-z]+/g, "-").replace(/^-|-$/g, ""),
+      numeral: toRoman(i + 1),
+      accent: g.accent ?? accents[i % accents.length],
+      pantheonName: headBefore + p.goldWord + headAfter,
+    })),
+  };
+});
+
+const allGods = sections.flatMap((s) => s.gods);
+
+const godCss = allGods
+  .map(
+    (g) => `
+#codex:has(#g-${g.id}:checked) label[for="g-${g.id}"] {
+  border-color: var(--color-gold);
+  box-shadow: 0 18px 34px -16px rgba(0, 0, 0, 0.9), 0 0 0 1px var(--color-gold), 0 0 26px -8px color-mix(in srgb, ${g.accent} 60%, transparent);
+  translate: 0 -6px;
+}
+#codex:has(#g-${g.id}:checked) label[for="g-${g.id}"]::after {
+  opacity: 1;
+  animation: shine-sweep-move 0.65s ease forwards;
+}
+#codex:has(#g-${g.id}:checked) .tome-entry--${g.id} {
+  display: block;
+}`,
+  )
+  .join("\n");
+---
+
+<section
+  id="codex"
+  class="relative bg-marble bg-grain py-28 sm:py-36 px-4 sm:px-6 overflow-x-clip"
+>
+  <div class="mx-auto max-w-7xl">
+    <div class="text-center animate-rise">
+      <p class="eyebrow">Faiths of the World</p>
+      <h1
+        class="mt-4 font-display text-4xl sm:text-6xl text-[var(--color-parchment)] tracking-wide"
+      >
+        The <span class="text-gold-gradient">Divine</span> Codex
+      </h1>
+      <Sigil class="mt-7" />
+      <p
+        class="mt-8 mx-auto max-w-2xl text-[var(--color-parchment-dim)] text-lg leading-relaxed"
+      >
+        The Living Gods hold the Republic, but they do not hold the world.
+        State faiths, fey courts, warrior cults, and religions older than the
+        First Age all claim their share of mortal devotion, and some claim a
+        great deal more. Gathered here are the pantheons of Elderan as the
+        codex-keepers of Caltara record them.
+      </p>
+      <p
+        class="mt-3 font-display text-sm tracking-wide uppercase text-[var(--color-gold-dim)] animate-flicker"
+      >
+        Choose a card to open its entry in the codex
+      </p>
+    </div>
+
+    <!-- default: nothing selected -->
+    <input
+      type="radio"
+      name="codex-god"
+      id="g-none"
+      class="sr-only god-radio god-radio--none"
+      checked
+    />
+
+    <div class="codex-layout mt-16 sm:mt-20">
+      <div class="codex-sections">
+        {
+          sections.map((s) => (
+            <div id={s.id} class="codex-section animate-rise">
+              <div class="text-center">
+                <p class="eyebrow">{s.eyebrow}</p>
+                <h2 class="mt-3 font-display text-3xl sm:text-4xl text-[var(--color-parchment)] tracking-wide">
+                  {s.headBefore}
+                  <span class="text-gold-gradient">{s.goldWord}</span>
+                  {s.headAfter}
+                </h2>
+                <Sigil class="mt-5" />
+                <p class="mt-6 mx-auto max-w-2xl text-[var(--color-parchment-dim)] leading-relaxed">
+                  {s.intro}
+                </p>
+              </div>
+
+              <div class="codex-grid mt-9">
+                {s.gods.map((g) =>
+                  g.faces ? (
+                    <label
+                      for={`g-${g.id}`}
+                      class="codex-card codex-card--dual shine-sweep"
+                      style={`--accent:${g.accent};`}
+                    >
+                      <input
+                        type="radio"
+                        name="codex-god"
+                        id={`g-${g.id}`}
+                        class="sr-only god-radio"
+                      />
+                      <input
+                        type="checkbox"
+                        id={`flip-${g.id}`}
+                        class="sr-only god-flip-input"
+                      />
+                      <span class="codex-card-flip-btn-wrap">
+                        <label
+                          for={`flip-${g.id}`}
+                          class="codex-card-flip-btn"
+                          aria-label={`Flip to reveal ${g.faces[1].name}`}
+                        >
+                          <svg width="15" height="15" viewBox="0 0 20 20">
+                            <path
+                              d="M4 8a6 6 0 0 1 10.9-3.4M16 12a6 6 0 0 1-10.9 3.4"
+                              fill="none"
+                              stroke="var(--color-gold)"
+                              stroke-width="1.4"
+                            />
+                            <path
+                              d="M15 2v3.2h-3.2M5 18v-3.2h3.2"
+                              fill="none"
+                              stroke="var(--color-gold)"
+                              stroke-width="1.4"
+                            />
+                          </svg>
+                        </label>
+                      </span>
+                      <span class="codex-card-flipper">
+                        {g.faces.map((f, fi) => (
+                          <span
+                            class={`codex-card-face codex-card-face--${fi === 0 ? "front" : "back"}`}
+                            style={`--accent:${f.accent}`}
+                          >
+                            <Image
+                              src={f.image}
+                              alt=""
+                              aria-hidden="true"
+                              class="codex-card-img"
+                              widths={[172, 220, 440]}
+                              sizes="200px"
+                            />
+                            <span class="codex-card-shade" aria-hidden="true" />
+                            <span class="codex-card-glow" aria-hidden="true" />
+                            <span class="codex-card-numeral">{g.numeral}</span>
+                            <span class="codex-card-emblem" aria-hidden="true">
+                              <svg width="30" height="30" viewBox="0 0 34 34">
+                                <g fill="none" stroke="var(--accent)" stroke-width="1">
+                                  <rect
+                                    x="5"
+                                    y="5"
+                                    width="24"
+                                    height="24"
+                                    transform="rotate(45 17 17)"
+                                  />
+                                  <circle cx="17" cy="17" r="9" />
+                                  <circle
+                                    cx="17"
+                                    cy="17"
+                                    r="2"
+                                    fill="var(--accent)"
+                                    stroke="none"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                            <span class="codex-card-name">{f.name}</span>
+                            <span
+                              class="codex-card-epithet"
+                              style={`color:${f.accent}`}
+                            >
+                              {f.epithet}
+                            </span>
+                          </span>
+                        ))}
+                      </span>
+                    </label>
+                  ) : (
+                    <label
+                      for={`g-${g.id}`}
+                      class="codex-card shine-sweep"
+                      style={`--accent:${g.accent};`}
+                    >
+                      <input
+                        type="radio"
+                        name="codex-god"
+                        id={`g-${g.id}`}
+                        class="sr-only god-radio"
+                      />
+                      {g.image ? (
+                        <Image
+                          src={g.image}
+                          alt=""
+                          aria-hidden="true"
+                          class="codex-card-img"
+                          widths={[172, 220, 440]}
+                          sizes="200px"
+                        />
+                      ) : (
+                        <span class="codex-card-void" aria-hidden="true">
+                          <svg width="64" height="64" viewBox="0 0 48 48">
+                            <g
+                              fill="none"
+                              stroke="var(--accent)"
+                              stroke-width="1.4"
+                              stroke-linecap="round"
+                            >
+                              <path d="M24 40V16" />
+                              <path d="M24 16c0-5-3.5-8-8-8 0 6 3 10 8 10" />
+                              <path d="M24 16c0-5 3.5-8 8-8 0 6-3 10-8 10" />
+                              <path d="M14 40c2.5-3 6-4.5 10-4.5S31.5 37 34 40" />
+                              <path d="M10 44c4-4 8.5-6 14-6s10 2 14 6" opacity="0.5" />
+                            </g>
+                          </svg>
+                        </span>
+                      )}
+                      <span class="codex-card-shade" aria-hidden="true" />
+                      <span class="codex-card-glow" aria-hidden="true" />
+                      <span class="codex-card-numeral">{g.numeral}</span>
+                      <span class="codex-card-emblem" aria-hidden="true">
+                        <svg width="30" height="30" viewBox="0 0 34 34">
+                          <g fill="none" stroke="var(--accent)" stroke-width="1">
+                            <rect
+                              x="5"
+                              y="5"
+                              width="24"
+                              height="24"
+                              transform="rotate(45 17 17)"
+                            />
+                            <circle cx="17" cy="17" r="9" />
+                            <circle
+                              cx="17"
+                              cy="17"
+                              r="2"
+                              fill="var(--accent)"
+                              stroke="none"
+                            />
+                          </g>
+                        </svg>
+                      </span>
+                      <span class="codex-card-name">{g.name}</span>
+                      <span class="codex-card-epithet" style={`color:${g.accent}`}>
+                        {g.epithet}
+                      </span>
+                    </label>
+                  ),
+                )}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="tome-col">
+        <div class="tome-wrap">
+          <label class="tome-backdrop" for="g-none" aria-label="Close entry"></label>
+          <div class="tome-cover">
+            <span class="corner-ornament tl"></span>
+            <span class="corner-ornament tr"></span>
+            <span class="corner-ornament bl"></span>
+            <span class="corner-ornament br"></span>
+
+            <label class="tome-close" for="g-none" aria-label="Close entry">
+              <svg width="14" height="14" viewBox="0 0 14 14">
+                <path
+                  d="M2 2l10 10M12 2L2 12"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"></path>
+              </svg>
+            </label>
+
+            <div
+              class="tome-page"
+              style={`background-image: url(${parchmentImg.src});`}
+            >
+              <div class="tome-entry tome-entry--none">
+                <div class="tome-idle">
+                  <svg width="52" height="52" viewBox="0 0 34 34">
+                    <g
+                      fill="none"
+                      stroke="var(--color-ink-dim)"
+                      stroke-width="1"
+                    >
+                      <rect
+                        x="5"
+                        y="5"
+                        width="24"
+                        height="24"
+                        transform="rotate(45 17 17)"></rect>
+                      <circle cx="17" cy="17" r="9"></circle>
+                      <circle
+                        cx="17"
+                        cy="17"
+                        r="2"
+                        fill="var(--color-ink-dim)"
+                        stroke="none"></circle>
+                    </g>
+                  </svg>
+                  <p class="tome-idle-title">The Codex Lies Open</p>
+                  <p class="tome-idle-copy">
+                    Choose a card from any pantheon and its entry will be
+                    inscribed upon this page.
+                  </p>
+                </div>
+              </div>
+
+              {
+                allGods.map((g) =>
+                  g.faces ? (
+                    <div class={`tome-entry tome-entry--${g.id}`}>
+                      <p class="tome-kicker">
+                        {g.pantheonName} &middot; {g.numeral}
+                      </p>
+                      <h3 class="tome-name">{g.name}</h3>
+                      <p
+                        class="tome-epithet"
+                        style={`--accent:${g.faces[0].accent}`}
+                      >
+                        {g.epithet}
+                      </p>
+                      <div class="tome-rule" aria-hidden="true" />
+                      <p class="tome-domain">{g.domain}</p>
+                      <div class="tome-body">
+                        {g.body.map((para) => (
+                          <p>{para}</p>
+                        ))}
+                      </div>
+                      {g.faces.map((f) => (
+                        <div class="tome-face">
+                          <div
+                            class="tome-plate"
+                            style={`--accent:${f.accent}`}
+                          >
+                            <Image
+                              src={f.image}
+                              alt={`${f.name}, ${f.epithet}`}
+                              class="tome-plate-img"
+                              widths={[320, 480, 640]}
+                              sizes="(min-width: 1024px) 330px, 90vw"
+                            />
+                          </div>
+                          <h4 class="tome-face-name">{f.name}</h4>
+                          <p class="tome-epithet" style={`--accent:${f.accent}`}>
+                            {f.epithet}
+                          </p>
+                          <p class="tome-domain">{f.domain}</p>
+                          <div class="tome-body">
+                            {f.body.map((para) => (
+                              <p>{para}</p>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div class={`tome-entry tome-entry--${g.id}`}>
+                      <p class="tome-kicker">
+                        {g.pantheonName} &middot; {g.numeral}
+                      </p>
+                      {g.image ? (
+                        <div class="tome-plate" style={`--accent:${g.accent}`}>
+                          <Image
+                            src={g.image}
+                            alt={`${g.name}, ${g.epithet}`}
+                            class="tome-plate-img"
+                            widths={[320, 480, 640]}
+                            sizes="(min-width: 1024px) 330px, 90vw"
+                          />
+                        </div>
+                      ) : (
+                        <div
+                          class="tome-plate tome-plate--void"
+                          style={`--accent:${g.accent}`}
+                        >
+                          <svg width="72" height="72" viewBox="0 0 48 48">
+                            <g
+                              fill="none"
+                              stroke="var(--color-ink-dim)"
+                              stroke-width="1.4"
+                              stroke-linecap="round"
+                            >
+                              <path d="M24 40V16" />
+                              <path d="M24 16c0-5-3.5-8-8-8 0 6 3 10 8 10" />
+                              <path d="M24 16c0-5 3.5-8 8-8 0 6-3 10-8 10" />
+                              <path d="M14 40c2.5-3 6-4.5 10-4.5S31.5 37 34 40" />
+                              <path
+                                d="M10 44c4-4 8.5-6 14-6s10 2 14 6"
+                                opacity="0.5"
+                              />
+                            </g>
+                          </svg>
+                          <p class="tome-plate-void-note">
+                            No likeness survives. None was ever permitted.
+                          </p>
+                        </div>
+                      )}
+                      <h3 class="tome-name">{g.name}</h3>
+                      <p class="tome-epithet" style={`--accent:${g.accent}`}>
+                        {g.epithet}
+                      </p>
+                      <div class="tome-rule" aria-hidden="true" />
+                      <p class="tome-domain">{g.domain}</p>
+                      <div class="tome-body">
+                        {g.body.map((para) => (
+                          <p>{para}</p>
+                        ))}
+                      </div>
+                    </div>
+                  ),
+                )
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style
+    set:html={`
+  /* ------ layout ------ */
+  #codex .codex-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 5.5rem;
+  }
+  @media (min-width: 1024px) {
+    #codex .codex-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 380px;
+      gap: 3rem;
+      align-items: stretch;
+    }
+  }
+
+  /* ------ card grid (rows, not fanned) ------ */
+  #codex .codex-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(146px, 1fr));
+    gap: 0.9rem;
+  }
+  @media (min-width: 640px) {
+    #codex .codex-grid {
+      grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+      gap: 1.1rem;
+    }
+  }
+
+  #codex .codex-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    aspect-ratio: 0.6;
+    padding: 0.9rem 0.7rem 1.05rem;
+    cursor: pointer;
+    overflow: hidden;
+    border: 1px solid var(--color-bronze-dark);
+    background: linear-gradient(165deg, var(--color-charcoal), var(--color-obsidian-light));
+    box-shadow: 0 10px 22px -14px rgba(0, 0, 0, 0.85);
+    transition: translate 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+  }
+  #codex .codex-card-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.5) brightness(0.55) contrast(1.05);
+    transition: filter 0.35s ease;
+  }
+  #codex .codex-card-void {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(ellipse 90% 55% at 50% 100%, color-mix(in srgb, var(--accent) 28%, transparent), transparent 70%),
+      linear-gradient(165deg, var(--color-charcoal), var(--color-obsidian));
+    opacity: 0.9;
+  }
+  #codex .codex-card-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10, 9, 7, 0.25) 0%, rgba(10, 9, 7, 0.55) 55%, rgba(10, 9, 7, 0.92) 100%);
+  }
+  #codex .codex-card::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent);
+    pointer-events: none;
+    z-index: 2;
+  }
+  #codex .codex-card:hover {
+    translate: 0 -8px;
+    border-color: color-mix(in srgb, var(--color-gold) 60%, var(--color-bronze-dark));
+  }
+  #codex .codex-card:hover .codex-card-img {
+    filter: grayscale(0.15) brightness(0.65) contrast(1.05);
+  }
+  #codex .codex-card-glow {
+    position: absolute;
+    top: 26%;
+    left: 50%;
+    width: 70%;
+    height: 38%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--accent) 40%, transparent) 0%, transparent 75%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  #codex .codex-card-numeral,
+  #codex .codex-card-emblem,
+  #codex .codex-card-name,
+  #codex .codex-card-epithet {
+    position: relative;
+    z-index: 2;
+  }
+  #codex .codex-card-numeral {
+    font-family: var(--font-display);
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    color: var(--color-gold-dim);
+  }
+  #codex .codex-card-emblem {
+    margin-top: 0.7rem;
+  }
+  #codex .codex-card-emblem svg {
+    width: 36px;
+    height: 36px;
+  }
+  #codex .codex-card-name {
+    margin-top: auto;
+    font-family: var(--font-display);
+    font-size: 0.98rem;
+    letter-spacing: 0.03em;
+    color: var(--color-parchment);
+    text-align: center;
+    line-height: 1.15;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  }
+  #codex .codex-card-epithet {
+    margin-top: 0.25rem;
+    font-family: var(--font-display);
+    font-size: 0.68rem;
+    font-style: italic;
+    letter-spacing: 0.03em;
+    text-align: center;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  }
+
+  /* dual flip card */
+  #codex .codex-card--dual {
+    padding: 0;
+    perspective: 1400px;
+  }
+  #codex .codex-card-flipper {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  }
+  #codex .codex-card:has(.god-flip-input:checked) .codex-card-flipper {
+    transform: rotateY(180deg);
+  }
+  #codex .codex-card-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.9rem 0.7rem 1.05rem;
+    backface-visibility: hidden;
+  }
+  #codex .codex-card-face--back {
+    transform: rotateY(180deg);
+  }
+  #codex .codex-card-flip-btn-wrap {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 5;
+  }
+  #codex .codex-card-flip-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 9999px;
+    background: color-mix(in srgb, var(--color-obsidian) 80%, transparent);
+    border: 1px solid var(--color-gold-dim);
+    cursor: pointer;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+  #codex .codex-card-flip-btn:hover {
+    border-color: var(--color-gold);
+    transform: scale(1.1);
+  }
+  #codex .codex-card:has(.god-flip-input:checked) .codex-card-flip-btn {
+    transform: rotate(180deg);
+  }
+
+  /* sweep only on select, matching the homepage hand */
+  #codex .codex-card.shine-sweep::after {
+    opacity: 0;
+  }
+
+  /* ------ the tome ------ */
+  #codex .tome-cover {
+    position: relative;
+    padding: 10px;
+    background:
+      linear-gradient(160deg, #241a10 0%, #17100a 55%, #241a10 100%);
+    border: 1px solid var(--color-bronze-dark);
+    box-shadow:
+      var(--shadow-relief),
+      3px 3px 0 -1px #0c0906,
+      4px 4px 0 -1px var(--color-bronze-dark),
+      7px 7px 0 -2px #0c0906,
+      8px 8px 0 -2px var(--color-bronze-dark),
+      0 26px 55px -18px rgba(0, 0, 0, 0.95);
+  }
+  #codex .tome-page {
+    position: relative;
+    background-color: #e6d9ba;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+    padding: 2rem 1.6rem 2.4rem;
+    box-shadow: inset 0 0 60px rgba(90, 70, 48, 0.35), inset 0 0 6px rgba(90, 70, 48, 0.4);
+    color: var(--color-ink);
+    min-height: 340px;
+  }
+  #codex .tome-page::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    left: 0;
+    width: 26px;
+    pointer-events: none;
+    background: linear-gradient(90deg, rgba(44, 32, 20, 0.35), transparent);
+  }
+
+  #codex .tome-entry {
+    display: none;
+    animation: tome-rise 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  #codex:has(#g-none:checked) .tome-entry--none {
+    display: block;
+  }
+  @keyframes tome-rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  #codex .tome-idle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem;
+    min-height: 300px;
+    opacity: 0.85;
+  }
+  #codex .tome-idle-title {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-ink-dim);
+  }
+  #codex .tome-idle-copy {
+    max-width: 24ch;
+    font-style: italic;
+    color: color-mix(in srgb, var(--color-ink) 75%, transparent);
+    line-height: 1.55;
+  }
+
+  #codex .tome-kicker {
+    font-family: var(--font-display);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--color-ink-dim);
+  }
+  #codex .tome-plate {
+    position: relative;
+    margin-top: 1rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--color-ink));
+    padding: 5px;
+    background: rgba(44, 32, 20, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(44, 32, 20, 0.25);
+  }
+  #codex .tome-plate-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    filter: sepia(0.35) contrast(1.02) brightness(0.96);
+  }
+  #codex .tome-plate--void {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    aspect-ratio: 3 / 4;
+    text-align: center;
+  }
+  #codex .tome-plate-void-note {
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--color-ink-dim);
+    max-width: 22ch;
+  }
+  #codex .tome-name {
+    margin-top: 1.3rem;
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    line-height: 1.15;
+    letter-spacing: 0.04em;
+    color: var(--color-ink);
+  }
+  #codex .tome-face-name {
+    margin-top: 1.2rem;
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    letter-spacing: 0.04em;
+    color: var(--color-ink);
+  }
+  #codex .tome-epithet {
+    margin-top: 0.2rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.88rem;
+    letter-spacing: 0.05em;
+    color: color-mix(in srgb, var(--accent) 55%, var(--color-ink));
+  }
+  #codex .tome-rule {
+    margin-top: 1rem;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-ink-dim) 0%, transparent 85%);
+    position: relative;
+  }
+  #codex .tome-rule::before {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: 0;
+    width: 7px;
+    height: 7px;
+    transform: rotate(45deg);
+    border: 1px solid var(--color-ink-dim);
+    background: transparent;
+  }
+  #codex .tome-domain {
+    margin-top: 1rem;
+    font-family: var(--font-display);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink-dim);
+    line-height: 1.7;
+  }
+  #codex .tome-body {
+    margin-top: 0.7rem;
+  }
+  #codex .tome-body p {
+    line-height: 1.65;
+    color: color-mix(in srgb, var(--color-ink) 88%, transparent);
+  }
+  #codex .tome-body p + p {
+    margin-top: 0.8rem;
+  }
+  #codex .tome-body p:first-of-type::first-letter {
+    font-family: var(--font-deco);
+    font-size: 3em;
+    float: left;
+    line-height: 0.8;
+    padding: 0.06em 0.12em 0 0;
+    color: var(--color-ink);
+  }
+  #codex .tome-face {
+    margin-top: 1.6rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid color-mix(in srgb, var(--color-ink-dim) 55%, transparent);
+  }
+  #codex .tome-face .tome-body p:first-of-type::first-letter {
+    font-family: inherit;
+    font-size: inherit;
+    float: none;
+    padding: 0;
+  }
+
+  /* ------ tome placement: sticky column on desktop ------ */
+  @media (min-width: 1024px) {
+    #codex .tome-wrap {
+      position: sticky;
+      top: 5.5rem;
+      max-height: calc(100vh - 7rem);
+      display: flex;
+    }
+    #codex .tome-cover {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      width: 100%;
+    }
+    #codex .tome-page {
+      overflow-y: auto;
+      min-height: 0;
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-ink-dim) transparent;
+    }
+    #codex .tome-close,
+    #codex .tome-backdrop {
+      display: none;
+    }
+  }
+
+  /* ------ tome placement: modal on mobile ------ */
+  @media (max-width: 1023px) {
+    #codex .tome-wrap {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 4.5rem 1rem 2rem;
+      overflow-y: auto;
+      background: rgba(5, 4, 3, 0.72);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+    #codex:has(.god-radio:checked:not(.god-radio--none)) .tome-wrap {
+      display: flex;
+      animation: tome-modal-in 0.3s ease both;
+    }
+    #codex .tome-backdrop {
+      position: fixed;
+      inset: 0;
+      cursor: pointer;
+    }
+    #codex .tome-cover {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 26.5rem);
+      margin-bottom: 2rem;
+    }
+    #codex .tome-close {
+      position: absolute;
+      top: -14px;
+      right: -8px;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 9999px;
+      cursor: pointer;
+      color: var(--color-gold-bright);
+      background: var(--color-obsidian);
+      border: 1px solid var(--color-gold-dim);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+    }
+    #codex .tome-entry--none {
+      display: none !important;
+    }
+    @keyframes tome-modal-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  }
+
+  ${godCss}
+`}
+  ></style>
+</section>
+
+<style is:global>
+  @media (max-width: 1023px) {
+    body:has(#codex .god-radio:checked:not(.god-radio--none)) {
+      overflow: hidden;
+    }
+  }
+</style>

@@ -44,28 +44,28 @@ const gods = [
     epithet: "The Mortal",
     image: enochImg,
     domain: "God of refusal, restraint, and willpower",
-    body: "His followers are ex-soldiers, the recovering, and anyone who has had to say no to something that wanted them badly. The Plain Refusal — a spoken renunciation before his altar — is recorded by his clergy without explanation required. By a custom older than the Senate, people who take it are left alone about it afterward.",
+    body: "His followers are ex-soldiers, the recovering, and anyone who has had to say no to something that wanted them badly. The Plain Refusal, a spoken renunciation before his altar, is recorded by his clergy without explanation required. By a custom older than the Senate, people who take it are left alone about it afterward.",
   },
   {
     name: "Elisar & Alder",
     epithet: "The Fates",
     image: elisarAlderImg,
     domain: "Gods of mortality, shared duty, and twin obligation",
-    body: "Their followers are undertakers, midwives, and anyone tending both ends of a life at once. The Paired Vow is sworn by two people taking on a shared duty neither could carry alone — twins, partners, co-guardians. Breaking it is said to cost both parties, not just the one who broke it.",
+    body: "Their followers are undertakers, midwives, and anyone tending both ends of a life at once. The Paired Vow is sworn by two people taking on a shared duty neither could carry alone: twins, partners, co-guardians. Breaking it is said to cost both parties, not just the one who broke it.",
   },
   {
     name: "Karna",
     epithet: "The Lady of Ash",
     image: karnaImg,
     domain: "God of strategy, command, and hard choices made early",
-    body: "Her followers are officers, quartermasters, and anyone who has to decide before they have enough information. Petitioners pray to her before an engagement, not after — asking for the read, not the rescue. Caltaran officers still consult Karnite oracles before major troop movements, including, reportedly, the current northern campaign.",
+    body: "Her followers are officers, quartermasters, and anyone who has to decide before they have enough information. Petitioners pray to her before an engagement, not after, asking for the read, not the rescue. Caltaran officers still consult Karnite oracles before major troop movements, including, reportedly, the current northern campaign.",
   },
   {
     name: "Evari",
     epithet: "The Scholar",
     image: evariImg,
     domain: "God of forbidden study and hard-won knowledge",
-    body: "His followers are scholars, archivists, and mages seeking truths. His priesthood maintains the Open Question—a single petition answered by the god once a year. The privilege is granted only to the one who frames their inquiry flawlessly, though the precise ritual for asking is a fiercely guarded secret, and failure often costs the petitioner their sanity.",
+    body: "His followers are scholars, archivists, and mages seeking truths. His priesthood maintains the Open Question, a single petition answered by the god once a year. The privilege is granted only to the one who frames their inquiry flawlessly, though the precise ritual for asking is a fiercely guarded secret, and failure often costs the petitioner their sanity.",
   },
   {
     name: "Auren",
@@ -87,21 +87,21 @@ const gods = [
     image: cassImg,
     domain:
       "God of bargains, luck, and travel between places that don't want to be connected",
-    body: "His followers are merchants, gamblers, couriers, and debt-collectors. The Honest Wager — any bet made in his name — is treated as legally binding in Caltara's lower courts, provided both sides agreed knowingly. His church polices the 'knowingly' part more strictly than most expect.",
+    body: "His followers are merchants, gamblers, couriers, and debt-collectors. The Honest Wager, any bet made in his name, is treated as legally binding in Caltara's lower courts, provided both sides agreed knowingly. His church polices the 'knowingly' part more strictly than most expect.",
   },
   {
     name: "Iola",
     epithet: "The Maker",
     image: iolaImg,
     domain: "God of craft, construction, and work done right under pressure",
-    body: "Her followers are engineers, masons, and smiths — anyone building something that has to hold. Her clergy certifies major construction work in the capital. A building stamped uninspected by an Iolan mason is a building most Caltarans won't enter.",
+    body: "Her followers are engineers, masons, and smiths: anyone building something that has to hold. Her clergy certifies major construction work in the capital. A building stamped uninspected by an Iolan mason is a building most Caltarans won't enter.",
   },
   {
     name: "Saeth",
     epithet: "The Quiet",
     image: saethImg,
     domain: "God of survivors and what war costs after it's over",
-    body: "His followers are medics, veterans, refugees, and half-orcs in particular, given his own face. His shrines keep a standing, unbooked appointment called the Quiet Hour — open to anyone who needs to sit without being asked questions. No vow, no offering required.",
+    body: "His followers are medics, veterans, refugees, and half-orcs in particular, given his own face. His shrines keep a standing, unbooked appointment called the Quiet Hour, open to anyone who needs to sit without being asked questions. No vow, no offering required.",
   },
   {
     name: "Thessar",
@@ -123,7 +123,7 @@ const gods = [
         image: vecnaImg,
         accent: "var(--color-verdigris)",
         domain: "God of death, undeath, secrets, and schemes carried past the grave",
-        body: "His followers are necromancers, tomb-wardens, and anyone plotting further ahead than a single lifetime allows. The Long Secret — a truth confided to his priesthood and sealed by the confider's death — is never repeated, not even to the Senate. Caltara's oldest families still pay well to keep certain names out of that archive.",
+        body: "His followers are necromancers, tomb-wardens, and anyone plotting further ahead than a single lifetime allows. The Long Secret, a truth confided to his priesthood and sealed by the confider's death, is never repeated, not even to the Senate. Caltara's oldest families still pay well to keep certain names out of that archive.",
       },
       {
         key: "blackwell",
@@ -132,10 +132,10 @@ const gods = [
         image: blackwellImg,
         accent: "var(--color-blood-bright)",
         domain: "God of piracy, sea monsters, strife, and shipboard life",
-        body: "His followers are pirates, wreckers, and sailors who've made their peace with being feared. Articles sworn before his mark are binding even between enemies — break them and the sea itself is said to collect the debt. His clergy keep four cleric domains: Trickery, War, Storm, and Tempest.",
+        body: "His followers are pirates, wreckers, and sailors who've made their peace with being feared. Articles sworn before his mark are binding even between enemies. Break them and the sea itself is said to collect the debt. His clergy keep four cleric domains: Trickery, War, Storm, and Tempest.",
       },
     ],
-    domain: "Two mortals, one throne — sovereign over both the grave and the sea",
+    domain: "Two mortals, one throne, sovereign over both the grave and the sea",
     body: "Vecna and Blackwell rose together and were granted a single seat between them, sharing it rather than splitting it. Scholars still argue over which face came first.",
   },
 ];
@@ -526,6 +526,15 @@ const cardCss = cards
           )
         }
       </div>
+
+      <a
+        href="/gods"
+        class="mt-12 inline-flex items-center gap-2 rounded-full border border-[var(--color-gold-dim)] px-6 py-2.5 font-display text-[0.72rem] tracking-[0.18em] uppercase text-[var(--color-gold-bright)] hover:bg-[var(--color-gold-dim)]/10 hover:border-[var(--color-gold)] transition-colors animate-rise"
+        style="animation-delay: 0.35s;"
+      >
+        Open the Divine Codex
+        <span aria-hidden="true">&rarr;</span>
+      </a>
     </div>
   </div>
 
