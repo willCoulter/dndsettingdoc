@@ -1,0 +1,238 @@
+---
+import { getImage } from "astro:assets";
+import mapSrc from "../assets/map.jpg";
+
+interface Props {
+  class?: string;
+  width?: number;
+}
+
+const { class: className = "", width = 4096 } = Astro.props;
+
+const optimized = await getImage({
+  src: mapSrc,
+  width,
+  format: "webp",
+  quality: 82,
+});
+---
+
+<div
+  class={`map-viewer relative overflow-hidden bg-[var(--color-obsidian)] touch-none select-none ${className}`}
+>
+  <div class="map-viewer-stage absolute inset-0 cursor-grab">
+    <img
+      src={optimized.src}
+      width={optimized.attributes.width}
+      height={optimized.attributes.height}
+      alt="Map of the known lands of Elderan"
+      class="map-viewer-image absolute left-0 top-0 max-w-none origin-top-left"
+      draggable="false"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <div class="absolute inset-0 pointer-events-none bg-grain opacity-40"></div>
+
+  <div class="absolute bottom-4 right-4 z-10 flex flex-col gap-1.5">
+    <button
+      type="button"
+      class="map-zoom-in map-control-btn"
+      aria-label="Zoom in"
+    >+</button>
+    <button
+      type="button"
+      class="map-zoom-out map-control-btn"
+      aria-label="Zoom out"
+    >&minus;</button>
+    <button
+      type="button"
+      class="map-zoom-reset map-control-btn text-[0.6rem]"
+      aria-label="Reset map view"
+    >&#8634;</button>
+  </div>
+</div>
+
+<style>
+  .map-viewer {
+    touch-action: none;
+  }
+  .map-viewer-stage.is-grabbing {
+    cursor: grabbing;
+  }
+  .map-viewer-image {
+    pointer-events: none;
+  }
+  .map-control-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--color-gold-bright);
+    background: rgba(15, 13, 10, 0.82);
+    border: 1px solid var(--color-bronze-dark);
+    backdrop-filter: blur(4px);
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+  .map-control-btn:hover {
+    background: rgba(15, 13, 10, 0.95);
+    border-color: var(--color-gold-dim);
+  }
+</style>
+
+<script>
+  const MIN_ZOOM_MULT = 1;
+  const MAX_ZOOM_MULT = 6;
+
+  interface ViewerState {
+    scale: number;
+    minScale: number;
+    maxScale: number;
+    x: number;
+    y: number;
+  }
+
+  const initViewer = (viewer: HTMLElement) => {
+    const stage = viewer.querySelector<HTMLElement>(".map-viewer-stage");
+    const img = viewer.querySelector<HTMLImageElement>(".map-viewer-image");
+    if (!stage || !img) return;
+
+    const state: ViewerState = { scale: 1, minScale: 1, maxScale: 1, x: 0, y: 0 };
+
+    const apply = () => {
+      img.style.transform = `translate(${state.x}px, ${state.y}px) scale(${state.scale})`;
+    };
+
+    const clamp = () => {
+      const cw = viewer.clientWidth;
+      const ch = viewer.clientHeight;
+      const sw = img.naturalWidth * state.scale;
+      const sh = img.naturalHeight * state.scale;
+
+      state.x = sw <= cw ? (cw - sw) / 2 : Math.min(0, Math.max(cw - sw, state.x));
+      state.y = sh <= ch ? (ch - sh) / 2 : Math.min(0, Math.max(ch - sh, state.y));
+    };
+
+    const fit = () => {
+      const cw = viewer.clientWidth;
+      const ch = viewer.clientHeight;
+      const fitScale = Math.min(cw / img.naturalWidth, ch / img.naturalHeight);
+      state.minScale = fitScale;
+      state.maxScale = fitScale * MAX_ZOOM_MULT;
+      state.scale = fitScale * MIN_ZOOM_MULT;
+      state.x = (cw - img.naturalWidth * state.scale) / 2;
+      state.y = (ch - img.naturalHeight * state.scale) / 2;
+      apply();
+    };
+
+    const zoomAt = (px: number, py: number, nextScale: number) => {
+      nextScale = Math.min(state.maxScale, Math.max(state.minScale, nextScale));
+      const ratio = nextScale / state.scale;
+      state.x = px - (px - state.x) * ratio;
+      state.y = py - (py - state.y) * ratio;
+      state.scale = nextScale;
+      clamp();
+      apply();
+    };
+
+    const zoomAtCenter = (factor: number) => {
+      zoomAt(viewer.clientWidth / 2, viewer.clientHeight / 2, state.scale * factor);
+    };
+
+    if (img.complete && img.naturalWidth) {
+      fit();
+    } else {
+      img.addEventListener("load", fit, { once: true });
+    }
+    window.addEventListener("resize", fit);
+
+    // Pointer drag + pinch
+    const pointers = new Map<number, { x: number; y: number }>();
+    let dragStart: { x: number; y: number; stateX: number; stateY: number } | null = null;
+    let pinchStartDist = 0;
+    let pinchStartScale = 1;
+
+    const midpoint = () => {
+      const pts = [...pointers.values()];
+      return {
+        x: (pts[0].x + pts[1].x) / 2,
+        y: (pts[0].y + pts[1].y) / 2,
+      };
+    };
+    const distance = () => {
+      const pts = [...pointers.values()];
+      return Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+    };
+
+    stage.addEventListener("pointerdown", (e) => {
+      stage.setPointerCapture(e.pointerId);
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.size === 1) {
+        stage.classList.add("is-grabbing");
+        dragStart = { x: e.clientX, y: e.clientY, stateX: state.x, stateY: state.y };
+      } else if (pointers.size === 2) {
+        dragStart = null;
+        pinchStartDist = distance();
+        pinchStartScale = state.scale;
+      }
+    });
+
+    stage.addEventListener("pointermove", (e) => {
+      if (!pointers.has(e.pointerId)) return;
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+      if (pointers.size === 2) {
+        const rect = viewer.getBoundingClientRect();
+        const mid = midpoint();
+        const dist = distance();
+        const nextScale = pinchStartScale * (dist / pinchStartDist);
+        zoomAt(mid.x - rect.left, mid.y - rect.top, nextScale);
+      } else if (dragStart) {
+        state.x = dragStart.stateX + (e.clientX - dragStart.x);
+        state.y = dragStart.stateY + (e.clientY - dragStart.y);
+        clamp();
+        apply();
+      }
+    });
+
+    const endPointer = (e: PointerEvent) => {
+      pointers.delete(e.pointerId);
+      if (pointers.size === 0) {
+        stage.classList.remove("is-grabbing");
+        dragStart = null;
+      } else if (pointers.size === 1) {
+        const [remaining] = [...pointers.values()];
+        dragStart = { x: remaining.x, y: remaining.y, stateX: state.x, stateY: state.y };
+      }
+    };
+    stage.addEventListener("pointerup", endPointer);
+    stage.addEventListener("pointercancel", endPointer);
+
+    stage.addEventListener(
+      "wheel",
+      (e) => {
+        e.preventDefault();
+        const rect = viewer.getBoundingClientRect();
+        const factor = e.deltaY < 0 ? 1.2 : 1 / 1.2;
+        zoomAt(e.clientX - rect.left, e.clientY - rect.top, state.scale * factor);
+      },
+      { passive: false },
+    );
+
+    stage.addEventListener("dblclick", (e) => {
+      const rect = viewer.getBoundingClientRect();
+      const target = state.scale < state.maxScale * 0.6 ? state.scale * 2 : state.minScale;
+      zoomAt(e.clientX - rect.left, e.clientY - rect.top, target);
+    });
+
+    viewer.querySelector(".map-zoom-in")?.addEventListener("click", () => zoomAtCenter(1.4));
+    viewer.querySelector(".map-zoom-out")?.addEventListener("click", () => zoomAtCenter(1 / 1.4));
+    viewer.querySelector(".map-zoom-reset")?.addEventListener("click", fit);
+  };
+
+  document.querySelectorAll<HTMLElement>(".map-viewer").forEach(initViewer);
+</script>

@@ -1,0 +1,40 @@
+---
+import Sigil from "./Sigil.astro";
+import MapViewer from "./MapViewer.astro";
+---
+
+<section id="map" class="relative bg-[var(--color-obsidian)] bg-grain py-28 sm:py-36 px-6">
+  <div class="mx-auto max-w-6xl text-center">
+    <p class="eyebrow">Chart the Republic</p>
+    <h2 class="mt-4 font-display text-4xl sm:text-5xl text-[var(--color-parchment)] tracking-wide">
+      The Map of <span class="text-gold-gradient">Elderan</span>
+    </h2>
+    <Sigil class="mt-7" />
+    <p class="mt-8 mx-auto max-w-2xl text-[var(--color-parchment-dim)] text-lg leading-relaxed">
+      From the coastal Republic to the old-world kingdoms beyond the Sea of
+      Bones, drag and scroll to explore the lands your character calls home.
+    </p>
+  </div>
+
+  <div class="mt-16 mx-auto max-w-6xl">
+    <div class="panel-carved glow-hover animate-rise">
+      <span class="corner-ornament tl"></span>
+      <span class="corner-ornament tr"></span>
+      <span class="corner-ornament bl"></span>
+      <span class="corner-ornament br"></span>
+
+      <div class="p-2 sm:p-3">
+        <MapViewer width={2048} class="aspect-[4/3] max-h-[70vh] w-full" />
+      </div>
+    </div>
+
+    <div class="mt-8 text-center">
+      <a
+        href="/map"
+        class="inline-flex items-center gap-2 font-display text-sm tracking-[0.2em] uppercase text-[var(--color-gold)] hover:text-[var(--color-gold-bright)] border-b border-[var(--color-gold-dim)] pb-1 transition-colors"
+      >
+        Open the Full Map &rarr;
+      </a>
+    </div>
+  </div>
+</section>

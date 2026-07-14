@@ -1,0 +1,44 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Sigil from "../components/Sigil.astro";
+import MapViewer from "../components/MapViewer.astro";
+---
+
+<Layout
+  title="The Map of Elderan | Elderan"
+  description="An interactive, zoomable map of the known lands of Elderan — the Caltaran Republic, its homelands, and the old-world kingdoms beyond."
+>
+  <Header />
+  <main>
+    <section class="relative bg-[var(--color-obsidian)] bg-grain pt-32 sm:pt-40 pb-10 px-6">
+      <div class="mx-auto max-w-6xl text-center">
+        <p class="eyebrow">Chart the Republic</p>
+        <h1 class="mt-4 font-display text-4xl sm:text-5xl text-[var(--color-parchment)] tracking-wide">
+          The Map of <span class="text-gold-gradient">Elderan</span>
+        </h1>
+        <Sigil class="mt-7" />
+        <p class="mt-8 mx-auto max-w-2xl text-[var(--color-parchment-dim)] text-lg leading-relaxed">
+          Scroll or pinch to zoom, drag to pan. The full survey of the known
+          lands, from the coastal Republic to the old-world kingdoms beyond
+          the Sea of Bones.
+        </p>
+      </div>
+    </section>
+
+    <section class="px-3 sm:px-6 pb-24 sm:pb-32">
+      <div class="mx-auto max-w-[1600px]">
+        <div class="panel-carved glow-hover">
+          <span class="corner-ornament tl"></span>
+          <span class="corner-ornament tr"></span>
+          <span class="corner-ornament bl"></span>
+          <span class="corner-ornament br"></span>
+
+          <div class="p-2 sm:p-3">
+            <MapViewer width={4096} class="aspect-[4/3] max-h-[82vh] w-full" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
