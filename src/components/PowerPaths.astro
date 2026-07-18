@@ -11,6 +11,8 @@ import creationImg from "../assets/creation.jpg";
 import guileImg from "../assets/guile.jpg";
 import justiceImg from "../assets/justice.jpg";
 import reasonImg from "../assets/reason.jpg";
+import loyaltyImg from "../assets/loyalty.jpg";
+import mysteryImg from "../assets/mystery.jpg";
 
 const paths = [
   {
@@ -384,16 +386,78 @@ const paths = [
     ],
   },
   {
-    id: "convergence",
-    name: "Convergence",
-    epithet: "Uncharted Aspects",
-    color: "var(--color-parchment)",
-    image: null,
-    comingSoon: true,
+    id: "loyalty",
+    name: "Loyalty",
+    epithet: "The Sworn Aspect",
+    color: "var(--color-steel)",
+    image: loyaltyImg,
     blurb:
-      "Authority, Compassion, Ambition, Zeal, Vigil, Decay, Creation, Guile, Justice, and Reason are only the aspects the Republic has bothered to name. Other faces of the divine power are said to sleep in Elderan's heirs still, unclaimed and unmapped — waiting on the right story to wake them.",
-    major: [] as { name: string; desc: string }[],
-    minor: [] as { name: string; desc: string }[],
+      "Loyalty is Authority pledged to another — the divine power that turns a sworn word into armor. Its heirs stand where they are placed and fall where they stand, and the Republic builds its legions around them.",
+    major: [
+      {
+        name: "The Sworn Bond",
+        desc: "1/long rest, action: swear a bond to a willing creature. For 24 hours you always know its direction and distance, and whether it is hurt, frightened, or in danger.",
+      },
+      {
+        name: "Where You Stand, I Stand",
+        desc: "1/long rest, reaction when an ally within 30 ft is targeted by an attack: move up to your speed toward them without provoking opportunity attacks; if you end within 5 ft of them, you become the target instead.",
+      },
+      {
+        name: "Not While I Draw Breath",
+        desc: "1/long rest, when an ally within 30 ft drops to 0 HP: for 1 minute you have advantage on attack rolls against the creature that dropped them, and it has disadvantage on attacks against anyone but you.",
+      },
+    ],
+    minor: [
+      {
+        name: "Shoulder to Shoulder",
+        desc: "Passive: advantage on Persuasion checks with anyone you have fought beside.",
+      },
+      {
+        name: "The Unturned Coat",
+        desc: "Passive: advantage on saving throws against effects that would compel you to harm or abandon an ally.",
+      },
+      {
+        name: "Keeper of Trusts",
+        desc: "1/short rest: an object entrusted to your keeping can't be located by magical means for 24 hours.",
+      },
+    ],
+  },
+  {
+    id: "mystery",
+    name: "Mystery",
+    epithet: "The Unknowable Aspect",
+    color: "var(--color-amethyst)",
+    image: mysteryImg,
+    blurb:
+      "Mystery is Authority withheld — the divine power over what must not yet be known. Its heirs learn things no one taught them and keep things no one can take, and the Republic has stopped asking how.",
+    major: [
+      {
+        name: "The Unwritten Page",
+        desc: "1/long rest, action: ask a single question aloud to no one; you receive a truthful answer of five words or fewer, from no discernible source.",
+      },
+      {
+        name: "Sealed Beyond Reading",
+        desc: "1/long rest: for 24 hours your thoughts can't be read and your lies, alignment, and intentions can't be discerned by any means, mundane or divine.",
+      },
+      {
+        name: "The Secret's Keeper",
+        desc: "1/long rest, action: seal one piece of information a willing or unconscious creature knows. For 7 days it can't reveal that secret by speech, writing, or gesture, no matter what is done to it.",
+      },
+    ],
+    minor: [
+      {
+        name: "The Itch of Hidden Things",
+        desc: "Passive: advantage on Investigation checks made to find hidden doors, compartments, or caches.",
+      },
+      {
+        name: "One Secret, Always",
+        desc: "Passive: you can tell at a glance whether a creature is keeping a secret, though not what it is.",
+      },
+      {
+        name: "The Gist of It",
+        desc: "1/short rest: skim a page of writing in a language or cipher you can't read and grasp its general meaning, though not its exact words.",
+      },
+    ],
   },
 ];
 
@@ -464,12 +528,8 @@ const activeCss = paths
       <input type="radio" name="power-path" id="tab-guile" class="sr-only" />
       <input type="radio" name="power-path" id="tab-justice" class="sr-only" />
       <input type="radio" name="power-path" id="tab-reason" class="sr-only" />
-      <input
-        type="radio"
-        name="power-path"
-        id="tab-convergence"
-        class="sr-only"
-      />
+      <input type="radio" name="power-path" id="tab-loyalty" class="sr-only" />
+      <input type="radio" name="power-path" id="tab-mystery" class="sr-only" />
 
       <div class="power-grid">
         <div class="power-ambient" aria-hidden="true"></div>
@@ -480,32 +540,20 @@ const activeCss = paths
                 for={`tab-${p.id}`}
                 class={`power-card shine-sweep power-card--${p.id}`}
               >
-                {p.image ? (
-                  <Image
-                    src={p.image}
-                    alt={`The Path of ${p.name}`}
-                    class="power-card-img"
-                    widths={[240, 320, 480]}
-                    sizes="(min-width: 1024px) 180px, (min-width: 640px) 25vw, 45vw"
-                  />
-                ) : (
-                  <span class="power-card-placeholder" aria-hidden="true">
-                    <span class="conv-glow conv-glow--1" />
-                    <span class="conv-glow conv-glow--2" />
-                    <span class="conv-glow conv-glow--3" />
-                    <span class="conv-glow conv-glow--4" />
-                  </span>
-                )}
+                <Image
+                  src={p.image}
+                  alt={`The Path of ${p.name}`}
+                  class="power-card-img"
+                  widths={[240, 320, 480]}
+                  sizes="(min-width: 1024px) 180px, (min-width: 640px) 25vw, 45vw"
+                />
                 <span class="power-card-overlay" aria-hidden="true" />
-                {p.comingSoon && (
-                  <span class="power-card-badge">Coming Soon</span>
-                )}
                 <span class="power-card-text">
                   <span
                     class="block font-display text-[0.5rem] tracking-[0.22em] uppercase"
                     style={`color:${p.color}`}
                   >
-                    {p.comingSoon ? "More Paths" : "Path of"}
+                    Path of
                   </span>
                   <span class="block font-display text-sm sm:text-base text-[var(--color-parchment)] tracking-wide">
                     {p.name}
@@ -525,21 +573,19 @@ const activeCss = paths
           {
             paths.map((p) => (
               <div class={`power-panel power-panel--${p.id}`}>
-                {p.image && (
-                  <div
-                    class="power-panel-portrait"
-                    aria-hidden="true"
-                    style={`--accent:${p.color}`}
-                  >
-                    <Image
-                      src={p.image}
-                      alt=""
-                      class="power-panel-portrait-img"
-                      widths={[320, 480]}
-                      sizes="280px"
-                    />
-                  </div>
-                )}
+                <div
+                  class="power-panel-portrait"
+                  aria-hidden="true"
+                  style={`--accent:${p.color}`}
+                >
+                  <Image
+                    src={p.image}
+                    alt=""
+                    class="power-panel-portrait-img"
+                    widths={[320, 480]}
+                    sizes="280px"
+                  />
+                </div>
 
                 <p class="eyebrow relative" style={`color:${p.color}`}>
                   {p.epithet}
@@ -551,66 +597,54 @@ const activeCss = paths
                   {p.blurb}
                 </p>
 
-                {p.comingSoon ? (
-                  <div class="relative mt-9 flex flex-wrap items-center gap-4 border-t border-[var(--color-bronze-dark)]/60 pt-7">
-                    <span class="font-display text-xs tracking-[0.3em] uppercase text-[var(--color-gold-dim)]">
-                      &mdash; Undiscovered &mdash;
-                    </span>
-                    <span class="h-px flex-1 min-w-[3rem] bg-gradient-to-r from-[var(--color-bronze-dark)] to-transparent" />
-                    <span class="font-display text-sm text-[var(--color-parchment-dim)] italic">
-                      More Paths will be revealed as the campaign unfolds.
-                    </span>
+                <div class="relative mt-9 grid gap-9 sm:grid-cols-2">
+                  <div>
+                    <h4
+                      class="font-display text-xs tracking-[0.25em] uppercase"
+                      style={`color:${p.color}`}
+                    >
+                      Major Powers
+                      <span class="ml-2 normal-case tracking-normal text-[0.7rem] text-[var(--color-parchment-dim)]">
+                        — main story
+                      </span>
+                    </h4>
+                    <ul class="mt-5 space-y-4">
+                      {p.major.map((power) => (
+                        <li class="border-l border-[var(--color-bronze-dark)] pl-4">
+                          <p class="font-display text-[var(--color-parchment)]">
+                            {power.name}
+                          </p>
+                          <p class="mt-1 text-sm text-[var(--color-parchment-dim)] leading-relaxed">
+                            {power.desc}
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                ) : (
-                  <div class="relative mt-9 grid gap-9 sm:grid-cols-2">
-                    <div>
-                      <h4
-                        class="font-display text-xs tracking-[0.25em] uppercase"
-                        style={`color:${p.color}`}
-                      >
-                        Major Powers
-                        <span class="ml-2 normal-case tracking-normal text-[0.7rem] text-[var(--color-parchment-dim)]">
-                          — main story
-                        </span>
-                      </h4>
-                      <ul class="mt-5 space-y-4">
-                        {p.major.map((power) => (
-                          <li class="border-l border-[var(--color-bronze-dark)] pl-4">
-                            <p class="font-display text-[var(--color-parchment)]">
-                              {power.name}
-                            </p>
-                            <p class="mt-1 text-sm text-[var(--color-parchment-dim)] leading-relaxed">
-                              {power.desc}
-                            </p>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div>
-                      <h4
-                        class="font-display text-xs tracking-[0.25em] uppercase"
-                        style={`color:${p.color}`}
-                      >
-                        Minor Powers
-                        <span class="ml-2 normal-case tracking-normal text-[0.7rem] text-[var(--color-parchment-dim)]">
-                          — backstory &amp; goals
-                        </span>
-                      </h4>
-                      <ul class="mt-5 space-y-4">
-                        {p.minor.map((power) => (
-                          <li class="border-l border-[var(--color-bronze-dark)] pl-4">
-                            <p class="font-display text-[var(--color-parchment)]">
-                              {power.name}
-                            </p>
-                            <p class="mt-1 text-sm text-[var(--color-parchment-dim)] leading-relaxed">
-                              {power.desc}
-                            </p>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                  <div>
+                    <h4
+                      class="font-display text-xs tracking-[0.25em] uppercase"
+                      style={`color:${p.color}`}
+                    >
+                      Minor Powers
+                      <span class="ml-2 normal-case tracking-normal text-[0.7rem] text-[var(--color-parchment-dim)]">
+                        — backstory &amp; goals
+                      </span>
+                    </h4>
+                    <ul class="mt-5 space-y-4">
+                      {p.minor.map((power) => (
+                        <li class="border-l border-[var(--color-bronze-dark)] pl-4">
+                          <p class="font-display text-[var(--color-parchment)]">
+                            {power.name}
+                          </p>
+                          <p class="mt-1 text-sm text-[var(--color-parchment-dim)] leading-relaxed">
+                            {power.desc}
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                )}
+                </div>
               </div>
             ))
           }
@@ -702,44 +736,6 @@ const activeCss = paths
     padding: 0.65rem 0.85rem;
   }
 
-  .power-card-badge {
-    position: absolute;
-    top: 0.55rem;
-    right: 0.55rem;
-    border: 1px solid var(--color-gold-dim);
-    background: rgba(10, 9, 7, 0.7);
-    padding: 0.15rem 0.5rem;
-    font-family: var(--font-display);
-    font-size: 0.55rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-gold-bright);
-  }
-
-  .power-card-placeholder {
-    position: absolute;
-    inset: 0;
-    background: var(--color-obsidian);
-    overflow: hidden;
-  }
-  .conv-glow {
-    position: absolute;
-    width: 60%;
-    height: 60%;
-    border-radius: 9999px;
-    filter: blur(18px);
-    opacity: 0.55;
-    transition: transform 0.6s ease, opacity 0.4s ease;
-  }
-  .conv-glow--1 { top: -10%; left: -10%; background: var(--color-gold); }
-  .conv-glow--2 { top: -10%; right: -10%; background: var(--color-blood-bright); }
-  .conv-glow--3 { bottom: -15%; left: -5%; background: var(--color-verdigris); }
-  .conv-glow--4 { bottom: -15%; right: -5%; background: var(--color-ember-bright); }
-  .power-card:hover .conv-glow {
-    opacity: 0.75;
-    transform: scale(1.15);
-  }
-
   .power-panels {
     position: relative;
     overflow: hidden;
@@ -789,7 +785,8 @@ const activeCss = paths
   #tab-guile:checked ~ .power-grid .power-panel--guile,
   #tab-justice:checked ~ .power-grid .power-panel--justice,
   #tab-reason:checked ~ .power-grid .power-panel--reason,
-  #tab-convergence:checked ~ .power-grid .power-panel--convergence {
+  #tab-loyalty:checked ~ .power-grid .power-panel--loyalty,
+  #tab-mystery:checked ~ .power-grid .power-panel--mystery {
     display: block;
     animation: power-rise 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
